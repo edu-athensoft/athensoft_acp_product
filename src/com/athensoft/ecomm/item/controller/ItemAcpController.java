@@ -17,17 +17,17 @@ public class ItemAcpController {
 	
 	@RequestMapping(value="/item/productList")
 	public String gotoProductList(){
-		System.out.println("asdasd");
-		String viewName = "item/item_products";
+		System.out.println("asdasddddddddddddddddd");
+		String viewName = "item/item_products_list";
 		return viewName;
 	}
 	
-	@RequestMapping(value="/item/productEdit")
+/*	@RequestMapping(value="/item/productEdit")
 	public String gotoProductEdit(){
 		String viewName = "item/item_product_edit";
 		return viewName;
 	}
-	
+	*/
 	
 	
 }
