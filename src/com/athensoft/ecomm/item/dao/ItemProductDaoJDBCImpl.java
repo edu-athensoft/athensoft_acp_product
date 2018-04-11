@@ -22,6 +22,7 @@ import com.athensoft.content.event.entity.Event;
 import com.athensoft.ecomm.item.entity.ItemCategory;
 import com.athensoft.ecomm.item.entity.ItemCategoryStatus;
 import com.athensoft.ecomm.item.entity.ItemProduct;
+import com.athensoft.ecomm.item.entity.ItemProductI18n;
 import com.athensoft.util.id.UUIDHelper;
 
 @Component
@@ -39,9 +40,18 @@ public class ItemProductDaoJDBCImpl implements ItemProductDao{
 
 	@Override
 	public List<ItemProduct> findAll() {
-		String sql = "select * from item_product order by prod_create_datetime desc";
+		String sql = "select * from"
+				+ " item_product i ,"
+				+ "item_product_i18n ip, "
+				+ "info_language il "
+				+ "where i.prod_id=ip.prod_id "
+				+ "and ip.lang_no = il.lang_no "
+				+ "and ip.lang_no=:lang_no";
+		
+		//near 'i.prod_id=ip.prod_id where ip.lang_no = il.lang_no and ip.lang_no=1052
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 //		paramSource.addValue("global_id", globalId);
+		paramSource.addValue("lang_no",1052 );
 		List<ItemProduct> x = new ArrayList<ItemProduct>();
 		try{
 			x = jdbc.query(sql, paramSource, new ItemProductRowMapper());
@@ -52,10 +62,18 @@ public class ItemProductDaoJDBCImpl implements ItemProductDao{
 	}
 
 	@Override
-	public ItemProduct getProductByProdBizId(String proBizId) {
-		String sql = "select * from item_product where prod_biz_id =:prod_biz_id";
+	public ItemProduct getProductByProdBizId(String prodId) {
+		String sql = "select * from"
+				+ " item_product i ,"
+				+ "item_product_i18n ip, "
+				+ "info_language il "
+				+ "where i.prod_id =:prod_id "
+				+ "and ip.lang_no = il.lang_no "
+				+ "and ip.lang_no=:lang_no";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-		paramSource.addValue("prod_biz_id", proBizId);
+		paramSource.addValue("prod_id", prodId);
+		paramSource.addValue("lang_no",1052 );
+
 		ItemProduct x = null;
 		try{
 			x = jdbc.queryForObject(sql, paramSource, new ItemProductRowMapper());
@@ -73,6 +91,7 @@ class ItemProductRowMapper implements RowMapper<ItemProduct>{
 	public ItemProduct mapRow(ResultSet rs, int rowNumber) throws SQLException {
 		// TODO Auto-generated method stub
 		ItemProduct x= new ItemProduct();
+		ItemProductI18n i18n= new ItemProductI18n();
 		x.setProdId(rs.getLong("prod_id"));
 		x.setProdBizId(rs.getInt("prod_biz_id"));
 		x.setBrandId(rs.getInt("brand_id"));
@@ -88,6 +107,14 @@ class ItemProductRowMapper implements RowMapper<ItemProduct>{
 		x.setProdPublisherDatetime(rs.getDate("prod_publish_datetime"));
 		x.setProdUnPublisherId(rs.getInt("prod_unpublisher_id"));
 		x.setProdUnPublisherDatetime(rs.getDate("prod_unpublish_datetime"));
+		i18n.setLangNo(1052);
+		i18n.setProdDesc(rs.getString("prod_desc"));
+		i18n.setProdId(x.getProdId());
+		i18n.setProdDescLong(rs.getString("prod_desc_long"));
+		i18n.setProdName(rs.getString("prod_name"));
+		i18n.setProdNameAlias(rs.getString("prod_name_alias"));
+		i18n.setProdI18nId(rs.getInt("prod_i18n_id"));
+		x.setItemProductI18n(i18n);
 		
 		return x;
 	}

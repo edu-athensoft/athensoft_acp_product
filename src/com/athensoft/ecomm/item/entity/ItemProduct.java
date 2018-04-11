@@ -4,6 +4,11 @@ import java.util.Date;
 
 public class ItemProduct {
 	
+	public static final int NEWCREATED = 1;
+	public static final int PUBLISHED = 2;
+	public static final int UNPUBLISHED = 3;
+	public static final int DELETED = 5;
+	
 	private long 		prodId;
 	private long 		prodBizId;
 	private int 		brandId;
@@ -21,7 +26,14 @@ public class ItemProduct {
 	private int			prodUnPublisherId;
 	private Date		prodUnPublisherDatetime;
 	
+	private ItemProductI18n itemProductI18n;
 	
+	public ItemProductI18n getItemProductI18n() {
+		return itemProductI18n;
+	}
+	public void setItemProductI18n(ItemProductI18n itemProductI18n) {
+		this.itemProductI18n = itemProductI18n;
+	}
 	public long getProdId() {
 		return prodId;
 	}

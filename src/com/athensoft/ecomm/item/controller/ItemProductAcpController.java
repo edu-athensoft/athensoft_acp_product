@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.condition.ProducesRequestCondition;
 
 import com.athensoft.content.event.controller.NewsAcpController;
 import com.athensoft.content.event.entity.Event;
@@ -68,7 +69,7 @@ public class ItemProductAcpController {
 	
 	private String[][] getData(List<ItemProduct> listProduct, String actionName){
 		int entryLength = listProduct.size();
-		final int COLUMN_NUM = 9;
+		final int COLUMN_NUM = 10;
 		String[][] data = new String[entryLength][COLUMN_NUM];
 		
 		String field0 = "";	//check box
@@ -80,6 +81,7 @@ public class ItemProductAcpController {
 		String field6 = "";	//view num
 		String field7 = "";	//event status
 		String field8 = "";	//action
+		//String field9 = "";
 		
 		for(int i=0; i<entryLength ; i++){			
 			field0 = "<input type='checkbox' name='id[]' value="+listProduct.get(i).getProdBizId()+">";
@@ -87,21 +89,19 @@ public class ItemProductAcpController {
 			field2 = listProduct.get(i).getProdSeqNo()+"";
 			field3 = listProduct.get(i).getProdType()+"";
 			field4 = listProduct.get(i).getProdSaleType()+"";
-			field5 = listProduct.get(i).getProdCreaterDatetime()+"";
-			field6 = listProduct.get(i).getProdCreaterId()+"";
+			field5 = listProduct.get(i).getItemProductI18n().getProdName()+""; 
+			field6 = listProduct.get(i).getProdCreaterDatetime()+"";
 			
-			//String strEventClass = (listProduct.get(i).getProdType());
+		/*	int intProductStatus = listProduct.get(i).getProdStatus();*/
+			String[] productStatus= getProductStatus(listProduct.get(i));
+			String productStatu= productStatus[0];
+			String productStatusKey=productStatus[1];
 			
-			/*
-			field6 = listNews.get(i).getViewNum()+"";
+			field7 = "<span class='label label-sm label-"+productStatusKey+"'>"+productStatu+"</span>";
 			
-			int intEventStatus = listNews.get(i).getEventStatus();
-			String[] eventStatusPair = getEventStatusPair(intEventStatus);
-			String eventStatusKey = eventStatusPair[0];
-			String eventStatus = eventStatusPair[1];
-			field7 = "<span class='label label-sm label-"+eventStatusKey+"'>"+eventStatus+"</span>";*/
 			
-			field8 = "<a href='/acp/item/"+getAction(actionName)+"?prodBizId="+field1+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+actionName+"</a>";
+			field8 = "<a href='/acp/item/"+getAction(actionName)+"?prodId="+field1+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+actionName+"</a>";
+			//field9 = "<a href='/acp/item/"+getAction(actionName)+"?prodBizId="+field1+"' '><i class='fa fa-pencil'></i> "+"test"+"</a>";
 			
 			//logger.info("field8="+field8);
 			
@@ -114,6 +114,8 @@ public class ItemProductAcpController {
 			data[i][6] = field6;
 			data[i][7] = field7;
 			data[i][8] = field8;
+			//data[i][9] = field9;
+			
 		}
 		
 		return data;
@@ -125,20 +127,20 @@ public class ItemProductAcpController {
 	 * @return data of product object,and target view
 	 */
 	@RequestMapping(value="/item/productEdit")
-	public ModelAndView gotoProductEdit(@RequestParam String prodBizId){
+	public ModelAndView gotoProductEdit(@RequestParam String prodId){
 		logger.info("entering /item/productEdit");
 		
 		ModelAndView mav = new ModelAndView();
 		
 		//view
-		String viewName = "item/product_edit";
+		String viewName = "item/item_product_edit";
 		mav.setViewName(viewName);
 		
 		//data
 		Map<String, Object> model = mav.getModel();
 		
 		//data - news
-		ItemProduct product = itemProductService.getProductByProdBizId(prodBizId);	
+		ItemProduct product = itemProductService.getProductByProdBizId(prodId);	
 		model.put("productObject", product);
 		
 		
@@ -159,6 +161,39 @@ public class ItemProductAcpController {
 			break;
 		}
 		return action;
+	}
+	
+	private String[] getProductStatus(ItemProduct product){
+	String[] productStatusPair=new String[2];
+		
+		String productStatus = "";
+		String productStatusKey="";
+		
+		switch(product.getProdStatus()){
+			case ItemProduct.NEWCREATED: 
+				productStatus = "new";
+				productStatusKey="warning";
+				break;
+			case ItemProduct.PUBLISHED:
+				productStatus = "published";
+				productStatusKey="success";
+
+				break;
+			case ItemProduct.UNPUBLISHED: 
+				productStatus = "unpublished";
+				productStatusKey="danger";
+				break;
+			case ItemProduct.DELETED: 
+				productStatus = "deleted";
+				productStatusKey="DEFAULT";
+				break;
+			default: 
+				break;
+		}
+		productStatusPair[0]=productStatus;
+		productStatusPair[1]=productStatusKey;
+
+		return productStatusPair;
 	}
 }
 

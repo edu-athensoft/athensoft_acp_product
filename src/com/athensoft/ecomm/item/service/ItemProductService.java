@@ -25,9 +25,9 @@ public class ItemProductService {
 	}
 
 
-	public ItemProduct getProductByProdBizId(String proBizId) {
+	public ItemProduct getProductByProdBizId(String prodId) {
 		// TODO Auto-generated method stub
-		ItemProduct product= itemProductDao.getProductByProdBizId(proBizId);
+		ItemProduct product= itemProductDao.getProductByProdBizId(prodId);
 		return product;
 	}
 	

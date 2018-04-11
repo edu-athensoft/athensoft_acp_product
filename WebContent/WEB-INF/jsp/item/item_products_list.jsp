@@ -107,7 +107,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- BEGIN THEME PANEL -->
                     <jsp:include page="${inc_dir}/theme-panel.jsp"></jsp:include>
                     <!-- END THEME PANEL -->
-                    <h1 class="page-title"> Product System <small>manage products</small></h1>
+                    <h1 class="page-title"> Item System <small>manage products</small></h1>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
 							<li>
@@ -201,11 +201,11 @@ License: You must have a valid license purchased only from themeforest(the above
 										String field7 = "";	//event status
 										String field8 = "";	//action -->
                                                     <th width="8%">ID</th>
-													<th width%">Sequence Number</th>
+													<th width="10%">Sequence Number</th>
 													<th width="10%">Product Type</th>
 													<th width="10%">Product Sale Type</th>
-													<th width="12%">Description</th>
-													<th width="6%">Views</th>
+													<th width="20%">Product Name</th>
+													<th width="14%">Created Date</th>
 													<th width="8%">Status</th>
 													<th width="8%">Actions</th>
                                                 </tr>
@@ -223,24 +223,24 @@ License: You must have a valid license purchased only from themeforest(the above
 														</select>
 													</td>
 													<td>
-														<div class="input-group date date-picker margin-bottom-5" data-date-format="yyyy-mm-dd">
+														
+														
+														<input type="text" class="form-control form-filter input-sm" name="viewNum_to" placeholder="search" id="search"/>
+													</td>
+													<td>
+													<div class="input-group date date-picker margin-bottom-5" data-date-format="yyyy-mm-dd">
 															<input type="text" class="form-control form-filter input-sm" readonly name="product_created_from" placeholder="From" id="postDatetimeFrom">
 															<span class="input-group-btn">
 															<button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
 															</span>
-														</div>
-														<div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+														</div>								
+													<div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
 															<input type="text" class="form-control form-filter input-sm" readonly name="product_created_to" placeholder="To" id="postDatetimeTo">
 															<span class="input-group-btn">
 															<button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
 															</span>
 														</div>
-													</td>
-													<td>
-														<div class="margin-bottom-5">
-															<input type="text" class="form-control form-filter input-sm" name="viewNum_from" placeholder="From" id="viewNumFrom">
-														</div>
-														<input type="text" class="form-control form-filter input-sm" name="viewNum_to" placeholder="To" id="viewNumTo"/>
+														
 													</td>
 													<td>
 														<select class="form-control form-filter input-sm" name="event_status" id="eventStatus">
