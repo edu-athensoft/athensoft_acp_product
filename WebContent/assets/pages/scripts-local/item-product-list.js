@@ -61,9 +61,9 @@ var productList = function () {
                 grid.setAjaxParam("id", grid.getSelectedRows());
                 
                 //modified by Athens
-                var eventUUIDArray = grid.getSelectedRows();
-                var newsStatus = action.val();
-                groupUpdateStatus(eventUUIDArray,newsStatus);
+                var prodIdArray = grid.getSelectedRows();
+                var productStatus = action.val();
+                groupUpdateStatus(prodIdArray,productStatus);
                 //end-of-modified
                 
                 //grid.getDataTable().ajax.reload();
@@ -136,8 +136,8 @@ function filterSearch(){
 	
 //	alert("do filterSearch()");
 //	create a json object
-    var p2 = $("#eventUUID").val();
-    var p3 = $("#eventTitle").val();
+    var p2 = $("#prodBizId").val();
+    var p3 = $("#prodSeqNo").val();
     var p4 = $("#eventAuthor").val();
     var p5a = $("#postDatetimeFrom").val();
     var p5b = $("#postDatetimeTo").val();

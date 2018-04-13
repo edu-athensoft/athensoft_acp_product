@@ -120,4 +120,50 @@ class ItemProductRowMapper implements RowMapper<ItemProduct>{
 	}
 	
 }
+
+@Override
+public void updateProduct(ItemProduct itemProduct) {
+	// TODO Auto-generated method stub
+	final String TABLE1 = "item_product ip, item_product_i18n ipi";
+	System.out.println("ID = "+itemProduct.getProdType());
+	StringBuffer sbf = new StringBuffer();
+	sbf.append("update "+TABLE1+" ");
+	sbf.append("set ");
+	sbf.append("prod_type = :prod_type, ");
+	sbf.append("prod_status = :prod_status, ");
+	sbf.append("prod_sale_type = :prod_sale_type, ");
+	sbf.append("prod_desc = :prod_desc, ");
+	sbf.append("prod_desc_long = :prod_desc_long ,");
+	sbf.append("prod_name = :prod_name, ");
+	sbf.append("prod_name_alias = :prod_name_alias ");
+	sbf.append("where ");
+	sbf.append("ip.prod_id = :prod_id ");
+	sbf.append("and ipi.lang_no = :lang_no");
+			
+			/*+ "(,author,post_datetime,view_num,desc_short,desc_long,event_class,event_status) ");*/
+	
+	String sql = sbf.toString();
+	
+//	final Date dateCreate 			= new Date();
+//	final Date dateLastModified 	= dateCreate;
+	MapSqlParameterSource paramSource = new MapSqlParameterSource();
+//	paramSource.addValue("global_id", news.getGlobalId());
+	paramSource.addValue("prod_id", itemProduct.getProdId());
+	paramSource.addValue("prod_type", itemProduct.getProdType());
+	paramSource.addValue("prod_status",itemProduct.getProdStatus());
+	paramSource.addValue("prod_sale_type",itemProduct.getProdSaleType());
+	paramSource.addValue("prod_desc",itemProduct.getItemProductI18n().getProdDesc());
+	paramSource.addValue("prod_desc_long", itemProduct.getItemProductI18n().getProdDescLong());
+	paramSource.addValue("prod_name", itemProduct.getItemProductI18n().getProdName());
+	paramSource.addValue("prod_name_alias", itemProduct.getItemProductI18n().getProdNameAlias());
+	paramSource.addValue("lang_no", 1052);
+	
+	KeyHolder keyholder = new GeneratedKeyHolder();
+	jdbc.update(sql, paramSource, keyholder);
+	System.out.println(sql);
+	return;
+	
+	
+	
+}
 }

@@ -154,13 +154,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <div class="caption">
                                             <i class="fa fa-shopping-cart"></i>Edit Product<span class="caption-helper"> editing Product description, status, type etc.</span> </div>
                                         <div class="actions btn-set">
-                                            <button type="button" name="back" class="btn btn-secondary-outline" onclick="backToNewsList(); return false;">
+                                            <button type="button" name="back" class="btn btn-secondary-outline" onclick="backToProductList(); return false;">
                                                 <i class="fa fa-angle-left"></i> Back</button>
-                                            <button class="btn btn-secondary-outline" onclick="resetNews(); return false;">
+                                            <button class="btn btn-secondary-outline" onclick="resetProduct(); return false;">
                                                 <i class="fa fa-reply"></i> Reset</button>
-                                            <button class="btn btn-success" onclick="updateNews(); return false;">
+                                            <button class="btn btn-success" onclick="updateProduct(); return false;">
                                                 <i class="fa fa-check"></i> Save</button>
-                                            <button class="btn btn-success" onclick="updateNewsAndContinue(); return false;">
+                                            <button class="btn btn-success" onclick="updateProductAndContinue(); return false;" >
                                                 <i class="fa fa-check-circle"></i> Save &amp; Continue Edit</button>
                                             <div class="btn-group">
                                                 <a class="btn btn-success dropdown-toggle" href="javascript:;" data-toggle="dropdown">
@@ -191,20 +191,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <li class="active">
                                                     <a href="#tab_general" data-toggle="tab"> General </a>
                                                 </li>
-                                                <li>
-                                                    <a href="#tab_meta" data-toggle="tab"> Meta </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#tab_images" data-toggle="tab"> Images </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#tab_reviews" data-toggle="tab"> Reviews
-                                                        <span class="badge badge-success"> 3 </span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#tab_history" data-toggle="tab"> History </a>
-                                                </li>
+                                               
                                             </ul>
                                             <div class="tab-content" >
                                                 <div class="tab-pane active" id="tab_general">
@@ -214,7 +201,8 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
-															<input type="text" class="form-control" id="bizId" name=""bizId"" placeholder="" disabled="disabled"  value="${productObject.prodBizId}">
+														<input type="hidden" class="form-control" id="prodId" name="prod_id" placeholder="" disabled="disabled"  value="${productObject.prodId}">
+															<input type="text" class="form-control" id="bizId" name="biz_id" placeholder="" disabled="disabled"  value="${productObject.prodBizId}">
 														</div>
 													</div>
 													<div class="form-group">
@@ -222,7 +210,24 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
-															<input type="text" class="form-control" id="prodSeqNo" name="id="prodSeqNo""  placeholder="" value="${productObject.prodSeqNo}" disabled="disabled">
+															<input type="text" class="form-control" name="prod_seq_no" id="prodSeqNo"  placeholder="" value="${productObject.prodSeqNo}" disabled="disabled">
+														</div>
+													</div>
+													
+													<div class="form-group">
+														<label class="col-md-2 control-label">Product Name: <span class="required">
+														* </span>
+														</label>
+														<div class="col-md-10">
+															<input type="text" class="form-control" id="prodName" name="prodName" placeholder=""  value="${productObject.itemProductI18n.prodName}">
+														</div>
+													</div>
+														<div class="form-group">
+														<label class="col-md-2 control-label">Product Name Alias: <span class="required">
+														* </span>
+														</label>
+														<div class="col-md-10">
+															<input type="text" class="form-control" id="prodNameAlias" name="prodNameAlias" placeholder=""  value="${productObject.itemProductI18n.prodNameAlias}">
 														</div>
 													</div>
 													<div class="form-group">
@@ -230,7 +235,28 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
-															<input type="text" class="form-control" id="prodType" name="prodType" placeholder=""  value="${productObject.prodType}">
+															<select class="table-group-action-input form-control input-medium" id="prodType" name="prod_type">
+																<option value="0" ${productObject.prodType == '0' ? 'selected' : ''}>Select...</option>
+																<option value="1" ${productObject.prodType == '1' ? 'selected' : ''}>Default</option>
+																<option value="2" ${productObject.prodType == '2' ? 'selected' : ''}>New</option>
+																<option value="3" ${productObject.prodType == '3' ? 'selected' : ''}>Hot</option>
+															</select>
+														</div>
+													</div>
+													
+													<div class="form-group">
+														<label class="col-md-2 control-label">Product Status: <span class="required">
+														* </span>
+														</label>
+														<div class="col-md-10">
+															<select class="table-group-action-input form-control input-medium" id="prodStatus" name="prod_status">
+																<option value="0" ${productObject.prodStatus == '0' ? 'selected' : ''}>Select...</option>
+																<option value="1" ${productObject.prodStatus == '1' ? 'selected' : ''}>Published</option>
+																<option value="2" ${productObject.prodStatus == '2' ? 'selected' : ''}>Wait to post</option>
+																<option value="3" ${productObject.prodStatus == '3' ? 'selected' : ''}>Deleted</option>
+																<option value="4" ${productObject.prodStatus == '4' ? 'selected' : ''}>Out of date</option>
+																<option value="5" ${productObject.prodStatus == '5' ? 'selected' : ''}>Suspended</option>
+															</select>
 														</div>
 													</div>
 													<div class="form-group">
@@ -241,6 +267,33 @@ License: You must have a valid license purchased only from themeforest(the above
 															<input type="text" class="form-control" id="prodSaleType" name="prodSaleType" placeholder=""  value="${productObject.prodSaleType}">
 														</div>
 													</div>
+													
+													
+													<div class="form-group">
+														<label class="col-md-2 control-label">Short Description: <span class="required">
+														* </span>
+														</label>
+														<div class="col-md-10">
+															<textarea class="form-control" id="prodDesc" name="prodDesc">${productObject.itemProductI18n.prodDesc}</textarea>
+															<span class="help-block">
+															shown in product listing </span>
+														</div>
+														
+													</div>
+													
+															<div class="form-group">
+														<label class="col-md-2 control-label">Long Description: <span class="required">
+														* </span>
+														</label>
+														<div class="col-md-10">
+															<textarea class="form-control" id="prodDescLong" name="prodDescLong" rows="6">${productObject.itemProductI18n.prodDescLong}</textarea>
+														</div>
+														
+													</div>
+													
+													
+													
+												
 													<div class="form-group">
 														<label class="col-md-2 control-label">Create Datetime: <span class="required">
 														* </span>
@@ -253,278 +306,13 @@ License: You must have a valid license purchased only from themeforest(the above
 															availability daterange. </span>
 														</div>
 													</div>
-													<div class="form-group">
-														<label class="col-md-2 control-label">Product Status: <span class="required">
-														* </span>
-														</label>
-														<div class="col-md-10">
-															<input type="text" class="form-control" id="prodStatus" name="prodStatus" placeholder=""  value="${productObject.prodStatus}" >
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-2 control-label">Short Description: <span class="required">
-														* </span>
-														</label>
-														<div class="col-md-10">
-															<textarea class="form-control" id="descShort" name="descShort">${productObject.itemProductI18n.prodDesc}</textarea>
-															<span class="help-block">
-															shown in product listing </span>
-														</div>
-														
-													</div>
-													
-															<div class="form-group">
-														<label class="col-md-2 control-label">Long Description: <span class="required">
-														* </span>
-														</label>
-														<div class="col-md-10">
-															<textarea class="form-control" id="descLong" name="descLong" rows="6">${productObject.itemProductI18n.prodDescLong}</textarea>
-														</div>
-														
-													</div>
-													
-													<div class="form-group">
-														<label class="col-md-2 control-label">News Class: <span class="required">
-														* </span>
-														</label>
-														<div class="col-md-10">
-															<select class="table-group-action-input form-control input-medium" id="eventClass" name="eventClass">
-																<option value="0" ${newsObject.eventClass == '0' ? 'selected' : ''}>Select...</option>
-																<option value="1" ${newsObject.eventClass == '1' ? 'selected' : ''}>Default</option>
-																<option value="2" ${newsObject.eventClass == '2' ? 'selected' : ''}>New</option>
-																<option value="3" ${newsObject.eventClass == '3' ? 'selected' : ''}>Hot</option>
-															</select>
-														</div>
-													</div>
-													
-													<div class="form-group">
-														<label class="col-md-2 control-label">News Status: <span class="required">
-														* </span>
-														</label>
-														<div class="col-md-10">
-															<select class="table-group-action-input form-control input-medium" id="eventStatus" name="eventStatus">
-																<option value="0" ${newsObject.eventStatus == '0' ? 'selected' : ''}>Select...</option>
-																<option value="1" ${newsObject.eventStatus == '1' ? 'selected' : ''}>Published</option>
-																<option value="2" ${newsObject.eventStatus == '2' ? 'selected' : ''}>Wait to post</option>
-																<option value="3" ${newsObject.eventStatus == '3' ? 'selected' : ''}>Deleted</option>
-																<option value="4" ${newsObject.eventStatus == '4' ? 'selected' : ''}>Out of date</option>
-																<option value="5" ${newsObject.eventStatus == '5' ? 'selected' : ''}>Suspended</option>
-															</select>
-														</div>
-													</div>
 												</div>
                                                 </div>
                                                 
-                                                <div class="tab-pane" id="tab_meta">
-                                                    <div class="form-body">
-                                                        <div class="form-group">
-                                                            <label class="col-md-2 control-label">Meta Title:</label>
-                                                            <div class="col-md-10">
-                                                                <input type="text" class="form-control maxlength-handler" name="product[meta_title]" maxlength="100" placeholder="">
-                                                                <span class="help-block"> max 100 chars </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="col-md-2 control-label">Meta Keywords:</label>
-                                                            <div class="col-md-10">
-                                                                <textarea class="form-control maxlength-handler" rows="8" name="product[meta_keywords]" maxlength="1000"></textarea>
-                                                                <span class="help-block"> max 1000 chars </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="col-md-2 control-label">Meta Description:</label>
-                                                            <div class="col-md-10">
-                                                                <textarea class="form-control maxlength-handler" rows="8" name="product[meta_description]" maxlength="255"></textarea>
-                                                                <span class="help-block"> max 255 chars </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane" id="tab_images">
-                                                	<!--
-                                                    <div class="alert alert-success margin-bottom-10">
-                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                                                        <i class="fa fa-warning fa-lg"></i> Image type and information need to be specified. 
-                                                   
-                                                    </div> 
-                                                     -->
-                                                    <div id="tab_images_uploader_container" class="text-align-reverse margin-bottom-10">
-                                                        <a id="tab_images_uploader_pickfiles" href="javascript:;" class="btn btn-success">
-                                                            <i class="fa fa-plus"></i> Select Files </a>
-                                                        <a id="tab_images_uploader_uploadfiles" href="javascript:;" class="btn btn-primary">
-                                                            <i class="fa fa-share"></i> Upload Files </a>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div id="tab_images_uploader_filelist" class="col-md-6 col-sm-12"> </div>
-                                                    </div>
-                                                    <table class="table table-bordered table-hover">
-                                                        <thead>
-                                                            <tr role="row" class="heading">
-                                                                <th width="8%">
-																	 Image
-																</th>
-																<th width="20%">
-																	 Label
-																</th>
-																<th width="8%">
-																	 Sort Number
-																</th>
-																<th width="15%">
-																	 Post Time
-																</th>
-																<th width="10%">
-																	 Primary Media
-																</th>
-																<th width="10%">
-																	Action
-																</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <c:forEach items="${eventMediaList}" var="eventMedia">
-															<tr>
-															<td>
-																<a href="${eventMedia.mediaURL}" class="fancybox-button" data-rel="fancybox-button">
-																<img class="img-responsive" src="${eventMedia.mediaURL}" alt="">
-																</a>
-															</td>
-															<td>
-																<input type="text" class="form-control" name="mediaLabel" value="${eventMedia.mediaLabel}" onblur="changeMediaLabel(this,${eventMedia.mediaId},'${eventMedia.eventUUID}');">
-															</td>
-															<td>
-																<input type="text" class="form-control" name="sortNumber" value="${eventMedia.sortNumber}" onblur="changeSortNumber(this,${eventMedia.mediaId},'${eventMedia.eventUUID}');">
-															</td>
-															
-															<td>
-																<input type="text" class="form-control" name="postTimestamp" value="${eventMedia.postTimestamp}" disabled="disabled">
-															</td>
-															<td>
-																<input type="text" class="form-control" name="primaryMedia" value="${eventMedia.primaryMedia}" disabled="disabled">
-																<!-- <div></div>  -->
-															</td>
-															<td>
-																<a href="javascript:;" onclick="setCoverMedia(${eventMedia.mediaId},'${eventMedia.eventUUID}');return false;" class="btn default btn-sm">
-																<i class="fa fa-edit"></i> Set Cover </a>
-																<a href="javascript:test();" class="btn default btn-sm">
-																<i class="fa fa-times"></i> Remove </a>
-															</td>
-														</tr>
-														</c:forEach>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="tab-pane" id="tab_reviews">
-                                                    <div class="table-container">
-                                                        <table class="table table-striped table-bordered table-hover" id="datatable_reviews">
-                                                            <thead>
-                                                                <tr role="row" class="heading">
-                                                                    <th width="5%"> Review&nbsp;# </th>
-                                                                    <th width="10%"> Review&nbsp;Date </th>
-                                                                    <th width="10%"> Customer </th>
-                                                                    <th width="20%"> Review&nbsp;Content </th>
-                                                                    <th width="10%"> Status </th>
-                                                                    <th width="10%"> Actions </th>
-                                                                </tr>
-                                                                <tr role="row" class="filter">
-                                                                    <td>
-                                                                        <input type="text" class="form-control form-filter input-sm" name="event_review_no" id="event_review_no"> </td>
-                                                                    <td>
-                                                                        <div class="input-group date date-picker margin-bottom-5" data-date-format="yyyy-mm-dd">
-                                                                            <input type="text" class="form-control form-filter input-sm" readonly name="event_review_date_from" placeholder="From" id="event_review_date_from">
-                                                                            <span class="input-group-btn">
-                                                                                <button class="btn btn-sm default" type="button">
-                                                                                    <i class="fa fa-calendar"></i>
-                                                                                </button>
-                                                                            </span>
-                                                                        </div>
-                                                                        <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
-                                                                            <input type="text" class="form-control form-filter input-sm" readonly name="event_review_date_to" placeholder="To" id="event_review_date_to">
-                                                                            <span class="input-group-btn">
-                                                                                <button class="btn btn-sm default" type="button">
-                                                                                    <i class="fa fa-calendar"></i>
-                                                                                </button>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text" class="form-control form-filter input-sm" name="event_review_customer" id="event_review_customer"> </td>
-                                                                    <td>
-                                                                        <input type="text" class="form-control form-filter input-sm" name="event_review_content" id="event_review_content"> </td>
-                                                                    <td>
-                                                                        <select name="product_review_status" class="form-control form-filter input-sm" id="event_review_status">
-                                                                            <option value="0">Select...</option>
-																			<option value="1">Approved</option>
-																			<option value="2">Pending</option>
-																			<option value="3">Rejected</option>
-                                                                        </select>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="margin-bottom-5">
-                                                                            <button class="btn btn-sm btn-success filter-submit margin-bottom" onclick="filterSearchReview();">
-                                                                                <i class="fa fa-search"></i> Search</button>
-                                                                        </div>
-                                                                        <button class="btn btn-sm btn-danger filter-cancel">
-                                                                            <i class="fa fa-times"></i> Reset</button>
-                                                                    </td>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody> </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane" id="tab_history">
-                                                    <div class="table-container">
-                                                        <table class="table table-striped table-bordered table-hover" id="datatable_history">
-                                                            <thead>
-                                                                <tr role="row" class="heading">
-                                                                    <th width="25%"> Datetime </th>
-                                                                    <th width="55%"> Description </th>
-                                                                    <th width="10%"> Notification </th>
-                                                                    <th width="10%"> Actions </th>
-                                                                </tr>
-                                                                <tr role="row" class="filter">
-                                                                    <td>
-                                                                        <div class="input-group date datetime-picker margin-bottom-5" data-date-format="dd/mm/yyyy hh:ii">
-                                                                            <input type="text" class="form-control form-filter input-sm" readonly name="product_history_date_from" placeholder="From">
-                                                                            <span class="input-group-btn">
-                                                                                <button class="btn btn-sm default date-set" type="button">
-                                                                                    <i class="fa fa-calendar"></i>
-                                                                                </button>
-                                                                            </span>
-                                                                        </div>
-                                                                        <div class="input-group date datetime-picker" data-date-format="dd/mm/yyyy hh:ii">
-                                                                            <input type="text" class="form-control form-filter input-sm" readonly name="product_history_date_to" placeholder="To">
-                                                                            <span class="input-group-btn">
-                                                                                <button class="btn btn-sm default date-set" type="button">
-                                                                                    <i class="fa fa-calendar"></i>
-                                                                                </button>
-                                                                            </span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text" class="form-control form-filter input-sm" name="product_history_desc" placeholder="To" /> </td>
-                                                                    <td>
-                                                                        <select name="product_history_notification" class="form-control form-filter input-sm">
-                                                                            <option value="">Select...</option>
-                                                                            <option value="pending">Pending</option>
-                                                                            <option value="notified">Notified</option>
-                                                                            <option value="failed">Failed</option>
-                                                                        </select>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="margin-bottom-5">
-                                                                            <button class="btn btn-sm btn-default filter-submit margin-bottom">
-                                                                                <i class="fa fa-search"></i> Search</button>
-                                                                        </div>
-                                                                        <button class="btn btn-sm btn-danger-outline filter-cancel">
-                                                                            <i class="fa fa-times"></i> Reset</button>
-                                                                    </td>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody> </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
+                                                
+                                                
+                                                
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -576,8 +364,9 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="${webapp_name}/assets/global/scripts/app.min.js" type="text/javascript"></script>
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/event-news.js"></script>
-<script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/event-news-edit.js"></script>
+<script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product.js"></script>
+<script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-list.js"></script>
+<script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-list-edit.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="${webapp_name}/assets/layouts/layout2/scripts/layout.min.js" type="text/javascript"></script>
@@ -593,44 +382,46 @@ jQuery(document).ready(function() {
 	//Layout.init(); // init current layout
 	//Demo.init(); // init demo features
 	//EventNewsEdit.init();
-	var eventUUID = $("#eventUUID").val();
-	EventNewsEdit.init(eventUUID);
+	var prodBizId = $("#bizId").val();
+	productEdit.init(prodBizId);
 
 //local
-//select object for event class
-	var eventClassValue = ${newsObject.eventClass};
-	$("#eventClass").val(eventClassValue);
+/* //select object for event class
+	var eventClassValue = ${eventClass};
+	$("#eventClass").val(eventClassValue); */
 
 //select object for event status
-	var eventStatusValue = ${newsObject.eventStatus};
-	$("#eventStatus").val(eventStatusValue);
+	var productStatus = ${productObject.prodStatus};
+	$("#prodStatus").val(productStatus);
 	
 });
 
-function resetNews(){
-	
+function resetProduct(){
 	//object for reset
-	//var p1 = ${newsObject.globalId};
-	//var p2 = '${newsObject.eventUUID}';
-	var p3 = '${newsObject.title}';
-	var p4 = '${newsObject.author}';
-	//var p5 = ${newsObject.postDatetime};
-	var p6 = ${newsObject.viewNum};
-	var p7 = '${newsObject.descShort}';
-	var p8 = '${newsObject.descLong}';
-	var p9 = ${newsObject.eventClass};
-	var p10 = ${newsObject.eventStatus};
-	
+		
+//	create a json object
+   /*  var p1 = $("#prodId").val();
+    var p2 = $("#bizId").val();        
+    var p3 = $("#prodSeqNo").val(); */
+    var p3 ='${productObject.itemProductI18n.prodName}';
+    var p4 ='${productObject.prodType}';
+    var p5 ='${productObject.prodStatus}';
+    var p6 ='${productObject.prodSaleType}';
+    var p7 ='${productObject.itemProductI18n.prodDesc}';
+    var p8 ='${productObject.itemProductI18n.prodDescLong}';
+  /*  var p9 = $("#eventClass").val();
+    var p10 = $("#eventStatus").val();*/
+
 	//$("#globalId").val(p1);
 	//$("#eventUUID").val(p2);
-	$("#title").val(p3);
-	$("#author").val(p4);
+	$("#prodName").val(p3);
+	$("#prodType").val(p4);
 	//$("#postDatetime").val(p5);
-	$("#viewNum").val(p6);
-	$("#descShort").val(p7);
-	$("#descLong").val(p8);
-	$("#eventClass").val(p9);
-	$("#eventStatus").val(p10);
+	$("#prodStatus").val(p5);
+	$("#prodSaleType").val(p6);
+	$("#prodDesc").val(p7);
+	$("#prodDescLong").val(p8);
+	//$("#eventStatus").val(p10);
 }    
 </script>
 </body>

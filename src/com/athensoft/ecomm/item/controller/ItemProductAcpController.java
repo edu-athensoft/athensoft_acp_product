@@ -1,13 +1,16 @@
 package com.athensoft.ecomm.item.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +21,7 @@ import com.athensoft.content.event.entity.Event;
 import com.athensoft.content.event.entity.EventMedia;
 import com.athensoft.content.event.entity.News;
 import com.athensoft.ecomm.item.entity.ItemProduct;
+import com.athensoft.ecomm.item.entity.ItemProductI18n;
 import com.athensoft.ecomm.item.service.ItemProductService;
 
 @Controller
@@ -35,6 +39,25 @@ public class ItemProductAcpController {
 		this.itemProductService = itemProductService;
 	}
 
+	
+	
+	
+	/**
+	 * go to product Creation page
+	 * 
+	 */
+	@RequestMapping(value="/item/itemProductCreate")
+	public ModelAndView gotoProductCreate(){
+		
+		logger.info("entering /item/itemProductCreate");
+		
+		ModelAndView mav= new ModelAndView();
+		mav.setViewName("item/item_product_create");
+		
+		logger.info("leaving /item/itemProductCreate");
+		
+		return mav;
+	}
 
 	/**
 	 * get news objects in JSON data form
@@ -132,7 +155,7 @@ public class ItemProductAcpController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		//view
+		//view	
 		String viewName = "item/item_product_edit";
 		mav.setViewName(viewName);
 		
@@ -147,6 +170,57 @@ public class ItemProductAcpController {
 		
 		logger.info("leaving /item/product_edit");
 		return mav;
+	}
+	
+	@RequestMapping(value="/item/productUpdate",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> updateProduct(@RequestParam String itemJSONString){
+		logger.info("entering /item/productUpdate");
+		System.out.println(itemJSONString);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		JSONObject ic_job= new JSONObject(itemJSONString);
+		System.out.println(ic_job.getInt("prodId"));
+		ItemProduct itemProduct  = new ItemProduct();
+		itemProduct.setProdId(ic_job.getInt("prodId"));
+		itemProduct.setProdBizId(ic_job.getInt("bizId"));
+		itemProduct.setProdSeqNo(ic_job.getInt("prodSeqNo"));
+		itemProduct.setProdStatus(ic_job.getInt("prodStatus"));
+		itemProduct.setProdType(ic_job.getInt("prodType"));
+		itemProduct.setProdSaleType(ic_job.getInt("prodSaleType"));
+		ItemProductI18n i18n = new ItemProductI18n();
+		i18n.setProdName(ic_job.getString("prodName"));
+		i18n.setProdNameAlias(ic_job.getString("prodNameAlias"));
+		i18n.setProdDesc(ic_job.getString("prodDesc"));
+		i18n.setProdDescLong(ic_job.getString("prodDescLong"));
+		
+		
+		itemProduct.setItemProductI18n(i18n);
+		itemProductService.updateProduct(itemProduct);
+		
+
+		
+		//view	
+		/*String viewName = "item/productListData";
+		mav.setViewName(viewName);
+	
+		
+		/*
+		//data
+		Map<String, Object> model = mav.getModel();
+		*/
+		
+		
+		/*//data - news
+		ItemProduct product = itemProductService.getProductByProdBizId(prodId);	
+		model.put("productObject", product);*/
+
+		logger.info("leaving /item/product_edit");
+		Map<String,Object> map=new HashMap<String, Object>();
+        map.put("success",true);
+        map.put("msg","ok");
+		return map;
 	}
 	
 	

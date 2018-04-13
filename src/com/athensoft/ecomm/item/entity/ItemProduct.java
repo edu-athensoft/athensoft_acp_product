@@ -7,7 +7,7 @@ public class ItemProduct {
 	public static final int NEWCREATED = 1;
 	public static final int PUBLISHED = 2;
 	public static final int UNPUBLISHED = 3;
-	public static final int DELETED = 5;
+	public static final int DELETED = 4;
 	
 	private long 		prodId;
 	private long 		prodBizId;

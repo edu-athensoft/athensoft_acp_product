@@ -30,5 +30,11 @@ public class ItemProductService {
 		ItemProduct product= itemProductDao.getProductByProdBizId(prodId);
 		return product;
 	}
+
+
+	public void updateProduct(ItemProduct itemProduct) {
+		// TODO Auto-generated method stub
+		itemProductDao.updateProduct(itemProduct);
+	}
 	
 }

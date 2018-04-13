@@ -20,6 +20,9 @@ public interface ItemProductDao {
 	 * @author Yang Liu
 	 */
 	public ItemProduct getProductByProdBizId(String proBizId);
+
+
+	public void updateProduct(ItemProduct itemProduct);
 	
 	/**
 	 * @param queryString

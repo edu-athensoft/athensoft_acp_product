@@ -147,7 +147,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="caption">
                                         <i class="fa fa-shopping-cart"></i>Products Listing <span class="caption-helper">listing product, search, group action...</span></div>
                                     <div class="actions">
-                                        <a href="eventsNewsCreate" class="btn btn-circle btn-info">
+                                        <a href="itemProductCreate" class="btn btn-circle btn-info">
                                             <i class="fa fa-plus"></i><span class="hidden-xs"> Create product </span>
                                         </a>
                                         <div class="btn-group">
@@ -212,10 +212,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <tr role="row" class="filter">
 													<td></td>
 													<td><input type="text" class="form-control form-filter input-sm" name="prod_biz_id" id="prodBizId"></td>
-													<td><input type="text" class="form-control form-filter input-sm" name="event_title" id="eventTitle"></td>
-													<td><input type="text" class="form-control form-filter input-sm" name="event_author" id="eventAuthor"></td>
+													<td><input type="text" class="form-control form-filter input-sm" name="prod_seq_no" id="prodSeqNo"></td>
+													<td><input type="text" class="form-control form-filter input-sm" name="prod_type" id="prodType"></td>
 													<td>
-														<select class="form-control form-filter input-sm" name="event_class" id="eventClass">
+														<select class="form-control form-filter input-sm" name="prod_sale_type" id="prodSaleType">
 															<option value="0">Select...</option>
 															<option value="1">Default</option>
 															<option value="2">New</option>
@@ -225,17 +225,17 @@ License: You must have a valid license purchased only from themeforest(the above
 													<td>
 														
 														
-														<input type="text" class="form-control form-filter input-sm" name="viewNum_to" placeholder="search" id="search"/>
+														<input type="text" class="form-control form-filter input-sm" name="prod_name" placeholder="search" id="prodName"/>
 													</td>
 													<td>
 													<div class="input-group date date-picker margin-bottom-5" data-date-format="yyyy-mm-dd">
-															<input type="text" class="form-control form-filter input-sm" readonly name="product_created_from" placeholder="From" id="postDatetimeFrom">
+															<input type="text" class="form-control form-filter input-sm" readonly name="product_created_from" placeholder="From" id="createDatetimeFrom">
 															<span class="input-group-btn">
 															<button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
 															</span>
 														</div>								
 													<div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
-															<input type="text" class="form-control form-filter input-sm" readonly name="product_created_to" placeholder="To" id="postDatetimeTo">
+															<input type="text" class="form-control form-filter input-sm" readonly name="product_created_to" placeholder="To" id="createDatetimeTo">
 															<span class="input-group-btn">
 															<button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
 															</span>
@@ -243,13 +243,12 @@ License: You must have a valid license purchased only from themeforest(the above
 														
 													</td>
 													<td>
-														<select class="form-control form-filter input-sm" name="event_status" id="eventStatus">
+														<select class="form-control form-filter input-sm" name="prod_status" id="prodStatus">
 															<option value="0">Select...</option>
-															<option value="1">Published</option>
-															<option value="2">Wait to post</option>
-															<option value="3">Deleted</option>
-															<option value="4">Out of date</option>
-															<option value="5">Suspended</option>
+															<option value="1">New</option>
+															<option value="2">Published</option>
+															<option value="3">Unpublished</option>
+															<option value="4">Deleted</option>
 														</select>
 													</td>
 													<td>
