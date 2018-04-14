@@ -7,7 +7,7 @@
 function getProductObject(){	
 //	create a json object
     var p1 = $("#prodId").val();
-    var p2 = $("#bizId").val();        
+    var p2 = $("#prodBizId").val();        
     var p3 = $("#prodSeqNo").val();
     var p4 = $("#prodType").val();
     var p5 = $("#prodStatus").val();
@@ -21,15 +21,14 @@ function getProductObject(){
     var businessObject =
     {
     		prodId    :    p1,
-    		bizId   :    p2,
+    		prodBizId   :    p2,
     		prodSeqNo    	:    p3,
     		prodType    	:    p4,
     		prodStatus:    p5,            
     		prodSaleType    	:    p6,            
-    		prodDesc   :    p7,
-    		prodDescLong	:    p8,
-    		prodName		:	p9,
-    		prodNameAlias	:	p10 
+    		itemProductI18n		:{prodDesc   :    p7,prodDescLong	:    p8,
+        						  prodName		:	p9,prodNameAlias	:	p10} 
+    		
     		
     };
     

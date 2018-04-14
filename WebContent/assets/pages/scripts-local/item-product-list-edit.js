@@ -220,7 +220,8 @@ function updateProduct() {
     var productObject = getProductObject();
  //   alert(JSON.stringify(productObject));
     //execute saving
-    $.ajax({
+    $.ajax({      
+    	
     	type    :    "post",
         url        : "productUpdate?itemJSONString="+JSON.stringify(productObject),
         dataType:    "json",

@@ -8,7 +8,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,6 +59,48 @@ public class ItemProductAcpController {
 		logger.info("leaving /item/itemProductCreate");
 		
 		return mav;
+	}
+	
+	
+	@RequestMapping(value="/item/newCreateProduct")
+	@ResponseBody
+	public Map<String, Object>  createProduct(@RequestBody ItemProduct itemProduct){
+	
+		logger.info("entering  /item/newCreateProduct");
+		
+		ModelAndView mav = new ModelAndView();
+		System.out.println("biz id : "+itemProduct.getProdBizId());
+
+		int result = itemProductService.createProduct(itemProduct);
+		Map<String, Object> model=mav.getModel();
+		
+		if(result==1){
+			model.put("success", true);
+			model.put("msg","ok");
+		}else{
+			model.put("error", false);
+			model.put("msg","no");
+		}
+		
+		
+		//view	
+		/*String viewName = "item/productListData";
+		mav.setViewName(viewName);
+	
+		
+		/*
+		//data
+		Map<String, Object> model = mav.getModel();
+		*/
+		
+		
+		/*//data - news
+		ItemProduct product = itemProductService.getProductByProdBizId(prodId);	
+		model.put("productObject", product);*/
+
+		logger.info("leaving /item/newCreateProduct");
+	
+		return model;
 	}
 
 	/**

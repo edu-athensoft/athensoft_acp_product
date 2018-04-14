@@ -2,6 +2,7 @@ package com.athensoft.ecomm.item.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.athensoft.content.event.entity.Event;
 import com.athensoft.ecomm.item.entity.ItemCategory;
@@ -68,6 +70,7 @@ public class ItemProductDaoJDBCImpl implements ItemProductDao{
 				+ "item_product_i18n ip, "
 				+ "info_language il "
 				+ "where i.prod_id =:prod_id "
+				+ "and i.prod_id = ip.prod_id "
 				+ "and ip.lang_no = il.lang_no "
 				+ "and ip.lang_no=:lang_no";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
@@ -135,7 +138,7 @@ public void updateProduct(ItemProduct itemProduct) {
 	sbf.append("prod_desc = :prod_desc, ");
 	sbf.append("prod_desc_long = :prod_desc_long ,");
 	sbf.append("prod_name = :prod_name, ");
-	sbf.append("prod_name_alias = :prod_name_alias ");
+	sbf.append("prod_name_alias = :prod_name_alias ,");
 	sbf.append("where ");
 	sbf.append("ip.prod_id = :prod_id ");
 	sbf.append("and ipi.lang_no = :lang_no");
@@ -166,4 +169,65 @@ public void updateProduct(ItemProduct itemProduct) {
 	
 	
 }
+
+@Override
+@Transactional(rollbackFor=Exception.class)
+public int createProduct(ItemProduct itemProduct) {
+	// TODO Auto-generated method stub
+		final String TABLE1 = "item_product";
+		System.out.println("ID = "+itemProduct.getProdType());
+		StringBuffer sbf = new StringBuffer();
+		sbf.append("insert into "+TABLE1+" (prod_biz_id, prod_seqno, prod_type, prod_status,");
+		sbf.append("prod_sale_type , prod_creater_id, prod_create_datetime) ");
+		sbf.append(" values( :prod_biz_id, :prod_seqno, :prod_type, :prod_status, :prod_sale_type, :prod_creater_id,sysdate()) ;");
+		
+		
+		// prod_desc, prod_desc_long, prod_name, prod_name_alias, 
+		final String TABLE2 = "item_product_i18n";
+		StringBuffer sbf2 = new StringBuffer();
+				/*+ "(,author,post_datetime,view_num,desc_short,desc_long,event_class,event_status) ");*/
+		sbf2.append("insert into "+TABLE2+" (prod_desc, prod_desc_long, prod_name, prod_name_alias,lang_no) ");
+		sbf2.append(" values( :prod_desc, :prod_desc_long, :prod_name, :prod_name_alias, :lang_no)");
+		
+		String sql = sbf.toString();
+		String sql2 = sbf2.toString();
+		
+//		final Date dateCreate 			= new Date();
+//		final Date dateLastModified 	= dateCreate;
+		MapSqlParameterSource paramSource = new MapSqlParameterSource();
+//		paramSource.addValue("global_id", news.getGlobalId());
+		paramSource.addValue("prod_biz_id", itemProduct.getProdBizId());
+		paramSource.addValue("prod_seqno", itemProduct.getProdSeqNo());
+		paramSource.addValue("prod_type", itemProduct.getProdType());
+		paramSource.addValue("prod_status",itemProduct.getProdStatus());
+		paramSource.addValue("prod_sale_type",itemProduct.getProdSaleType());
+		paramSource.addValue("prod_creater_id",1);
+		paramSource.addValue("prod_desc",itemProduct.getItemProductI18n().getProdDesc());
+		paramSource.addValue("prod_desc_long", itemProduct.getItemProductI18n().getProdDescLong());
+		paramSource.addValue("prod_name", itemProduct.getItemProductI18n().getProdName());
+		paramSource.addValue("prod_name_alias", itemProduct.getItemProductI18n().getProdNameAlias());
+		paramSource.addValue("lang_no", 1052);
+		
+		KeyHolder keyholder = new GeneratedKeyHolder();
+		System.out.println(sql);
+	
+			int result =jdbc.update(sql, paramSource, keyholder);
+			int result2 = jdbc.update(sql2, paramSource, keyholder);
+		 
+			if(result==1 && result2==1){
+			
+				return 1;
+		 	
+			}else {
+		
+				return 0;
+			
+			
+			}
+		 
+			
+		}
+		 
+		
+
 }

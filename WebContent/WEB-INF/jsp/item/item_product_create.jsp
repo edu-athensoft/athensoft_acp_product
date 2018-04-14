@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false"%>  
+<%@page import="java.util.Date" %>
 <!-- global variables settings -->
 <c:set var="webapp_name" value="/acp"/>
 
@@ -158,9 +160,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <i class="fa fa-angle-left"></i> Back</button>
                                             <button class="btn btn-secondary-outline" onclick="resetProduct(); return false;">
                                                 <i class="fa fa-reply"></i> Reset</button>
-                                            <button class="btn btn-success" onclick="updateProduct(); return false;">
+                                            <button class="btn btn-success" onclick="createProduct(); return false;">
                                                 <i class="fa fa-check"></i> Save</button>
-                                            <button class="btn btn-success" onclick="updateProductAndContinue(); return false;" >
+                                            <button class="btn btn-success" onclick="createProductAndContinue(); return false;" >
                                                 <i class="fa fa-check-circle"></i> Save &amp; Continue Edit</button>
                                             <div class="btn-group">
                                                 <a class="btn btn-success dropdown-toggle" href="javascript:;" data-toggle="dropdown">
@@ -214,8 +216,8 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
-														<input type="hidden" class="form-control" id="prodId" name="prod_id" placeholder="" disabled="disabled"  value="${productObject.prodId}">
-															<input type="text" class="form-control" id="bizId" name="biz_id" placeholder="" disabled="disabled"  value="${productObject.prodBizId}">
+														 <input type="hidden" class="form-control" id="prodId" name="prod_id" placeholder="" value="2" > 
+															<input type="text" class="form-control" id="prodBizId" name="biz_id" placeholder="" >
 														</div>
 													</div>
 													<div class="form-group">
@@ -223,7 +225,7 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
-															<input type="text" class="form-control" name="prod_seq_no" id="prodSeqNo"  placeholder="" value="${productObject.prodSeqNo}" disabled="disabled">
+															<input type="text" class="form-control" name="prod_seq_no" id="prodSeqNo"  placeholder="" >
 														</div>
 													</div>
 													
@@ -232,7 +234,7 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
-															<input type="text" class="form-control" id="prodName" name="prodName" placeholder=""  value="${productObject.itemProductI18n.prodName}">
+															<input type="text" class="form-control" id="prodName" name="prodName" placeholder="" >
 														</div>
 													</div>
 														<div class="form-group">
@@ -240,7 +242,7 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
-															<input type="text" class="form-control" id="prodNameAlias" name="prodNameAlias" placeholder=""  value="${productObject.itemProductI18n.prodNameAlias}">
+															<input type="text" class="form-control" id="prodNameAlias" name="prodNameAlias" placeholder=""  >
 														</div>
 													</div>
 													<div class="form-group">
@@ -277,7 +279,7 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
-															<input type="text" class="form-control" id="prodSaleType" name="prodSaleType" placeholder=""  value="${productObject.prodSaleType}">
+															<input type="text" class="form-control" id="prodSaleType" name="prodSaleType" placeholder="" value="1" >
 														</div>
 													</div>
 													
@@ -287,9 +289,9 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
-															<textarea class="form-control" id="prodDesc" name="prodDesc">${productObject.itemProductI18n.prodDesc}</textarea>
+															<textarea class="form-control" id="prodDesc" name="prodDesc"></textarea>
 															<span class="help-block">
-															shown in product listing </span>
+															shown in  listing </span>
 														</div>
 														
 													</div>
@@ -299,7 +301,7 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
-															<textarea class="form-control" id="prodDescLong" name="prodDescLong" rows="6">${productObject.itemProductI18n.prodDescLong}</textarea>
+															<textarea class="form-control" id="prodDescLong" name="prodDescLong" rows="6">asdas<%=1+2 %></textarea>
 														</div>
 														
 													</div>
@@ -313,7 +315,9 @@ License: You must have a valid license purchased only from themeforest(the above
 														</label>
 														<div class="col-md-10">
 															<div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy hh:mm:ss">
-																<input type="text" class="form-control" id="createDatetime" name="createDatetime"  value="${productObject.prodCreaterDatetime}" disabled="disabled">
+																<input type="text" class="form-control" id="createDatetime" name="createDatetime"  value="<fmt:formatDate value='<%=new Date() %>' pattern='yyyy-MM-dd'/>" disabled="disabled">
+																
+																
 															</div>
 															<span class="help-block">
 															availability daterange. </span>
@@ -584,8 +588,10 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product.js"></script>
-<script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-list.js"></script>
-<script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-list-edit.js"></script>
+<script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-create.js"></script>
+<script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/global-validate.js"></script>
+
+
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="${webapp_name}/assets/layouts/layout2/scripts/layout.min.js" type="text/javascript"></script>

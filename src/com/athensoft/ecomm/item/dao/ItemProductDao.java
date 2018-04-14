@@ -23,6 +23,11 @@ public interface ItemProductDao {
 
 
 	public void updateProduct(ItemProduct itemProduct);
+
+
+	public int createProduct(ItemProduct itemProduct);
+
+
 	
 	/**
 	 * @param queryString

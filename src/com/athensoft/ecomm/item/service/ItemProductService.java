@@ -24,7 +24,7 @@ public class ItemProductService {
 		
 	}
 
-
+ 
 	public ItemProduct getProductByProdBizId(String prodId) {
 		// TODO Auto-generated method stub
 		ItemProduct product= itemProductDao.getProductByProdBizId(prodId);
@@ -35,6 +35,12 @@ public class ItemProductService {
 	public void updateProduct(ItemProduct itemProduct) {
 		// TODO Auto-generated method stub
 		itemProductDao.updateProduct(itemProduct);
+	}
+
+
+	public int createProduct(ItemProduct itemProduct) {
+		// TODO Auto-generated method stub
+		return itemProductDao.createProduct(itemProduct);
 	}
 	
 }
