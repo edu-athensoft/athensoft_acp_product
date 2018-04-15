@@ -1,11 +1,24 @@
 package com.athensoft.ecomm.item.controller;
 
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.model.Workbook;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.GsonBuilderUtils;
@@ -25,6 +38,7 @@ import com.athensoft.content.event.entity.News;
 import com.athensoft.ecomm.item.entity.ItemProduct;
 import com.athensoft.ecomm.item.entity.ItemProductI18n;
 import com.athensoft.ecomm.item.service.ItemProductService;
+import com.athensoft.util.excel.ExcelExport;
 
 @Controller
 public class ItemProductAcpController {
@@ -61,6 +75,79 @@ public class ItemProductAcpController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/item/exportProductExcel",method={RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView exportProductExcel(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		 
+			String fileName="item_product_list";
+	    
+			List<ItemProduct> listProduct = itemProductService.findAllProduct();
+	        List<Map<String,Object>> list=createExcelRecord(listProduct);
+	        String columnNames[]={"Product ID","Business ID","Sequence Number","Description",
+	        					"Description Long","Product Name "," Product Name alias","Product Type",
+	        					"Product Status","Product Sale Type","Creater ID","Create Date"};
+	        String keys[]    =     {"id","prod_biz_id","prod_seqno","prod_desc","prod_desc_long","prod_name"
+	        		,"prod_name_alias","prod_type","prod_status","prod_sale_type","prod_creater_id","prod_create_date"};
+	        ByteArrayOutputStream os = new ByteArrayOutputStream();
+	        try {
+	        	ExcelExport.createWorkBook(list,keys,columnNames).write(os);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        byte[] content = os.toByteArray();
+	        InputStream is = new ByteArrayInputStream(content);
+	        response.reset();
+	        response.setContentType("application/vnd.ms-excel;charset=utf-8");
+	        response.setHeader("Content-Disposition", "attachment;filename="+ new String((fileName + ".xls").getBytes(), "iso-8859-1"));
+	        ServletOutputStream out = response.getOutputStream();
+	        BufferedInputStream bis = null;
+	        BufferedOutputStream bos = null;
+	        try {
+	            bis = new BufferedInputStream(is);
+	            bos = new BufferedOutputStream(out);
+	            byte[] buff = new byte[2048];
+	            int bytesRead;
+	            // Simple read/write loop.
+	            while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+	                bos.write(buff, 0, bytesRead);
+	            }
+	        } catch (final IOException e) {
+	            throw e;
+	        } finally {
+	            if (bis != null)
+	                bis.close();
+	            if (bos != null)
+	                bos.close();
+	        }
+	        return null;
+	    }
+	 
+	    private List<Map<String, Object>> createExcelRecord(List<ItemProduct> listProduct) {
+	        List<Map<String, Object>> listmap = new ArrayList<Map<String, Object>>();
+	        Map<String, Object> map = new HashMap<String, Object>();
+	        map.put("sheetName", "sheet1");
+	        listmap.add(map);
+	        ItemProduct itemProduct=null;
+	        for (int j = 0; j < listProduct.size(); j++) {
+	        	itemProduct=listProduct.get(j);
+	            Map<String, Object> mapValue = new HashMap<String, Object>();
+	            mapValue.put("id", itemProduct.getProdId());
+	            mapValue.put("prod_biz_id", itemProduct.getProdBizId());
+	            mapValue.put("prod_seqno", itemProduct.getProdSeqNo());
+	            mapValue.put("prod_type", itemProduct.getProdType());
+	            mapValue.put("prod_status",itemProduct.getProdStatus());
+	            mapValue.put("prod_sale_type",itemProduct.getProdSaleType());
+	            mapValue.put("prod_creater_id",1);
+	            mapValue.put("prod_desc",itemProduct.getItemProductI18n().getProdDesc());
+	            mapValue.put("prod_desc_long", itemProduct.getItemProductI18n().getProdDescLong());
+	            mapValue.put("prod_name", itemProduct.getItemProductI18n().getProdName());
+	            mapValue.put("prod_name_alias", itemProduct.getItemProductI18n().getProdNameAlias());
+	            mapValue.put("prod_create_date", itemProduct.getProdCreaterDatetime());
+	            listmap.add(mapValue);
+	        }
+	        return listmap;
+	    
+	}
+
 	
 	@RequestMapping(value="/item/newCreateProduct")
 	@ResponseBody
@@ -104,7 +191,7 @@ public class ItemProductAcpController {
 	}
 
 	/**
-	 * get news objects in JSON data form
+	 * get product objects in JSON data form
 	 * the data for showing in datatable in front-end pages is contained in a 2-dimension array
 	 * @return a map structure containing data rendered to view
 	 */
@@ -190,7 +277,7 @@ public class ItemProductAcpController {
 	
 	/**
 	 * goto product edit page with data for updating
-	 * @param prodBizId the product business id  of  object selected
+	 * @param prodId the product  id  of  object selected
 	 * @return data of product object,and target view
 	 */
 	@RequestMapping(value="/item/productEdit")

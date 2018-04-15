@@ -185,7 +185,7 @@ public int createProduct(ItemProduct itemProduct) {
 		// prod_desc, prod_desc_long, prod_name, prod_name_alias, 
 		final String TABLE2 = "item_product_i18n";
 		StringBuffer sbf2 = new StringBuffer();
-				/*+ "(,author,post_datetime,view_num,desc_short,desc_long,event_class,event_status) ");*/
+
 		sbf2.append("insert into "+TABLE2+" (prod_desc, prod_desc_long, prod_name, prod_name_alias,lang_no) ");
 		sbf2.append(" values( :prod_desc, :prod_desc_long, :prod_name, :prod_name_alias, :lang_no)");
 		
