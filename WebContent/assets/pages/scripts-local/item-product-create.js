@@ -27,7 +27,7 @@ function createProduct() {
     }
     alert("asdads");*/
     var dd=JSON.stringify(itemProductObject);
-    alert(dd);
+   
     //execute saving
     $.ajax({
     	type    :    "post",

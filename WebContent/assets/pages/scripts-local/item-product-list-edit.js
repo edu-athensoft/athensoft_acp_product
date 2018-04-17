@@ -218,7 +218,7 @@ function backToNewsList(){
 /* event news - button:save change,update */
 function updateProduct() {
     var productObject = getProductObject();
- //   alert(JSON.stringify(productObject));
+    
     //execute saving
     $.ajax({      
     	

@@ -95,15 +95,15 @@ class ItemProductRowMapper implements RowMapper<ItemProduct>{
 		// TODO Auto-generated method stub
 		ItemProduct x= new ItemProduct();
 		ItemProductI18n i18n= new ItemProductI18n();
-		x.setProdId(rs.getLong("prod_id"));
-		x.setProdBizId(rs.getInt("prod_biz_id"));
+		x.setProdId(rs.getString("prod_id"));
+		x.setProdBizId(rs.getString("prod_biz_id"));
 		x.setBrandId(rs.getInt("brand_id"));
-		x.setProdStatus(rs.getInt("prod_status"));
-		x.setProdType(rs.getInt("prod_type"));
-		x.setProdSaleType(rs.getInt("prod_sale_type"));
-		x.setProdSeqNo(rs.getInt("prod_seqno"));
+		x.setProdStatus(rs.getString("prod_status"));
+		x.setProdType(rs.getString("prod_type"));
+		x.setProdSaleType(rs.getString("prod_sale_type"));
+		x.setProdSeqNo(rs.getString("prod_seqno"));
 		x.setProdCreaterId(rs.getInt("prod_creater_id"));
-		x.setProdCreaterDatetime(rs.getDate("prod_create_datetime"));
+		x.setProdCreaterDatetime(rs.getString("prod_create_datetime"));
 		x.setProdModifierId(rs.getInt("prod_modifier_id"));
 		x.setProdModifierDatetime(rs.getDate("prod_modify_datetime"));
 		x.setProdPublisherId(rs.getInt("prod_publisher_id"));

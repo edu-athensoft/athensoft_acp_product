@@ -210,12 +210,12 @@ License: You must have a valid license purchased only from themeforest(the above
 													<th width="8%">Actions</th>
                                                 </tr>
                                                 <tr role="row" class="filter">
-													<td></td>
-													<td><input type="text" class="form-control form-filter input-sm" name="prod_biz_id" id="prodBizId"></td>
-													<td><input type="text" class="form-control form-filter input-sm" name="prod_seq_no" id="prodSeqNo"></td>
-													<td><input type="text" class="form-control form-filter input-sm" name="prod_type" id="prodType"></td>
+													<td><input type="hidden" class="form-control form-filter input-sm" name="prodId" id="prodId"></td>
+													<td><input type="text" class="form-control form-filter input-sm" name="prodBizId" id="prodBizId"></td>
+													<td><input type="text" class="form-control form-filter input-sm" name="prodSeqNo" id="prodSeqNo"></td>
+													<td><input type="text" class="form-control form-filter input-sm" name="prodType" id="prodType"></td>
 													<td>
-														<select class="form-control form-filter input-sm" name="prod_sale_type" id="prodSaleType">
+														<select class="form-control form-filter input-sm" name="prodSaleType" id="prodSaleType">
 															<option value="0">Select...</option>
 															<option value="1">Default</option>
 															<option value="2">New</option>
@@ -225,7 +225,7 @@ License: You must have a valid license purchased only from themeforest(the above
 													<td>
 														
 														
-														<input type="text" class="form-control form-filter input-sm" name="prod_name" placeholder="search" id="prodName"/>
+														<input type="text" class="form-control form-filter input-sm" name="prodName" placeholder="search" id="prodName"/>
 													</td>
 													<td>
 													<div class="input-group date date-picker margin-bottom-5" data-date-format="yyyy-mm-dd">
@@ -243,7 +243,7 @@ License: You must have a valid license purchased only from themeforest(the above
 														
 													</td>
 													<td>
-														<select class="form-control form-filter input-sm" name="prod_status" id="prodStatus">
+														<select class="form-control form-filter input-sm" name="prodStatus" id="prodStatus">
 															<option value="0">Select...</option>
 															<option value="1">New</option>
 															<option value="2">Published</option>

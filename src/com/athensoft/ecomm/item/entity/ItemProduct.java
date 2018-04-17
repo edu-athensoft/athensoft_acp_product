@@ -2,22 +2,25 @@ package com.athensoft.ecomm.item.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ItemProduct {
 	
-	public static final int NEWCREATED = 1;
-	public static final int PUBLISHED = 2;
-	public static final int UNPUBLISHED = 3;
-	public static final int DELETED = 4;
+	public static final String NEWCREATED = "1";
+	public static final String PUBLISHED = "2";
+	public static final String UNPUBLISHED = "3";
+	public static final String DELETED = "4";
 	
-	private long 		prodId;
-	private long 		prodBizId;
+	private String 		prodId;
+	private String 		prodBizId;
 	private int 		brandId;
-	private int			prodStatus;
-	private int			prodType;
-	private int			prodSaleType;
-	private int			prodSeqNo;
+	private String			prodStatus;
+	private String			prodType;
+	private String			prodSaleType;
+	private String			prodSeqNo;
 	private int			prodCreaterId;
-	private Date		prodCreaterDatetime;
+	private String		prodCreaterDatetime;
 	
 	private int			prodModifierId;
 	private Date		prodModifierDatetime;
@@ -27,103 +30,166 @@ public class ItemProduct {
 	private Date		prodUnPublisherDatetime;
 	
 	private ItemProductI18n itemProductI18n;
-	
 	public ItemProductI18n getItemProductI18n() {
 		return itemProductI18n;
 	}
+
+
 	public void setItemProductI18n(ItemProductI18n itemProductI18n) {
 		this.itemProductI18n = itemProductI18n;
 	}
-	public long getProdId() {
+
+
+	public String getProdId() {
 		return prodId;
 	}
-	public void setProdId(long prodId) {
+
+
+	public void setProdId(String prodId) {
 		this.prodId = prodId;
 	}
-	public long getProdBizId() {
+
+
+	public String getProdBizId() {
 		return prodBizId;
 	}
-	public void setProdBizId(long prodBizId) {
+
+
+	public void setProdBizId(String prodBizId) {
 		this.prodBizId = prodBizId;
 	}
+
+
 	public int getBrandId() {
 		return brandId;
 	}
+
+
 	public void setBrandId(int brandId) {
 		this.brandId = brandId;
 	}
-	public int getProdStatus() {
+
+
+	public String getProdStatus() {
 		return prodStatus;
 	}
-	public void setProdStatus(int prodStatus) {
+
+
+	public void setProdStatus(String prodStatus) {
 		this.prodStatus = prodStatus;
 	}
-	public int getProdType() {
+
+
+	public String getProdType() {
 		return prodType;
 	}
-	public void setProdType(int prodType) {
+
+
+	public void setProdType(String prodType) {
 		this.prodType = prodType;
 	}
-	public int getProdSaleType() {
+
+
+	public String getProdSaleType() {
 		return prodSaleType;
 	}
-	public void setProdSaleType(int prodSaleType) {
+
+
+	public void setProdSaleType(String prodSaleType) {
 		this.prodSaleType = prodSaleType;
 	}
-	public int getProdSeqNo() {
+
+
+	public String getProdSeqNo() {
 		return prodSeqNo;
 	}
-	public void setProdSeqNo(int prodSeqNo) {
+
+
+	public void setProdSeqNo(String prodSeqNo) {
 		this.prodSeqNo = prodSeqNo;
 	}
+
+
 	public int getProdCreaterId() {
 		return prodCreaterId;
 	}
+
+
 	public void setProdCreaterId(int prodCreaterId) {
 		this.prodCreaterId = prodCreaterId;
 	}
-	public Date getProdCreaterDatetime() {
+
+
+	public String getProdCreaterDatetime() {
 		return prodCreaterDatetime;
 	}
-	public void setProdCreaterDatetime(Date prodCreaterDatetime) {
+
+
+	public void setProdCreaterDatetime(String prodCreaterDatetime) {
 		this.prodCreaterDatetime = prodCreaterDatetime;
 	}
+
+
 	public int getProdModifierId() {
 		return prodModifierId;
 	}
+
+
 	public void setProdModifierId(int prodModifierId) {
 		this.prodModifierId = prodModifierId;
 	}
+
+
 	public Date getProdModifierDatetime() {
 		return prodModifierDatetime;
 	}
+
+
 	public void setProdModifierDatetime(Date prodModifierDatetime) {
 		this.prodModifierDatetime = prodModifierDatetime;
 	}
+
+
 	public int getProdPublisherId() {
 		return prodPublisherId;
 	}
+
+
 	public void setProdPublisherId(int prodPublisherId) {
 		this.prodPublisherId = prodPublisherId;
 	}
+
+
 	public Date getProdPublisherDatetime() {
 		return prodPublisherDatetime;
 	}
+
+
 	public void setProdPublisherDatetime(Date prodPublisherDatetime) {
 		this.prodPublisherDatetime = prodPublisherDatetime;
 	}
+
+
 	public int getProdUnPublisherId() {
 		return prodUnPublisherId;
 	}
+
+
 	public void setProdUnPublisherId(int prodUnPublisherId) {
 		this.prodUnPublisherId = prodUnPublisherId;
 	}
+
+
 	public Date getProdUnPublisherDatetime() {
 		return prodUnPublisherDatetime;
 	}
+
+
 	public void setProdUnPublisherDatetime(Date prodUnPublisherDatetime) {
 		this.prodUnPublisherDatetime = prodUnPublisherDatetime;
 	}
+
+
 	@Override
 	public String toString() {
 		return "ItemProduct [prodId=" + prodId + ", prodBizId=" + prodBizId + ", brandId=" + brandId + ", prodStatus="

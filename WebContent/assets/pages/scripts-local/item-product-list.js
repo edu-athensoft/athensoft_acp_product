@@ -136,50 +136,85 @@ function filterSearch(){
 	
 //	alert("do filterSearch()");
 //	create a json object
-    var p2 = $("#prodBizId").val();
-    var p3 = $("#prodSeqNo").val();
-    var p4 = $("#eventAuthor").val();
-    var p5a = $("#postDatetimeFrom").val();
-    var p5b = $("#postDatetimeTo").val();
-    var p6a = $("#viewNumFrom").val();
-    var p6b = $("#viewNumTo").val();
-    var p9 = $("#eventClass").val();
-    var p10 = $("#eventStatus").val();
+		
+		//var p1 = $("#prodId").val();
+	    var p2 = $("#prodBizId").val();        
+	    var p3 = $("#prodSeqNo").val();
+	    var p4 = $("#prodType").val();
+	    var p5 = $("#prodStatus").val();
+	    var p6 = $("#prodSaleType").val();
+	    var p7 = $("#createDatetimeFrom").val();
+	    var p8 = $("#prodName").val();
+	  //  var p7 = $("#prodDesc").val();
+	  //  var p8 = $("#prodDescLong").val();
+	   
+	 //   var p10 = $("#prodNameAlias").val();
+  
 
 //    alert(p5a+" -- "+p5b);
     
 //	validate
-	if(!isNonNegativeInteger(p6a)){
+	/*if(!isNonNegativeInteger(p6a)){
 		p6a = "";
 		$("#viewNumFrom").val("");
 	}
 	if(!isNonNegativeInteger(p6b)){
 		p6b = "";
 		$("#viewNumTo").val("");
-	}
+	}*/
 //	isNonNegativeInteger(p6b);
 //	alert(p5a+" "+p5b);
-  
+  debugger;
     var businessObject =
     {
-    //		globalId    :    p1,
-    		eventUUID   :    p2,
-    		title    	:    p3,
-    		author    	:    p4,
-     		postDatetimeFrom:  p5a,            
-     		postDatetimeTo:    p5b,            
-    		viewNumFrom :    p6a,            
-    		viewNumTo 	:    p6b,            
+    		prodId    :    "2",
+    		prodBizId   :    "566",
+    		prodSeqNo    	:     "55",
+    		prodType    	:     "0",
+    		prodStatus:     "0",            
+    		prodSaleType    	:    "1",  
+    	/*	prodCreaterDatetime:p7,*/
+    		itemProductI18n		:{ prodName		:	""} 
+    		
+    		
+           
     //		descShort   :    p7,
     //		descLong	:    p8,
-      		eventClass  :    p9,
-    		eventStatus	:    p10
+      	/*	eventClass  :    p9,
+    		eventStatus	:    p10*/
     };
-
-    var dt = $("#datatable_eventNewsList").DataTable();
+    var d=JSON.stringify( businessObject );
+    alert(d)
+    var dt = $("#datatable_productList").DataTable( {
+    			"destroy": true,
+    			"ajax": {
+    			type    :    "post",
+    			url: "getDataProductByFilter",
+    		    contentType: "application/json; charset=utf-8",
+    		    data: d,
+    		    dataType: "json"
+    		  }
+    		} );
+  //  var x = dt.ajax.url("getDataProductByFilter?itemJSONString="+JSON.stringify(businessObject)).load();
     
-    var x = dt.ajax.url("newsSearchFilterData?itemJSONString="+JSON.stringify(businessObject)).load();
-    
+   /* $.ajax({
+    	type    :    "post",
+        url        : "newCreateProduct",
+        contentType	:'application/json;charset=utf-8',
+        data 		:dd,
+        dataType:    "json",
+//        timeout :     30000,
+        
+        success:function(msg){
+        	location.href="productList";
+        },
+        error:function(){
+            alert("ERROR: News creating failed.");     
+        },            
+        complete: function(XMLHttpRequest, textStatus){
+            //reset to avoid duplication
+        }        
+    });*/
     
 }
 

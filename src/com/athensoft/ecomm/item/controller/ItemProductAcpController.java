@@ -121,6 +121,18 @@ public class ItemProductAcpController {
 	        return null;
 	    }
 	 
+	
+	@RequestMapping(value="/item/getDataProductByFilter")
+	@ResponseBody
+	public Map<String, Object>  getDataProductByFilter(@RequestBody ItemProduct itemProduct){
+		
+		logger.info("enterying /item/getDataProductByFilter");
+		
+		logger.info("leaving /item/getDataProductByFilter");
+		
+		return null;
+		
+	}
 	    private List<Map<String, Object>> createExcelRecord(List<ItemProduct> listProduct) {
 	        List<Map<String, Object>> listmap = new ArrayList<Map<String, Object>>();
 	        Map<String, Object> map = new HashMap<String, Object>();
@@ -147,7 +159,7 @@ public class ItemProductAcpController {
 	        return listmap;
 	    
 	}
-
+	    
 	
 	@RequestMapping(value="/item/newCreateProduct")
 	@ResponseBody
@@ -314,12 +326,12 @@ public class ItemProductAcpController {
 		JSONObject ic_job= new JSONObject(itemJSONString);
 		System.out.println(ic_job.getInt("prodId"));
 		ItemProduct itemProduct  = new ItemProduct();
-		itemProduct.setProdId(ic_job.getInt("prodId"));
-		itemProduct.setProdBizId(ic_job.getInt("bizId"));
-		itemProduct.setProdSeqNo(ic_job.getInt("prodSeqNo"));
-		itemProduct.setProdStatus(ic_job.getInt("prodStatus"));
-		itemProduct.setProdType(ic_job.getInt("prodType"));
-		itemProduct.setProdSaleType(ic_job.getInt("prodSaleType"));
+		itemProduct.setProdId(ic_job.getString("prodId"));
+		itemProduct.setProdBizId(ic_job.getString("bizId"));
+		itemProduct.setProdSeqNo(ic_job.getString("prodSeqNo"));
+		itemProduct.setProdStatus(ic_job.getString("prodStatus"));
+		itemProduct.setProdType(ic_job.getString("prodType"));
+		itemProduct.setProdSaleType(ic_job.getString("prodSaleType"));
 		ItemProductI18n i18n = new ItemProductI18n();
 		i18n.setProdName(ic_job.getString("prodName"));
 		i18n.setProdNameAlias(ic_job.getString("prodNameAlias"));
@@ -367,6 +379,8 @@ public class ItemProductAcpController {
 		}
 		return action;
 	}
+	
+	
 	
 	private String[] getProductStatus(ItemProduct product){
 	String[] productStatusPair=new String[2];
