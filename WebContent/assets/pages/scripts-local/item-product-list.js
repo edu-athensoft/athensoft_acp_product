@@ -143,9 +143,12 @@ function filterSearch(){
 	    var p4 = $("#prodType").val();
 	    var p5 = $("#prodStatus").val();
 	    var p6 = $("#prodSaleType").val();
+	    
+	    
 	    var p7 = $("#createDatetimeFrom").val();
+	    	p7=p7+",";
 	    var p8 = $("#createDatetimeTo").val();
-			p8==""?"":p7=p7+","+p8;
+			p7=p7+p8;
 		
 	    var p9 = $("#prodName").val();
 	  //  var p7 = $("#prodDesc").val();

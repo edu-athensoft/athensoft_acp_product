@@ -262,8 +262,18 @@ public List<ItemProduct> findProductsByFilter(ItemProduct itemProduct) {
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		if(itemProduct.getProdCreaterDatetime().contains(",")){
 			String[] datetimes= itemProduct.getProdCreaterDatetime().split(",");
-			System.out.println(datetimes[0]+", "+datetimes[1]);
-			sbf.append("  prod_create_datetime between '"+ datetimes[0]+"' and '"+datetimes[1]+"' and ");
+			//System.out.println(datetimes[0]+", "+datetimes[1]);
+			//  7,8  ,8  7,
+		
+		
+			if(datetimes.length==1){
+				sbf.append("  prod_create_datetime >= ");
+				sbf.append(" '"+ datetimes[0]+"' and ");
+			}else {
+				sbf.append("  prod_create_datetime between ");
+				sbf.append(" '"+ datetimes[0]+"' and ");
+				sbf.append(" '"+ datetimes[1]+"' and ");
+			}
 			
 		}
 		//String datetime =sdf.format(itemProduct.getProdCreaterDatetime());
