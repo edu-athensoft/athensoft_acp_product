@@ -42,5 +42,11 @@ public class ItemProductService {
 		// TODO Auto-generated method stub
 		return itemProductDao.createProduct(itemProduct);
 	}
+
+
+	public List<ItemProduct>  getDataProductByFilter(ItemProduct itemProduct) {
+		// TODO Auto-generated method stub
+		return itemProductDao.findProductsByFilter(itemProduct);
+	}
 	
 }

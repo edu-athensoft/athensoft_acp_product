@@ -3,7 +3,7 @@ package com.athensoft.ecomm.item.entity;
 public class ItemProductI18n {
 	
 	private int prodI18nId;
-	private String prodId;
+	private Long prodId;
 	private int langNo;
 	private String prodName;
 	private String prodNameAlias;
@@ -17,11 +17,11 @@ public class ItemProductI18n {
 	public void setProdI18nId(int prodI18nId) {
 		this.prodI18nId = prodI18nId;
 	}
-	public String getProdId() {
+	public Long getProdId() {
 		return prodId;
 	}
-	public void setProdId(String string) {
-		this.prodId = string;
+	public void setProdId(Long prodId) {
+		this.prodId = prodId;
 	}
 	public int getLangNo() {
 		return langNo;

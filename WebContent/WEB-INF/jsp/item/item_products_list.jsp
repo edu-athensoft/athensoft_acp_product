@@ -213,7 +213,15 @@ License: You must have a valid license purchased only from themeforest(the above
 													<td><input type="hidden" class="form-control form-filter input-sm" name="prodId" id="prodId"></td>
 													<td><input type="text" class="form-control form-filter input-sm" name="prodBizId" id="prodBizId"></td>
 													<td><input type="text" class="form-control form-filter input-sm" name="prodSeqNo" id="prodSeqNo"></td>
-													<td><input type="text" class="form-control form-filter input-sm" name="prodType" id="prodType"></td>
+													<td>
+													<select class="form-control form-filter input-sm" name="prodType" id="prodType">
+															<option value="0">Select...</option>
+															<option value="1">Default</option>
+															<option value="2">New</option>
+															<option value="3">Hot</option>
+														</select>
+													
+													</td>
 													<td>
 														<select class="form-control form-filter input-sm" name="prodSaleType" id="prodSaleType">
 															<option value="0">Select...</option>
@@ -229,13 +237,13 @@ License: You must have a valid license purchased only from themeforest(the above
 													</td>
 													<td>
 													<div class="input-group date date-picker margin-bottom-5" data-date-format="yyyy-mm-dd">
-															<input type="text" class="form-control form-filter input-sm" readonly name="product_created_from" placeholder="From" id="createDatetimeFrom">
+															<input type="text" class="form-control form-filter input-sm" readonly name="prodCreaterDatetime" placeholder="From" id="createDatetimeFrom">
 															<span class="input-group-btn">
 															<button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
 															</span>
 														</div>								
 													<div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
-															<input type="text" class="form-control form-filter input-sm" readonly name="product_created_to" placeholder="To" id="createDatetimeTo">
+															<input type="text" class="form-control form-filter input-sm" readonly name="prodCreaterDatetime" placeholder="To" id="createDatetimeTo">
 															<span class="input-group-btn">
 															<button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
 															</span>

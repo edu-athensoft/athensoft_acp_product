@@ -264,7 +264,12 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
-															<input type="text" class="form-control" id="prodSaleType" name="prodSaleType" placeholder=""  value="${productObject.prodSaleType}">
+															<select class="table-group-action-input form-control input-medium" id="prodType" name="prod_type">
+																<option value="0" ${productObject.prodSaleType == '0' ? 'selected' : ''}>Select...</option>
+																<option value="1" ${productObject.prodSaleType == '1' ? 'selected' : ''}>Default</option>
+																<option value="2" ${productObject.prodSaleType == '2' ? 'selected' : ''}>New</option>
+																<option value="3" ${productObject.prodSaleType == '3' ? 'selected' : ''}>Hot</option>
+															</select>
 														</div>
 													</div>
 													

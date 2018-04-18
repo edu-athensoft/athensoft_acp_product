@@ -28,6 +28,9 @@ public interface ItemProductDao {
 	public int createProduct(ItemProduct itemProduct);
 
 
+	public List<ItemProduct> findProductsByFilter(ItemProduct itemProduct);
+
+
 	
 	/**
 	 * @param queryString

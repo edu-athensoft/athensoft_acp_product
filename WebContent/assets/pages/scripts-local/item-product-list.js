@@ -144,37 +144,27 @@ function filterSearch(){
 	    var p5 = $("#prodStatus").val();
 	    var p6 = $("#prodSaleType").val();
 	    var p7 = $("#createDatetimeFrom").val();
-	    var p8 = $("#prodName").val();
+	    var p8 = $("#createDatetimeTo").val();
+			p8==""?"":p7=p7+","+p8;
+		
+	    var p9 = $("#prodName").val();
 	  //  var p7 = $("#prodDesc").val();
 	  //  var p8 = $("#prodDescLong").val();
 	   
 	 //   var p10 = $("#prodNameAlias").val();
-  
 
-//    alert(p5a+" -- "+p5b);
-    
-//	validate
-	/*if(!isNonNegativeInteger(p6a)){
-		p6a = "";
-		$("#viewNumFrom").val("");
-	}
-	if(!isNonNegativeInteger(p6b)){
-		p6b = "";
-		$("#viewNumTo").val("");
-	}*/
-//	isNonNegativeInteger(p6b);
-//	alert(p5a+" "+p5b);
   debugger;
+  alert("123123")
     var businessObject =
     {
-    		prodId    :    "2",
-    		prodBizId   :    "566",
-    		prodSeqNo    	:     "55",
-    		prodType    	:     "0",
-    		prodStatus:     "0",            
-    		prodSaleType    	:    "1",  
-    	/*	prodCreaterDatetime:p7,*/
-    		itemProductI18n		:{ prodName		:	""} 
+    		//prodId    :    p2,
+    		prodBizId   :    p2,
+    		prodSeqNo    	:    p3,
+    		prodType    	:    p4,
+    		prodStatus:    p5,            
+    		prodSaleType    	:   p6,  
+    		prodCreaterDatetime:p7,
+    		itemProductI18n		:{ prodName		:	p9} 
     		
     		
            
@@ -184,8 +174,9 @@ function filterSearch(){
     		eventStatus	:    p10*/
     };
     var d=JSON.stringify( businessObject );
-    alert(d)
-    var dt = $("#datatable_productList").DataTable( {
+    alert(d);
+     var dt = $("#datatable_productList").DataTable();
+   /* var dt = $("#datatable_productList").DataTable( {
     			"destroy": true,
     			"ajax": {
     			type    :    "post",
@@ -194,27 +185,10 @@ function filterSearch(){
     		    data: d,
     		    dataType: "json"
     		  }
-    		} );
-  //  var x = dt.ajax.url("getDataProductByFilter?itemJSONString="+JSON.stringify(businessObject)).load();
+    		} );*/
+   var x = dt.ajax.url("getDataProductByFilter?itemJSONString="+JSON.stringify(businessObject)).load();
     
-   /* $.ajax({
-    	type    :    "post",
-        url        : "newCreateProduct",
-        contentType	:'application/json;charset=utf-8',
-        data 		:dd,
-        dataType:    "json",
-//        timeout :     30000,
-        
-        success:function(msg){
-        	location.href="productList";
-        },
-        error:function(){
-            alert("ERROR: News creating failed.");     
-        },            
-        complete: function(XMLHttpRequest, textStatus){
-            //reset to avoid duplication
-        }        
-    });*/
+ 
     
 }
 

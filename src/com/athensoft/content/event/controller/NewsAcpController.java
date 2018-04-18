@@ -188,7 +188,7 @@ public class NewsAcpController {
 			//data
 			Map<String, Object> model = mav.getModel();
 			JSONObject jobj= new JSONObject(itemJSONString);
-			
+		
 			String where1 = jobj.getString("eventUUID").trim();
 			String where2 = jobj.getString("title").trim();
 			String where3 = jobj.getString("author").trim();

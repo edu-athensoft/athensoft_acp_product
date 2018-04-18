@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.model.Workbook;
-import org.json.JSONObject;
+/*import org.json.JSONObject;*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.condition.ProducesRequestCondition;
 
+import com.alibaba.fastjson.JSONObject;
 import com.athensoft.content.event.controller.NewsAcpController;
 import com.athensoft.content.event.entity.Event;
 import com.athensoft.content.event.entity.EventMedia;
@@ -43,7 +44,7 @@ import com.athensoft.util.excel.ExcelExport;
 @Controller
 public class ItemProductAcpController {
 
-	private static final Logger logger = Logger.getLogger(NewsAcpController.class);
+	private static final Logger logger = Logger.getLogger(ItemProductAcpController.class);
 	private static final String ACTION_EDIT = "Edit";
 	private static final String ACTION_DELETE = "Delete";
 	
@@ -121,18 +122,38 @@ public class ItemProductAcpController {
 	        return null;
 	    }
 	 
-	
-	@RequestMapping(value="/item/getDataProductByFilter")
-	@ResponseBody
-	public Map<String, Object>  getDataProductByFilter(@RequestBody ItemProduct itemProduct){
 		
-		logger.info("enterying /item/getDataProductByFilter");
+		@RequestMapping(value="/item/getDataProductByFilter",method=RequestMethod.POST)
+		@ResponseBody
+		public Map<String, Object>  getDataProductByFilter(@RequestParam String itemJSONString){
+			 Map<String, Object> model = new HashMap<String, Object>();
+			logger.info("enterying /item/getDataProductByFilter");
+			
+			JSONObject jsonObject= new JSONObject();
+			ItemProduct itemProduct = jsonObject.parseObject(itemJSONString, ItemProduct.class);
+			
+			System.out.println(itemProduct.toString());
+			
+			List<ItemProduct> listProduct=itemProductService.getDataProductByFilter(itemProduct);
+
+			logger.info("length of entries of product "+ listProduct.size());
+			
+			String[][] data = getData(listProduct, ACTION_EDIT);
+			
+			model.put("draw", new Integer(1));
+			model.put("recordsTotal", new Integer(5));
+			model.put("recordsFiltered", new Integer(5));
+			model.put("data", data);
+			model.put("customActionStatus","OK");
+			model.put("customActionMessage","OK");
+			
+			logger.info("leaving /item/getDataProductByFilter");
+			
+			return model;
+			
+		}
 		
-		logger.info("leaving /item/getDataProductByFilter");
 		
-		return null;
-		
-	}
 	    private List<Map<String, Object>> createExcelRecord(List<ItemProduct> listProduct) {
 	        List<Map<String, Object>> listmap = new ArrayList<Map<String, Object>>();
 	        Map<String, Object> map = new HashMap<String, Object>();
@@ -216,7 +237,7 @@ public class ItemProductAcpController {
 		
 		//data
 		List<ItemProduct> listProduct = itemProductService.findAllProduct();
-		logger.info("Length of news entries: "+ listProduct.size());
+		logger.info("Length of product entries: "+ listProduct.size());
 		
 		String[][] data = getData(listProduct, ACTION_EDIT);
 		
@@ -250,11 +271,15 @@ public class ItemProductAcpController {
 		//String field9 = "";
 		
 		for(int i=0; i<entryLength ; i++){			
-			field0 = "<input type='checkbox' name='id[]' value="+listProduct.get(i).getProdBizId()+">";
+			field0 = "<input type='checkbox' name='id[]' value="+listProduct.get(i).getProdId()+">";
 			field1 = listProduct.get(i).getProdBizId()+"";
 			field2 = listProduct.get(i).getProdSeqNo()+"";
-			field3 = listProduct.get(i).getProdType()+"";
-			field4 = listProduct.get(i).getProdSaleType()+"";
+			field3 = listProduct.get(i).getProdType()==1?"default":
+				listProduct.get(i).getProdType()==2?"new":listProduct.get(i).getProdType()==1?"hot":"n/a"+"";
+
+			field4 =listProduct.get(i).getProdSaleType()==1?"default":
+				listProduct.get(i).getProdSaleType()==2?"new":listProduct.get(i).getProdSaleType()==1?"hot":"n/a"+"";
+
 			field5 = listProduct.get(i).getItemProductI18n().getProdName()+""; 
 			field6 = listProduct.get(i).getProdCreaterDatetime()+"";
 			
@@ -266,7 +291,7 @@ public class ItemProductAcpController {
 			field7 = "<span class='label label-sm label-"+productStatusKey+"'>"+productStatu+"</span>";
 			
 			
-			field8 = "<a href='/acp/item/"+getAction(actionName)+"?prodId="+field1+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+actionName+"</a>";
+			field8 = "<a href='/acp/item/"+getAction(actionName)+"?prodId="+listProduct.get(i).getProdId()+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+actionName+"</a>";
 			//field9 = "<a href='/acp/item/"+getAction(actionName)+"?prodBizId="+field1+"' '><i class='fa fa-pencil'></i> "+"test"+"</a>";
 			
 			//logger.info("field8="+field8);
@@ -322,43 +347,11 @@ public class ItemProductAcpController {
 		System.out.println(itemJSONString);
 		
 		ModelAndView mav = new ModelAndView();
+		JSONObject ic_job= new JSONObject();
+		ItemProduct itemProduct = ic_job.parseObject(itemJSONString, ItemProduct.class);
 		
-		JSONObject ic_job= new JSONObject(itemJSONString);
-		System.out.println(ic_job.getInt("prodId"));
-		ItemProduct itemProduct  = new ItemProduct();
-		itemProduct.setProdId(ic_job.getString("prodId"));
-		itemProduct.setProdBizId(ic_job.getString("bizId"));
-		itemProduct.setProdSeqNo(ic_job.getString("prodSeqNo"));
-		itemProduct.setProdStatus(ic_job.getString("prodStatus"));
-		itemProduct.setProdType(ic_job.getString("prodType"));
-		itemProduct.setProdSaleType(ic_job.getString("prodSaleType"));
-		ItemProductI18n i18n = new ItemProductI18n();
-		i18n.setProdName(ic_job.getString("prodName"));
-		i18n.setProdNameAlias(ic_job.getString("prodNameAlias"));
-		i18n.setProdDesc(ic_job.getString("prodDesc"));
-		i18n.setProdDescLong(ic_job.getString("prodDescLong"));
-		
-		
-		itemProduct.setItemProductI18n(i18n);
 		itemProductService.updateProduct(itemProduct);
 		
-
-		
-		//view	
-		/*String viewName = "item/productListData";
-		mav.setViewName(viewName);
-	
-		
-		/*
-		//data
-		Map<String, Object> model = mav.getModel();
-		*/
-		
-		
-		/*//data - news
-		ItemProduct product = itemProductService.getProductByProdBizId(prodId);	
-		model.put("productObject", product);*/
-
 		logger.info("leaving /item/product_edit");
 		Map<String,Object> map=new HashMap<String, Object>();
         map.put("success",true);
