@@ -15,10 +15,12 @@ import java.util.Map;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.model.Workbook;
+import org.junit.runner.Request;
 /*import org.json.JSONObject;*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.GsonBuilderUtils;
@@ -80,8 +82,15 @@ public class ItemProductAcpController {
 	public ModelAndView exportProductExcel(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		 
 			String fileName="item_product_list";
+			HttpSession session = request.getSession();
+			List<ItemProduct> listProduct =(	List<ItemProduct>) session.getAttribute("listProductByFilter");
 	    
-			List<ItemProduct> listProduct = itemProductService.findAllProduct();
+			if(null==listProduct){
+				listProduct = itemProductService.findAllProduct();
+			}
+		
+			
+			
 	        List<Map<String,Object>> list=createExcelRecord(listProduct);
 	        String columnNames[]={"Product ID","Business ID","Sequence Number","Description",
 	        					"Description Long","Product Name "," Product Name alias","Product Type",
@@ -125,7 +134,7 @@ public class ItemProductAcpController {
 		
 		@RequestMapping(value="/item/getDataProductByFilter",method=RequestMethod.POST)
 		@ResponseBody
-		public Map<String, Object>  getDataProductByFilter(@RequestParam String itemJSONString){
+		public Map<String, Object>  getDataProductByFilter(@RequestParam String itemJSONString,HttpServletRequest request){
 			 Map<String, Object> model = new HashMap<String, Object>();
 			logger.info("enterying /item/getDataProductByFilter");
 			
@@ -136,6 +145,10 @@ public class ItemProductAcpController {
 			
 			List<ItemProduct> listProduct=itemProductService.getDataProductByFilter(itemProduct);
 
+			HttpSession session = request.getSession();
+			session.setAttribute("listProductByFilter", listProduct);
+			
+			
 			logger.info("length of entries of product "+ listProduct.size());
 			
 			String[][] data = getData(listProduct, ACTION_EDIT);
@@ -230,9 +243,11 @@ public class ItemProductAcpController {
 	 */
 	@RequestMapping(value="/item/productListData",produces="application/json")
 	@ResponseBody
-	public Map<String,Object> getDataProductList(){
+	public Map<String,Object> getDataProductList(HttpServletRequest request){
 		logger.info("entering /item/productListData");
 		
+		HttpSession session = request.getSession();
+		session.invalidate();
 		ModelAndView mav = new ModelAndView();
 		
 		//data

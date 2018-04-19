@@ -198,14 +198,14 @@ function filterSearch(){
 
 /* list news - datatable:button:filter reset */
 function filterReset(){
-//	alert("do filterReset()");
-	var p2 = $("#eventUUID").val("");
-    var p3 = $("#eventTitle").val("");        
-    var p4 = $("#eventAuthor").val("");
-    var p5a = $("#postDatetimeFrom").val("");
-    var p5b = $("#postDatetimeTo").val("");
-    var p6a = $("#viewNumFrom").val("");
-    var p6b = $("#viewNumTo").val("");
-    var p9 = $("#eventClass").val(0);
-    var p10 = $("#eventStatus").val(0);
+//	alert("do filterReset()");44
+
+	 $("#prodBizId").val("");        
+    $("#prodSeqNo").val("");
+ 	 $("#prodType").val(0);
+    $("#prodStatus").val(0);
+    $("#prodSaleType").val(0);
+    $("#createDatetimeFrom").val("");
+    $("#createDatetimeTo").val("");
+    $("#prodName").val("");
 }

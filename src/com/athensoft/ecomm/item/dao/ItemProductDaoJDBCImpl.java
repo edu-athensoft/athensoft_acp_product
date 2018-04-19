@@ -263,13 +263,13 @@ public List<ItemProduct> findProductsByFilter(ItemProduct itemProduct) {
 		if(itemProduct.getProdCreaterDatetime().contains(",")){
 			String[] datetimes= itemProduct.getProdCreaterDatetime().split(",");
 			//System.out.println(datetimes[0]+", "+datetimes[1]);
-			//  7,8  ,8  7,
+			//  7,8  ,8  7,  0,0
 		
 		
 			if(datetimes.length==1){
 				sbf.append("  prod_create_datetime >= ");
 				sbf.append(" '"+ datetimes[0]+"' and ");
-			}else {
+			}else if(datetimes.length==2){
 				sbf.append("  prod_create_datetime between ");
 				sbf.append(" '"+ datetimes[0]+"' and ");
 				sbf.append(" '"+ datetimes[1]+"' and ");
