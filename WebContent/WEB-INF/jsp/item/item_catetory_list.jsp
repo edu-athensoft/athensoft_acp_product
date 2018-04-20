@@ -147,7 +147,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="caption">
                                         <i class="fa fa-shopping-cart"></i>Category Listing <span class="caption-helper">listing product or service categories</span></div>
                                     <div class="actions">
-                                        <a href="eventsNewsCreate" class="btn btn-circle btn-info">
+                                        <a href="categoryCreate" class="btn btn-circle btn-info">
                                             <i class="fa fa-plus"></i><span class="hidden-xs"> Create category </span>
                                         </a>
                                         <div class="btn-group">

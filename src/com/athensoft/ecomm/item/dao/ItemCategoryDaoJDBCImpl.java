@@ -71,22 +71,22 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 	}
 
 	public List<ItemCategory> findTreeByCategoryId(int categoryId){
-		final String TABLE1 = "view_item_category_i18n";
+		final String TABLE1 = "item_category ,item_category_i18n ";
 		
 		StringBuffer sbf = new StringBuffer();
-		sbf.append("SELECT ");
-		sbf.append("category_id,");
+		sbf.append("SELECT distinct ");
+		sbf.append("item_category.category_id,");
 		sbf.append("parent_id,");
 		sbf.append("category_code,");
-		sbf.append("category_name,");
-		sbf.append("category_desc,");
+		sbf.append("item_category.category_name,");
+		sbf.append("item_category.category_desc,");
 		sbf.append("category_level,");
 		sbf.append("category_status,");
 		sbf.append("tree_ui_id ");
 		sbf.append("FROM "+TABLE1+ " ");
 		sbf.append("WHERE 1=1 ");
-		sbf.append("AND lang_no = 1033 ");
-		sbf.append("AND FIND_IN_SET(category_id, getChildList(:category_id)) ");
+		sbf.append("AND item_category_i18n.lang_no = 1033 ");
+		/*sbf.append("AND FIND_IN_SET(item_category.category_id, getChildList(:category_id)) ");*/
 		sbf.append("AND category_status = "+ItemCategoryStatus.AVAILABLE+ " ");
 		sbf.append("ORDER BY category_code ");
 		
