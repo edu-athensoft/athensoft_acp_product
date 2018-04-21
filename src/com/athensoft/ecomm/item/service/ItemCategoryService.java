@@ -41,8 +41,9 @@ public class ItemCategoryService {
 	}
 	
 	//findTreeByCategoryId
-	public List<ItemCategory> findTreeByCategoryId(int categoryId) {
-		return this.itemCategoryDao.findTreeByCategoryId(categoryId);
+	public List<ItemCategory> findCategoryTreeByCategoryId(int categoryId) { 
+		
+		return this.itemCategoryDao.findCategoryTreeByCategoryId(categoryId);
 	}
 
 	public ItemCategory findByCategoryCode(String categoryCode) {

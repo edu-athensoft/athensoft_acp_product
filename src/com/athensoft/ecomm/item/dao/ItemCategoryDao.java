@@ -24,7 +24,7 @@ public interface ItemCategoryDao {
 	 * @return
 	 * @author Athens
 	 */
-	public List<ItemCategory> findTreeByCategoryId(int categoryId);
+	public List<ItemCategory> findCategoryTreeByCategoryId(int categoryId);
 	
 	/**
 	 * @param categoryId

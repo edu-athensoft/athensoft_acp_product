@@ -70,9 +70,8 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 		return x;
 	}
 
-	public List<ItemCategory> findTreeByCategoryId(int categoryId){
+	public List<ItemCategory> findCategoryTreeByCategoryId(int categoryId){
 		final String TABLE1 = "item_category ,item_category_i18n ";
-		
 		StringBuffer sbf = new StringBuffer();
 		sbf.append("SELECT distinct ");
 		sbf.append("item_category.category_id,");

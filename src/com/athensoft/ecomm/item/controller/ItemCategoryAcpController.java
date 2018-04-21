@@ -160,19 +160,14 @@ public class ItemCategoryAcpController {
 	@RequestMapping(value="/item/categoryListData",produces="application/json")
 	@ResponseBody
 	public Map<String,Object> getDataItemCategoryList(){
-		logger.info("entering /item/categoryListData");
-		
+		logger.info("entering /item/categoryListData");	
 		ModelAndView mav = new ModelAndView();
-		
-		//data
-//		List<ItemCategory> listCategory = itemCategoryService.findAll();
+	//data
 		List<ItemCategory> listCategory = new ArrayList<ItemCategory>();
-		listCategory = itemCategoryService.findTreeByCategoryId(1);
+		listCategory = itemCategoryService.findCategoryTreeByCategoryId(1);
 		logger.info("Length of news entries: "+ listCategory.size());
 		
 		String[][] data = getData(listCategory);
-		
-		//ArrayHelper.printArray(data);
 		
 		Map<String, Object> model = mav.getModel();
 		
