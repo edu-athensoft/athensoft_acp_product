@@ -10,7 +10,9 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -267,6 +269,34 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 			x = 0;
 		}
 		return x;
+	}
+
+	@Override
+	public List<String> findAllParentCategories() {
+
+		String sql = "select distinct category_name from item_category order by category_code ";
+		MapSqlParameterSource paramSource = new MapSqlParameterSource();
+
+		List<String> listCategoryName=(List<String>) jdbc.query(sql, new ResultSetExtractor<List<String>>() {
+
+			@Override
+			public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// TODO Auto-generated method stub
+				
+				List<String>  listString=new ArrayList<String>();
+				 while (rs.next()) {  
+	                 
+					 listString.add(rs.getString("category_name"));  
+	                }  
+				return listString;
+			}
+		});
+		for (String string : listCategoryName) {
+			System.out.println(string);
+		}
+		
+		
+		return listCategoryName;
 	}
 
 }

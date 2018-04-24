@@ -96,6 +96,45 @@ public class ItemCategoryAcpController {
 	}
 	
 	/**
+	 * go to the view of item category create
+	 * @return the target view name 
+	 */
+	@RequestMapping(value="/item/itemCategoryCreate")
+	public ModelAndView gotoCategoryCreate(){
+		
+		logger.info("entering /item/itemCategoryCreate");
+		
+		ModelAndView mav= new ModelAndView();
+		mav.setViewName("item/item_category_create");
+		
+		logger.info("leaving /item/itemCategoryCreate");
+		
+		return mav;
+	}
+	
+	/**
+	 * get all the parent category 
+	 * @return the data 
+	 */
+	@RequestMapping(value="/item/getAllCategoryParent")
+	@ResponseBody
+	public Map<String,Object> getAllCategoryParent(){
+		
+		logger.info("entering /item/getAllCategoryParent");
+		Map<String,Object>  model = new HashMap<String,Object>();
+		
+		List<String> listCategoryName=itemCategoryService.findAllParentCategories();
+		System.out.println("123123123");
+		model.put("success", true);
+		model.put("data", listCategoryName);
+		
+		
+		logger.info("leaving /item/getAllCategoryParent");
+		
+		return model;
+	}
+	
+	/**
 	 * go to the view of item category
 	 * @return the target view name 
 	 */

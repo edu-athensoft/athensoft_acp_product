@@ -75,4 +75,9 @@ public class ItemCategoryService {
 		this.itemCategoryDao.deleteItemCategoryByCategoryId(categoryId);
 	}
 
+	public List<String> findAllParentCategories() {
+		// TODO Auto-generated method stub
+		return this.itemCategoryDao.findAllParentCategories();
+	}
+
 }

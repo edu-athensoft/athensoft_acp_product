@@ -83,6 +83,8 @@ public interface ItemCategoryDao {
 	 * @author Fangze Sun
 	 */
 	public void deleteItemCategoryByCategoryId(long categoryId);
+
+	public List<String> findAllParentCategories();
 	
 
 }

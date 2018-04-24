@@ -31,6 +31,7 @@ function createProduct() {
     //execute saving
     $.ajax({
     	type    :    "post",
+    	
         url        : "newCreateProduct",
         contentType	:'application/json;charset=utf-8',
         data 		:dd,
