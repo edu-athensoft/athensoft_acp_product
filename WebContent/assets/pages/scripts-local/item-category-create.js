@@ -9,8 +9,7 @@ $().ready(function(){
 	
 	$.ajax({
     	type    :    "post",
-    	async: false,
-    	dataType:    "json",
+    	
         url        : "getAllCategoryParent",
   
         success:function(data){
@@ -18,9 +17,18 @@ $().ready(function(){
         	var listCategories =data['data'];
         	var  selectParent = $("#parentId");
         	for(i=0;i<listCategories.length;i++){
-        		//alert(listCategories[i]);
+        		alert(listCategories[i]);
         		
-        		selectParent.append("<option>"+listCategories[i]+"</option>");
+        		if(listCategories[i].categoryName=="ROOT"){
+        			selectParent.append(
+            				"<option selected>"+listCategories[i].categoryId+"---"+listCategories[i].categoryName+"</option>"
+            		);
+        		}else{
+        			selectParent.append(
+            				"<option >"+listCategories[i].categoryId+"---"+listCategories[i].categoryName+"</option>"
+            		);
+            		
+        		}
         		
         	}
         },

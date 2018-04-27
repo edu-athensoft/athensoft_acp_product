@@ -272,27 +272,32 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 	}
 
 	@Override
-	public List<String> findAllParentCategories() {
+	public List<ItemCategory> findAllParentCategories() {
 
-		String sql = "select distinct category_name from item_category order by category_code ";
+		String sql = "select distinct category_id, category_name,parent_id, category_code from item_category order by category_id ";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 
-		List<String> listCategoryName=(List<String>) jdbc.query(sql, new ResultSetExtractor<List<String>>() {
+		List<ItemCategory> listCategoryName=(List<ItemCategory>) jdbc.query(sql, new ResultSetExtractor<List<ItemCategory>>() {
 
 			@Override
-			public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+			public List<ItemCategory> extractData(ResultSet rs) throws SQLException, DataAccessException {
 				// TODO Auto-generated method stub
 				
-				List<String>  listString=new ArrayList<String>();
+				List<ItemCategory>  listString=new ArrayList<ItemCategory>();
 				 while (rs.next()) {  
-	                 
-					 listString.add(rs.getString("category_name"));  
+					 ItemCategory x = new ItemCategory();
+					 x.setCategoryCode(rs.getString("category_code"));
+					 x.setParentId(rs.getLong("parent_id"));
+					 x.setCategoryName(rs.getString("category_name"));
+					 x.setCategoryId(rs.getInt("category_id"));
+					 
+					 listString.add(x);  
 	                }  
 				return listString;
 			}
 		});
-		for (String string : listCategoryName) {
-			System.out.println(string);
+		for (ItemCategory items : listCategoryName) {
+			System.out.println(items.getParentId());
 		}
 		
 		

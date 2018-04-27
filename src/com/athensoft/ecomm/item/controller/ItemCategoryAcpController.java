@@ -123,7 +123,7 @@ public class ItemCategoryAcpController {
 		logger.info("entering /item/getAllCategoryParent");
 		Map<String,Object>  model = new HashMap<String,Object>();
 		
-		List<String> listCategoryName=itemCategoryService.findAllParentCategories();
+		List<ItemCategory> listCategoryName=itemCategoryService.findAllParentCategories();
 		System.out.println("123123123");
 		model.put("success", true);
 		model.put("data", listCategoryName);
@@ -346,6 +346,7 @@ public class ItemCategoryAcpController {
 		
 		ModelAndView mav = new ModelAndView();
 		
+		System.out.println(parent+","+text);
 		//view
 		String viewName = "item/testcategory";
 		mav.setViewName(viewName);

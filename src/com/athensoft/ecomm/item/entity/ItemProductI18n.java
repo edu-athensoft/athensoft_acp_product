@@ -2,9 +2,9 @@ package com.athensoft.ecomm.item.entity;
 
 public class ItemProductI18n {
 	
-	private int prodI18nId;
+	private Integer prodI18nId;
 	private Long prodId;
-	private int langNo;
+	private Integer langNo;
 	private String prodName;
 	private String prodNameAlias;
 	private String prodDesc;

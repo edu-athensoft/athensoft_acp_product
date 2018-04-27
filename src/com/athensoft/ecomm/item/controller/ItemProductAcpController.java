@@ -40,6 +40,7 @@ import com.athensoft.content.event.entity.EventMedia;
 import com.athensoft.content.event.entity.News;
 import com.athensoft.ecomm.item.entity.ItemProduct;
 import com.athensoft.ecomm.item.entity.ItemProductI18n;
+import com.athensoft.ecomm.item.entity.ItemProductStatus;
 import com.athensoft.ecomm.item.service.ItemProductService;
 import com.athensoft.util.excel.ExcelExport;
 
@@ -107,7 +108,7 @@ public class ItemProductAcpController {
 	        InputStream is = new ByteArrayInputStream(content);
 	        response.reset();
 	        response.setContentType("application/vnd.ms-excel;charset=utf-8");
-	        response.setHeader("Content-Disposition", "attachment;filename="+ new String((fileName + ".xls").getBytes(), "iso-8859-1"));
+	        response.setHeader("Content-Disposition", "attachment;filename="+ new String((fileName + ".xls").getBytes(), "utf-8"));
 	        ServletOutputStream out = response.getOutputStream();
 	        BufferedInputStream bis = null;
 	        BufferedOutputStream bos = null;
@@ -289,11 +290,11 @@ public class ItemProductAcpController {
 			field0 = "<input type='checkbox' name='id[]' value="+listProduct.get(i).getProdId()+">";
 			field1 = listProduct.get(i).getProdBizId()+"";
 			field2 = listProduct.get(i).getProdSeqNo()+"";
-			field3 = listProduct.get(i).getProdType()==1?"default":
-				listProduct.get(i).getProdType()==2?"new":listProduct.get(i).getProdType()==1?"hot":"n/a"+"";
+			field3 = listProduct.get(i).getProdType()==1?"Product":
+				listProduct.get(i).getProdType()==2?"Digital":listProduct.get(i).getProdType()==3?"Service":"n/a"+"";
 
-			field4 =listProduct.get(i).getProdSaleType()==1?"default":
-				listProduct.get(i).getProdSaleType()==2?"new":listProduct.get(i).getProdSaleType()==1?"hot":"n/a"+"";
+			field4 =listProduct.get(i).getProdSaleType()==1?"Online":
+				listProduct.get(i).getProdSaleType()==2?"Outlet":listProduct.get(i).getProdSaleType()==3?"Both":"n/a"+"";
 
 			field5 = listProduct.get(i).getItemProductI18n().getProdName()+""; 
 			field6 = listProduct.get(i).getProdCreaterDatetime()+"";
@@ -397,20 +398,20 @@ public class ItemProductAcpController {
 		String productStatusKey="";
 		
 		switch(product.getProdStatus()){
-			case ItemProduct.NEWCREATED: 
+			case ItemProductStatus.NEWCREATED: 
 				productStatus = "new";
 				productStatusKey="warning";
 				break;
-			case ItemProduct.PUBLISHED:
+			case ItemProductStatus.PUBLISHED:
 				productStatus = "published";
 				productStatusKey="success";
 
 				break;
-			case ItemProduct.UNPUBLISHED: 
+			case ItemProductStatus.UNPUBLISHED: 
 				productStatus = "unpublished";
 				productStatusKey="danger";
 				break;
-			case ItemProduct.DELETED: 
+			case ItemProductStatus.DELETED: 
 				productStatus = "deleted";
 				productStatusKey="DEFAULT";
 				break;

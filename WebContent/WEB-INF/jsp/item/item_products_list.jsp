@@ -216,18 +216,18 @@ License: You must have a valid license purchased only from themeforest(the above
 													<td>
 													<select class="form-control form-filter input-sm" name="prodType" id="prodType">
 															<option value="0">Select...</option>
-															<option value="1">Default</option>
-															<option value="2">New</option>
-															<option value="3">Hot</option>
+															<option value="1">Product</option>
+															<option value="2">Digital</option>
+															<option value="3">Service</option>
 														</select>
 													
 													</td>
 													<td>
 														<select class="form-control form-filter input-sm" name="prodSaleType" id="prodSaleType">
 															<option value="0">Select...</option>
-															<option value="1">Default</option>
-															<option value="2">New</option>
-															<option value="3">Hot</option>
+															<option value="1">Online</option>
+															<option value="2">Outlet</option>
+															<option value="3">Both</option>
 														</select>
 													</td>
 													<td>

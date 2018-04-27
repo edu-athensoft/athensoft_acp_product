@@ -97,7 +97,7 @@ class ItemProductRowMapper implements RowMapper<ItemProduct>{
 		ItemProduct x= new ItemProduct();
 		ItemProductI18n i18n= new ItemProductI18n();
 		x.setProdId(rs.getLong("prod_id"));
-		x.setProdBizId(rs.getInt("prod_biz_id"));
+		x.setProdBizId(rs.getLong("prod_biz_id"));
 		x.setBrandId(rs.getInt("brand_id"));
 		x.setProdStatus(rs.getInt("prod_status"));
 		x.setProdType(rs.getInt("prod_type"));
@@ -187,8 +187,8 @@ public int createProduct(ItemProduct itemProduct) {
 		final String TABLE2 = "item_product_i18n";
 		StringBuffer sbf2 = new StringBuffer();
 				/*+ "(,author,post_datetime,view_num,desc_short,desc_long,event_class,event_status) ");*/
-		sbf2.append("insert into "+TABLE2+" (prod_desc, prod_desc_long, prod_name, prod_name_alias,lang_no) ");
-		sbf2.append(" values( :prod_desc, :prod_desc_long, :prod_name, :prod_name_alias, :lang_no)");
+		sbf2.append("insert into "+TABLE2+" (prod_id,prod_desc, prod_desc_long, prod_name, prod_name_alias,lang_no) ");
+		sbf2.append(" values(:prod_id,:prod_desc, :prod_desc_long, :prod_name, :prod_name_alias, :lang_no)");
 		
 		String sql = sbf.toString();
 		String sql2 = sbf2.toString();
@@ -216,6 +216,9 @@ public int createProduct(ItemProduct itemProduct) {
 		System.out.println(sql);
 	
 			int result =jdbc.update(sql, paramSource, keyholder);
+			System.out.println("key1 :"+keyholder.getKey().intValue());
+			paramSource.addValue("prod_id", keyholder.getKey().intValue());
+
 			int result2 = jdbc.update(sql2, paramSource, keyholder);
 		 
 			if(result==1 && result2==1){
@@ -240,10 +243,10 @@ public List<ItemProduct> findProductsByFilter(ItemProduct itemProduct) {
 				+ " item_product ip,"
 				+ "item_product_i18n ipi, "
 				+ "info_language il where ");
-	if(itemProduct.getProdBizId()!=0){
+	if(itemProduct.getProdBizId()!= null){
 		sbf.append(" prod_biz_id like '%"+itemProduct.getProdBizId()+"%' and ");
 	}
-	if(itemProduct.getProdSeqNo()!=0){
+	if(itemProduct.getProdSeqNo()!=null){
 		sbf.append("  prod_seqno like '%"+itemProduct.getProdSeqNo()+"%' and ");
 	}
 	if(itemProduct.getProdSaleType()!=0){

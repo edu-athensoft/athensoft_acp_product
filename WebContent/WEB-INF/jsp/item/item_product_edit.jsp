@@ -237,9 +237,9 @@ License: You must have a valid license purchased only from themeforest(the above
 														<div class="col-md-10">
 															<select class="table-group-action-input form-control input-medium" id="prodType" name="prod_type">
 																<option value="0" ${productObject.prodType == '0' ? 'selected' : ''}>Select...</option>
-																<option value="1" ${productObject.prodType == '1' ? 'selected' : ''}>Default</option>
-																<option value="2" ${productObject.prodType == '2' ? 'selected' : ''}>New</option>
-																<option value="3" ${productObject.prodType == '3' ? 'selected' : ''}>Hot</option>
+																<option value="1" ${productObject.prodType == '1' ? 'selected' : ''}>Product</option>
+																<option value="2" ${productObject.prodType == '2' ? 'selected' : ''}>Digital</option>
+																<option value="3" ${productObject.prodType == '3' ? 'selected' : ''}>Service</option>
 															</select>
 														</div>
 													</div>
@@ -251,11 +251,10 @@ License: You must have a valid license purchased only from themeforest(the above
 														<div class="col-md-10">
 															<select class="table-group-action-input form-control input-medium" id="prodStatus" name="prod_status">
 																<option value="0" ${productObject.prodStatus == '0' ? 'selected' : ''}>Select...</option>
-																<option value="1" ${productObject.prodStatus == '1' ? 'selected' : ''}>Published</option>
-																<option value="2" ${productObject.prodStatus == '2' ? 'selected' : ''}>Wait to post</option>
-																<option value="3" ${productObject.prodStatus == '3' ? 'selected' : ''}>Deleted</option>
-																<option value="4" ${productObject.prodStatus == '4' ? 'selected' : ''}>Out of date</option>
-																<option value="5" ${productObject.prodStatus == '5' ? 'selected' : ''}>Suspended</option>
+																<option value="1" ${productObject.prodStatus == '1' ? 'selected' : ''}>New</option>
+																<option value="2" ${productObject.prodStatus == '2' ? 'selected' : ''}>Published</option>
+																<option value="3" ${productObject.prodStatus == '3' ? 'selected' : ''}>Unpublished</option>
+																<option value="4" ${productObject.prodStatus == '4' ? 'selected' : ''}>Deleted</option>
 															</select>
 														</div>
 													</div>
@@ -264,11 +263,11 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
-															<select class="table-group-action-input form-control input-medium" id="prodType" name="prod_type">
+															<select class="table-group-action-input form-control input-medium" id="prodSaleType" name="prod_sale_type">
 																<option value="0" ${productObject.prodSaleType == '0' ? 'selected' : ''}>Select...</option>
-																<option value="1" ${productObject.prodSaleType == '1' ? 'selected' : ''}>Default</option>
-																<option value="2" ${productObject.prodSaleType == '2' ? 'selected' : ''}>New</option>
-																<option value="3" ${productObject.prodSaleType == '3' ? 'selected' : ''}>Hot</option>
+																<option value="1" ${productObject.prodSaleType == '1' ? 'selected' : ''}>Online</option>
+																<option value="2" ${productObject.prodSaleType == '2' ? 'selected' : ''}>Outlet</option>
+																<option value="3" ${productObject.prodSaleType == '3' ? 'selected' : ''}>Both</option>
 															</select>
 														</div>
 													</div>

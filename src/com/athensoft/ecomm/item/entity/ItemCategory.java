@@ -2,13 +2,13 @@ package com.athensoft.ecomm.item.entity;
 
 public class ItemCategory {
 	
-	private long 		categoryId;
-	private long 		parentId;
+	private Long 		categoryId;
+	private Long 		parentId;
 	private String 		categoryName;
 	private String 		categoryDesc;
 	private String 		categoryCode;
-	private int			categoryLevel;
-	private int			categoryStatus;
+	private Integer			categoryLevel;
+	private Integer			categoryStatus;
 	
 	
 	public long getCategoryId() {

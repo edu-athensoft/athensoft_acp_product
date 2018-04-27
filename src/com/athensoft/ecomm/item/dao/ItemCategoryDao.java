@@ -84,7 +84,7 @@ public interface ItemCategoryDao {
 	 */
 	public void deleteItemCategoryByCategoryId(long categoryId);
 
-	public List<String> findAllParentCategories();
+	public List<ItemCategory> findAllParentCategories();
 	
 
 }

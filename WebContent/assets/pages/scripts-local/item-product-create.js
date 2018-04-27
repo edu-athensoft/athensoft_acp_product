@@ -9,10 +9,7 @@ function backToProductList(){
 
 /* create news - button:save change,create */
 function createProduct() {
-	alert("123123");
-    //alert(JSON.stringify(businessObject));
     var itemProductObject = getProductObject();
-    alert(JSON.stringify(itemProductObject))
     /* validating by business rule */
     //event title
    // var prodSeqNo = itemProductObject.prodSeqNo;
