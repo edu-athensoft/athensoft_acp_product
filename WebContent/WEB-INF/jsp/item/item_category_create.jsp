@@ -160,9 +160,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <i class="fa fa-angle-left"></i> Back</button>
                                             <button class="btn btn-secondary-outline" onclick="resetProduct(); return false;">
                                                 <i class="fa fa-reply"></i> Reset</button>
-                                            <button class="btn btn-success" onclick="createProduct(); return false;">
+                                            <button class="btn btn-success" onclick="createCategory(); return false;">
                                                 <i class="fa fa-check"></i> Save</button>
-                                            <button class="btn btn-success" onclick="createProductAndContinue(); return false;" >
+                                            <button class="btn btn-success" onclick="createCategoryAndContinue(); return false;" >
                                                 <i class="fa fa-check-circle"></i> Save &amp; Continue Edit</button>
                                             <div class="btn-group">
                                                 <a class="btn btn-success dropdown-toggle" href="javascript:;" data-toggle="dropdown">
@@ -208,6 +208,9 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
+													<input type="hidden" class="form-control" name="categoryId" id="categoryId"  placeholder="" >
+														<input type="hidden" class="form-control" name="categoryCode" id="categoryCode"  placeholder="" >
+														
 															<input type="text" class="form-control" name="categoryName" id="categoryName"  placeholder="" >
 														</div>
 													</div>

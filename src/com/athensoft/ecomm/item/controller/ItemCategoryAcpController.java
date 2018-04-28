@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.athensoft.content.event.entity.Event;
 import com.athensoft.ecomm.item.entity.ItemCategory;
 import com.athensoft.ecomm.item.entity.ItemCategoryStatus;
+import com.athensoft.ecomm.item.entity.ItemProduct;
 import com.athensoft.ecomm.item.service.ItemCategoryService;
 import com.athensoft.util.Node;
 import com.athensoft.util.matrix.ArrayHelper;
@@ -126,6 +128,7 @@ public class ItemCategoryAcpController {
 		List<ItemCategory> listCategoryName=itemCategoryService.findAllParentCategories();
 		System.out.println("123123123");
 		model.put("success", true);
+		System.out.println(JSON.toJSONString(listCategoryName.toString()));
 		model.put("data", listCategoryName);
 		
 		
@@ -221,6 +224,33 @@ public class ItemCategoryAcpController {
 		return model;
 	}
 	
+	
+	@RequestMapping(value="/item/newCreateCategory",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object>  createCategory(@RequestBody ItemCategory itemCategory){
+	
+		logger.info("entering  /item/newCreateCategory");
+		
+		ModelAndView mav = new ModelAndView();
+		//System.out.println(" name "+itemCategory.getCategoryName());
+		Map<String, Object> model=mav.getModel();
+
+		int result = itemCategoryService.createCategory(itemCategory);
+		
+		if(result==1){
+			model.put("success", true);
+			model.put("msg","ok");
+		}else{
+			model.put("error", false);
+			model.put("msg","no");
+		}
+		
+	
+
+		logger.info("leaving /item/newCreateCategory");
+	
+		return model;
+	}
 	
 	/**
 	 * @param itemJSONString

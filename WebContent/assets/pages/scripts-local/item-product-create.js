@@ -10,21 +10,11 @@ function backToProductList(){
 /* create news - button:save change,create */
 function createProduct() {
     var itemProductObject = getProductObject();
-    /* validating by business rule */
-    //event title
-   // var prodSeqNo = itemProductObject.prodSeqNo;
-  /*  if(isEmptyString(prodSeqNo)){
-    	alert("WARNING:product sequence number  must not be empty!");
-    	return;
-    }
-    var proBizId = itemProductObject.bizId;
-    if(isEmptyString(bizId)){
-    	alert("WARNING: business ID must not be empty!");
-    	return;
-    }
-    alert("asdads");*/
+  
+    
     var dd=JSON.stringify(itemProductObject);
-   
+	   alert(dd);
+
     //execute saving
     $.ajax({
     	type    :    "post",

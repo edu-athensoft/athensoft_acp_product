@@ -289,7 +289,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 					 x.setCategoryCode(rs.getString("category_code"));
 					 x.setParentId(rs.getLong("parent_id"));
 					 x.setCategoryName(rs.getString("category_name"));
-					 x.setCategoryId(rs.getInt("category_id"));
+					 x.setCategoryId(rs.getLong("category_id"));
 					 
 					 listString.add(x);  
 	                }  
@@ -302,6 +302,36 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 		
 		
 		return listCategoryName;
+	}
+
+	@Override
+	public int createCategory(ItemCategory itemCategory) {
+		final String TABLE1 = "item_category";
+
+		String sql = "insert into "+TABLE1+"(category_code"
+				+ ",category_name"
+				+ ",parent_id,"
+				+ "category_status,"
+				+ "category_level,"
+				+ "category_desc) values("
+				+ ":category_code,"
+				+ ":category_name,"
+				+ ":parent_id,"
+				+ ":category_status,"
+				+ ":category_level,"
+				+ ":category_desc); ";
+		
+		MapSqlParameterSource paramSource = new MapSqlParameterSource();
+		paramSource.addValue("category_code", itemCategory.getCategoryCode());
+		paramSource.addValue("category_name", itemCategory.getCategoryName());
+		paramSource.addValue("category_desc", itemCategory.getCategoryDesc());
+		paramSource.addValue("category_status", itemCategory.getCategoryStatus());
+		paramSource.addValue("category_level", itemCategory.getCategoryLevel());
+		paramSource.addValue("parent_id", itemCategory.getParentId());
+		
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		
+		return jdbc.update(sql, paramSource, keyHolder);
 	}
 
 }

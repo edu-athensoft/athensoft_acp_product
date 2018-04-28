@@ -80,4 +80,9 @@ public class ItemCategoryService {
 		return this.itemCategoryDao.findAllParentCategories();
 	}
 
+	public int createCategory(ItemCategory itemCategory) {
+		// TODO Auto-generated method stub
+		return this.itemCategoryDao.createCategory(itemCategory);
+	}
+
 }
