@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.athensoft.ecomm.item.dao.ItemCategoryDao;
+import com.athensoft.ecomm.item.dao.ItemCategoryI18nDao;
 import com.athensoft.ecomm.item.entity.ItemCategory;
 
 /**
@@ -14,11 +16,18 @@ import com.athensoft.ecomm.item.entity.ItemCategory;
  *
  */
 @Service
+@Transactional(rollbackFor=Exception.class)
 public class ItemCategoryService {
 	
 	@Autowired
 	@Qualifier("itemCategoryDaoJDBCImpl")
 	private ItemCategoryDao itemCategoryDao;
+
+	@Autowired
+	@Qualifier("itemCategoryI18nDaoJDBCImpl")
+	private ItemCategoryI18nDao itemCategoryI18nDao;
+	
+	
 
 	public void setItemCategoryDao(ItemCategoryDao itemCategoryDao) {
 		this.itemCategoryDao = itemCategoryDao;
@@ -82,7 +91,16 @@ public class ItemCategoryService {
 
 	public int createCategory(ItemCategory itemCategory) {
 		// TODO Auto-generated method stub
-		return this.itemCategoryDao.createCategory(itemCategory);
+		int result1 = this.itemCategoryDao.createCategory(itemCategory);
+		int result2 = this.itemCategoryI18nDao.createCategoryI18n(itemCategory,result1);
+		
+		if(result1==1&&result2==1){
+			return 1;
+		}else{
+			return 2;
+		}
+		
+		
 	}
 
 }

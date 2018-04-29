@@ -26,14 +26,14 @@ import com.athensoft.util.id.UUIDHelper;
 
 @Component
 @Qualifier("itemCategoryDaoJDBCImpl")
-public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
-	
+public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
+
 	private static final Logger logger = Logger.getLogger(ItemCategoryDaoJDBCImpl.class);
-	
+
 	private NamedParameterJdbcTemplate jdbc;
-	
+
 	@Autowired
-	public void setDataSource(DataSource dataSource){
+	public void setDataSource(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
@@ -41,93 +41,91 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 	public List<ItemCategory> findAll() {
 		String sql = "select * from item_category where category_level > 0 order by category_level, category_code";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-//		paramSource.addValue("global_id", globalId);
+		// paramSource.addValue("global_id", globalId);
 		List<ItemCategory> x = new ArrayList<ItemCategory>();
-		try{
+		try {
 			x = jdbc.query(sql, paramSource, new ItemCategoryRowMapper());
-		}catch(EmptyResultDataAccessException ex){
-			x = null;
-		}
-		return x;
-	}
-	
-	@Override
-	public List<ItemCategory> findByFilter(String queryString) {
-		final String TABLE1 = "view_item_category_i18n";
-		
-		StringBuffer sbf = new StringBuffer();
-		sbf.append(" SELECT * FROM "+TABLE1);
-		sbf.append(" where 1=1 ");
-		sbf.append(" AND lang_no=1033 ");
-		sbf.append(queryString);
-		String sql = sbf.toString();
-		
-		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-		List<ItemCategory> x = new ArrayList<ItemCategory>();
-		try{
-			x = jdbc.query(sql, paramSource, new ItemCategoryRowMapper());
-		}catch(EmptyResultDataAccessException ex){
+		} catch (EmptyResultDataAccessException ex) {
 			x = null;
 		}
 		return x;
 	}
 
-	public List<ItemCategory> findCategoryTreeByCategoryId(int categoryId){
+	@Override
+	public List<ItemCategory> findByFilter(String queryString) {
+		final String TABLE1 = "view_item_category_i18n";
+
+		StringBuffer sbf = new StringBuffer();
+		sbf.append(" SELECT * FROM " + TABLE1);
+		sbf.append(" where 1=1 ");
+		sbf.append(" AND lang_no=1033 ");
+		sbf.append(queryString);
+		String sql = sbf.toString();
+
+		MapSqlParameterSource paramSource = new MapSqlParameterSource();
+		List<ItemCategory> x = new ArrayList<ItemCategory>();
+		try {
+			x = jdbc.query(sql, paramSource, new ItemCategoryRowMapper());
+		} catch (EmptyResultDataAccessException ex) {
+			x = null;
+		}
+		return x;
+	}
+
+	public List<ItemCategory> findCategoryTreeByCategoryId(int categoryId) {
 		final String TABLE1 = "item_category ,item_category_i18n ";
 		StringBuffer sbf = new StringBuffer();
 		sbf.append("SELECT distinct ");
 		sbf.append("item_category.category_id,");
 		sbf.append("parent_id,");
 		sbf.append("category_code,");
-		sbf.append("item_category.category_name,");
-		sbf.append("item_category.category_desc,");
+		sbf.append("item_category_i18n.category_name,");
+		sbf.append("item_category_i18n.category_desc,");
 		sbf.append("category_level,");
 		sbf.append("category_status,");
 		sbf.append("tree_ui_id ");
-		sbf.append("FROM "+TABLE1+ " ");
+		sbf.append("FROM " + TABLE1 + " ");
 		sbf.append("WHERE 1=1 ");
 		sbf.append("AND item_category_i18n.lang_no = 1033 ");
-		/*sbf.append("AND FIND_IN_SET(item_category.category_id, getChildList(:category_id)) ");*/
-		sbf.append("AND category_status = "+ItemCategoryStatus.AVAILABLE+ " ");
+		sbf.append("AND item_category_i18n.category_id = item_category.category_id ");
+		/*
+		 * sbf.
+		 * append("AND FIND_IN_SET(item_category.category_id, getChildList(:category_id)) "
+		 * );
+		 */
+		sbf.append("AND category_status = " + ItemCategoryStatus.AVAILABLE + " ");
 		sbf.append("ORDER BY category_code ");
-		
+
 		String sql = sbf.toString();
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("category_id", categoryId);
 		logger.info(sql);
 		return jdbc.query(sql, paramSource, new ItemCategoryRowMapper());
 	}
-	
-	
 
 	@Override
 	public ItemCategory findByCategoryId(long categoryId) {
 		final String TABLE1 = "view_item_category_i18n";
-		
+
 		StringBuffer sbf = new StringBuffer();
 		/*
-		sbf.append("SELECT ");
-		sbf.append("category_id,");
-		sbf.append("parent_id,");
-		sbf.append("category_code,");
-		sbf.append("category_name,");
-		sbf.append("category_desc,");
-		sbf.append("category_level,");
-		sbf.append("category_status ");
-		sbf.append("FROM "+TABLE1+ " ");
-		sbf.append("WHERE 1=1 ");
-		sbf.append("AND lang_no = 1033 ");
-		sbf.append("AND category_id = :category_id ");
-		*/
+		 * sbf.append("SELECT "); sbf.append("category_id,");
+		 * sbf.append("parent_id,"); sbf.append("category_code,");
+		 * sbf.append("category_name,"); sbf.append("category_desc,");
+		 * sbf.append("category_level,"); sbf.append("category_status ");
+		 * sbf.append("FROM "+TABLE1+ " "); sbf.append("WHERE 1=1 ");
+		 * sbf.append("AND lang_no = 1033 ");
+		 * sbf.append("AND category_id = :category_id ");
+		 */
 		sbf.append("select * from item_category where category_id =:category_id");
-		
+
 		String sql = sbf.toString();
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("category_id", categoryId);
 		ItemCategory x = null;
-		try{
+		try {
 			x = jdbc.queryForObject(sql, paramSource, new ItemCategoryRowMapper());
-		}catch(EmptyResultDataAccessException ex){
+		} catch (EmptyResultDataAccessException ex) {
 			x = null;
 		}
 		return x;
@@ -139,9 +137,9 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("categoryCode", categoryCode);
 		ItemCategory x = null;
-		try{
+		try {
 			x = jdbc.queryForObject(sql, paramSource, new ItemCategoryRowMapper());
-		}catch(EmptyResultDataAccessException ex){
+		} catch (EmptyResultDataAccessException ex) {
 			x = null;
 		}
 		return x;
@@ -152,11 +150,11 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 		String sql = "select * from item_category where parent_id=:categoryId";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("categoryId", categoryId);
-//		paramSource.addValue("global_id", globalId);
+		// paramSource.addValue("global_id", globalId);
 		List<ItemCategory> x = new ArrayList<ItemCategory>();
-		try{
+		try {
 			x = jdbc.query(sql, paramSource, new ItemCategoryRowMapper());
-		}catch(EmptyResultDataAccessException ex){
+		} catch (EmptyResultDataAccessException ex) {
 			x = null;
 		}
 		return x;
@@ -174,32 +172,32 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("newText", newText);
 		paramSource.addValue("key", key);
-		
+
 		KeyHolder keyholder = new GeneratedKeyHolder();
 		jdbc.update(sql, paramSource, keyholder);
 		return;
-		
+
 	}
 
 	@Override
 	public String createResultSaved(long parentId, String text, int parentLevel) {
-		
+
 		final String TABLE1 = "item_category";
-//		String newCategoryCode = this.getBiggestCategoryNo()+1;
+		// String newCategoryCode = this.getBiggestCategoryNo()+1;
 		String newCategoryCode = UUIDHelper.getUUID();
-		
+
 		StringBuffer sbf = new StringBuffer();
-		sbf.append("insert into "+TABLE1);
+		sbf.append("insert into " + TABLE1);
 		sbf.append("(category_code,category_name,parent_id,category_level) ");
 		sbf.append("values(:category_code,:category_name,:parent_id,:category_level)");
 		String sql = sbf.toString();
-		
+
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("category_code", newCategoryCode);
 		paramSource.addValue("category_name", text);
 		paramSource.addValue("parent_id", parentId);
-		paramSource.addValue("category_level", parentLevel+1);
-		
+		paramSource.addValue("category_level", parentLevel + 1);
+
 		KeyHolder keyholder = new GeneratedKeyHolder();
 		jdbc.update(sql, paramSource, keyholder);
 		return newCategoryCode;
@@ -208,26 +206,26 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 	@Override
 	public void updateItemCategoryParent(long categoryId, long parentId, int level) {
 		final String TABLE1 = "item_category";
-		
+
 		StringBuffer sbf = new StringBuffer();
-		sbf.append("update "+TABLE1+" ");
+		sbf.append("update " + TABLE1 + " ");
 		sbf.append("set ");
 		sbf.append("parent_id = :parent_id, ");
 		sbf.append("category_level = :category_level ");
-		
+
 		sbf.append("where ");
 		sbf.append("category_id = :category_id");
-				
+
 		String sql = sbf.toString();
-		
-//		final Date dateCreate 			= new Date();
-//		final Date dateLastModified 	= dateCreate;
+
+		// final Date dateCreate = new Date();
+		// final Date dateLastModified = dateCreate;
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-//		paramSource.addValue("global_id", news.getGlobalId());
+		// paramSource.addValue("global_id", news.getGlobalId());
 		paramSource.addValue("category_id", categoryId);
 		paramSource.addValue("parent_id", parentId);
 		paramSource.addValue("category_level", level);
-		
+
 		KeyHolder keyholder = new GeneratedKeyHolder();
 		jdbc.update(sql, paramSource, keyholder);
 		return;
@@ -238,13 +236,13 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 		String sql = "delete from item_category where category_id =:category_id";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("category_id", categoryId);
-		
+
 		KeyHolder keyholder = new GeneratedKeyHolder();
 		jdbc.update(sql, paramSource, keyholder);
 		return;
 	}
 
-	private static class ItemCategoryRowMapper implements RowMapper<ItemCategory>{
+	private static class ItemCategoryRowMapper implements RowMapper<ItemCategory> {
 		public ItemCategory mapRow(ResultSet rs, int rowNumber) throws SQLException {
 			ItemCategory x = new ItemCategory();
 			x.setCategoryId(rs.getLong("category_id"));
@@ -254,8 +252,9 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 			x.setCategoryDesc(rs.getString("category_desc"));
 			x.setCategoryLevel(rs.getInt("category_level"));
 			x.setCategoryStatus(rs.getInt("category_status"));
-	        return x;
-		}		
+			System.out.println(x.toString());;
+			return x;
+		}
 	}
 
 	@SuppressWarnings("deprecation")
@@ -263,9 +262,9 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 		String sql = "select category_code from item_category order by category_code desc limit 1";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		long x;
-		try{
+		try {
 			x = jdbc.queryForLong(sql, paramSource);
-		}catch(EmptyResultDataAccessException ex){
+		} catch (EmptyResultDataAccessException ex) {
 			x = 0;
 		}
 		return x;
@@ -277,61 +276,58 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao{
 		String sql = "select distinct category_id, category_name,parent_id, category_code from item_category order by category_id ";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 
-		List<ItemCategory> listCategoryName=(List<ItemCategory>) jdbc.query(sql, new ResultSetExtractor<List<ItemCategory>>() {
+		List<ItemCategory> listCategoryName = (List<ItemCategory>) jdbc.query(sql,
+				new ResultSetExtractor<List<ItemCategory>>() {
 
-			@Override
-			public List<ItemCategory> extractData(ResultSet rs) throws SQLException, DataAccessException {
-				// TODO Auto-generated method stub
-				
-				List<ItemCategory>  listString=new ArrayList<ItemCategory>();
-				 while (rs.next()) {  
-					 ItemCategory x = new ItemCategory();
-					 x.setCategoryCode(rs.getString("category_code"));
-					 x.setParentId(rs.getLong("parent_id"));
-					 x.setCategoryName(rs.getString("category_name"));
-					 x.setCategoryId(rs.getLong("category_id"));
-					 
-					 listString.add(x);  
-	                }  
-				return listString;
-			}
-		});
+					@Override
+					public List<ItemCategory> extractData(ResultSet rs) throws SQLException, DataAccessException {
+						// TODO Auto-generated method stub
+
+						List<ItemCategory> listString = new ArrayList<ItemCategory>();
+						while (rs.next()) {
+							ItemCategory x = new ItemCategory();
+							x.setCategoryCode(rs.getString("category_code"));
+							x.setParentId(rs.getLong("parent_id"));
+							x.setCategoryName(rs.getString("category_name"));
+							x.setCategoryId(rs.getLong("category_id"));
+
+							listString.add(x);
+						}
+						return listString;
+					}
+				});
 		for (ItemCategory items : listCategoryName) {
 			System.out.println(items.getParentId());
 		}
-		
-		
+
 		return listCategoryName;
 	}
 
 	@Override
 	public int createCategory(ItemCategory itemCategory) {
 		final String TABLE1 = "item_category";
+		StringBuffer sbf = new StringBuffer();
 
-		String sql = "insert into "+TABLE1+"(category_code"
-				+ ",category_name"
-				+ ",parent_id,"
-				+ "category_status,"
-				+ "category_level,"
-				+ "category_desc) values("
-				+ ":category_code,"
-				+ ":category_name,"
-				+ ":parent_id,"
-				+ ":category_status,"
-				+ ":category_level,"
-				+ ":category_desc); ";
-		
+		sbf.append("insert into " + TABLE1 + "(category_code");
+		sbf.append(",parent_id,");
+		sbf.append("category_status,");
+		sbf.append("category_level) values(");
+		sbf.append(":category_code,");
+		sbf.append(":parent_id,");
+		sbf.append(":category_status,");
+		sbf.append(":category_level)");
+
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("category_code", itemCategory.getCategoryCode());
-		paramSource.addValue("category_name", itemCategory.getCategoryName());
-		paramSource.addValue("category_desc", itemCategory.getCategoryDesc());
 		paramSource.addValue("category_status", itemCategory.getCategoryStatus());
 		paramSource.addValue("category_level", itemCategory.getCategoryLevel());
 		paramSource.addValue("parent_id", itemCategory.getParentId());
-		
+
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		
-		return jdbc.update(sql, paramSource, keyHolder);
+
+		String sql = sbf.toString();
+		jdbc.update(sql, paramSource, keyHolder);
+		return keyHolder.getKey().intValue();
 	}
 
 }

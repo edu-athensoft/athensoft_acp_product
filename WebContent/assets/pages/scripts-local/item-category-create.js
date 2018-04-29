@@ -6,7 +6,7 @@
  * */
 
 $().ready(function(){
-	
+	/*
 	$.ajax({
     	type    :    "post",
     	async: false,
@@ -39,7 +39,18 @@ $().ready(function(){
             //reset to avoid duplication
         }        
     });
+	*/
 	
+	
+	 $("#parentId").tree({  
+         url: 'getAllCategoryParent',  
+         loadFilter: function(data){  
+        	 alert(data);
+             return data;        
+         }
+     })  
+
+    
 	
 })
 

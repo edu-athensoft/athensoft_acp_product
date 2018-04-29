@@ -158,7 +158,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <div class="actions btn-set">
                                             <button type="button" name="back" class="btn btn-secondary-outline" onclick="backToProductList(); return false;">
                                                 <i class="fa fa-angle-left"></i> Back</button>
-                                            <button class="btn btn-secondary-outline" onclick="resetProduct(); return false;">
+                                            <button class="btn btn-secondary-outline"  type="reset" >
                                                 <i class="fa fa-reply"></i> Reset</button>
                                             <button class="btn btn-success" onclick="createCategory(); return false;">
                                                 <i class="fa fa-check"></i> Save</button>
@@ -309,6 +309,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-category.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-category-create.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/global-validate.js"></script>
+<script type="text/javascript" src="${webapp_name}/assets/pages/scripts/jquery.easyui.min.js"></script>
 
 
 <!-- END PAGE LEVEL SCRIPTS -->
