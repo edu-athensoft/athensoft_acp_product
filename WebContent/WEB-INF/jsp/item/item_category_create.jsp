@@ -47,6 +47,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="${webapp_name}/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
         <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="${webapp_name}/assets/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css" />
+        
         <link href="${webapp_name}/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
         <link href="${webapp_name}/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="${webapp_name}/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
@@ -61,6 +63,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="${webapp_name}/assets/layouts/layout2/css/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="${webapp_name}/assets/layouts/layout2/css/themes/blue.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="${webapp_name}/assets/layouts/layout2/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <link href="${webapp_name}/assets/pages/css/wind.css">
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
@@ -194,14 +197,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <div class="tab-pane active" id="tab_general">
                                                     <div class="form-body">
 													<div class="form-group">
+													<div style="clear:both"></div>
 														<label class="col-md-2 control-label">Parent ID: <span class="required">
 														* </span>
 														</label>
-														<div class="col-md-10">
-															<select class="table-group-action-input form-control input-medium" id="parentId" name="parentId">
-															
-															</select>
-														</div>
+														
+														
+						<!--                         <div class="col-md-6"> -->
+						                                
+						                                    <div id="tree_3" class="tree-demo"> </div>
+						<!--                              </div> -->
 													</div>
 													<div class="form-group">
 														<label class="col-md-2 control-label">Category Name: <span class="required">
@@ -303,7 +308,6 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="${webapp_name}/assets/global/plugins/plupload/js/plupload.full.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
-<script src="${webapp_name}/assets/global/scripts/app.min.js" type="text/javascript"></script>
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-category.js"></script>
@@ -311,63 +315,33 @@ License: You must have a valid license purchased only from themeforest(the above
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/global-validate.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts/jquery.easyui.min.js"></script>
 
-
-<!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+            <!-- <script src="${webapp_name}/assets/global/plugins/jstree/dist/jstree.min.js" type="text/javascript"></script> -->
+            <script src="${webapp_name}/assets/pages/scripts-local/jstree.js" type="text/javascript"></script>            
+            <!-- END PAGE LEVEL PLUGINS -->
+            <!-- BEGIN THEME GLOBAL SCRIPTS -->
+            <script src="${webapp_name}/assets/global/scripts/app.min.js" type="text/javascript"></script>
+            <!-- END THEME GLOBAL SCRIPTS -->
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            <script>
+        	
+            </script>
+            <script src="${webapp_name}/assets/pages/scripts-local/ui-tree.js" type="text/javascript"></script>            
+            <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="${webapp_name}/assets/layouts/layout2/scripts/layout.min.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/layouts/layout2/scripts/demo.min.js" type="text/javascript"></script>
-<!-- 
+
+
 <script src="${webapp_name}/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
- -->
+ 
 <!-- END THEME LAYOUT SCRIPTS -->
 <script>
-jQuery(document).ready(function() {    
-	//Metronic.init(); // init metronic core components
-	//Layout.init(); // init current layout
-	//Demo.init(); // init demo features
-	//EventNewsEdit.init();
-	var prodBizId = $("#bizId").val();
-	productEdit.init(prodBizId);
+$(function(){
+	window.setTimeout(alert("1ddd23"),2000000000)
 
-//local
-/* //select object for event class
-	var eventClassValue = ${eventClass};
-	$("#eventClass").val(eventClassValue); */
-
-//select object for event status
-	var productStatus = ${productObject.prodStatus};
-	$("#prodStatus").val(productStatus);
-	
-});
-
-function resetProduct(){
-	//object for reset
-		
-//	create a json object
-   /*  var p1 = $("#prodId").val();
-    var p2 = $("#bizId").val();        
-    var p3 = $("#prodSeqNo").val(); */
-    var p3 ='${productObject.itemProductI18n.prodName}';
-    var p4 ='${productObject.prodType}';
-    var p5 ='${productObject.prodStatus}';
-    var p6 ='${productObject.prodSaleType}';
-    var p7 ='${productObject.itemProductI18n.prodDesc}';
-    var p8 ='${productObject.itemProductI18n.prodDescLong}';
-  /*  var p9 = $("#eventClass").val();
-    var p10 = $("#eventStatus").val();*/
-
-	//$("#globalId").val(p1);
-	//$("#eventUUID").val(p2);
-	$("#prodName").val(p3);
-	$("#prodType").val(p4);
-	//$("#postDatetime").val(p5);
-	$("#prodStatus").val(p5);
-	$("#prodSaleType").val(p6);
-	$("#prodDesc").val(p7);
-	$("#prodDescLong").val(p8);
-	//$("#eventStatus").val(p10);
-}    
+})
 </script>
 </body>
 

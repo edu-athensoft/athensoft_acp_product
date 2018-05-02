@@ -81,14 +81,14 @@ var UITree = function () {
         });
     }
 
-    var contextualMenuSample = function() {
+    var contextualMenuSample = function(callBack) {
     	
     	$("#tree_search_input").keyup(function() {
 
             var searchString = $(this).val();
             $('#tree_3').jstree('search', searchString);
         });
-
+    	
         $("#tree_3").jstree({
             "core" : {
                 "themes" : {
@@ -96,7 +96,9 @@ var UITree = function () {
                 }, 
                 // so that create works
                 "check_callback" : true,
-                'data': jsTreeData
+               
+                'data':jsTreeData
+              
             },
             "types" : {
                 "default" : {
@@ -113,9 +115,11 @@ var UITree = function () {
             },
             "plugins" : [ "contextmenu", "dnd", "state", "types", "search" ]
         })
-/*        .on('changed.jstree', function (e, data) {
+   /*     .on('changed.jstree', function (e, data) {
 //        	alert($("#tree_3").jstree().get_selected(true)[0].text); //ok
 //        	alert(data.instance.get_node(data.selected[0]).text); //ok
+        	console.log("The selected nodes are:");
+            console.log(data.selected);
 		    var i, j, r = [];
 		    for(i = 0, j = data.selected.length; i < j; i++) {
 		      r.push(data.instance.get_node(data.selected[i]).text);
@@ -138,6 +142,10 @@ var UITree = function () {
 				}); 
 //			   $('#event_result').html('Orig : ' + orig + '      Dest : ' + dest);
 			});
+        
+        if(typeof callBack == 'function'){
+   		 callBack()
+   		}
     }
 
      var ajaxTreeSample = function() {
@@ -179,9 +187,9 @@ var UITree = function () {
 
             handleSample1();
             handleSample2();
-            contextualMenuSample();
-            ajaxTreeSample();
-
+            contextualMenuSample(function(){alert('123')});
+            //ajaxTreeSample();
+           
         }
 
     };
@@ -191,5 +199,6 @@ var UITree = function () {
 if (App.isAngularJsApp() === false) {
     jQuery(document).ready(function() {    
        UITree.init();
+      
     });
 }

@@ -575,6 +575,7 @@
 				was_click = 0;
 			this.element
 				.on("dblclick.jstree", function (e) {
+			
 						if(e.target.tagName && e.target.tagName.toLowerCase() === "input") { return true; }
 						if(document.selection && document.selection.empty) {
 							document.selection.empty();

@@ -123,15 +123,32 @@ public class ItemCategoryAcpController {
 	public Map<String,Object> getAllCategoryParent(){
 		
 		logger.info("entering /item/getAllCategoryParent");
-		Map<String,Object>  model = new HashMap<String,Object>();
+		Map<String, Object> model =new HashMap<>();
 		
-		List<ItemCategory> listCategoryName=itemCategoryService.findAllParentCategories();
-		System.out.println("123123123");
-		model.put("success", true);
-		System.out.println(JSON.toJSONString(listCategoryName.toString()));
-		model.put("data", listCategoryName);
-		
-		
+		//build jstree data
+		Node treeRootNode = new Node(null);
+	    treeRootNode.setText("Category Classification");
+	    treeRootNode.setState(Node.buildList(new AbstractMap.SimpleEntry<String, String>("key", "ROOT")));		//here ROOT is derived from table:item_category
+
+	    List<ItemCategory> list = new ArrayList<ItemCategory>();
+	    list = this.itemCategoryService.findAll();
+	    
+	    logger.info("list size:= "+list.size());
+	    
+	    for (ItemCategory ic : list) {
+	    	long parent = ic.getParentId();
+	    	logger.info("parent_id="+parent);
+	    	ItemCategory p = this.itemCategoryService.findByCategoryId(parent);
+	    	String parentCode = p.getCategoryCode();
+	    	logger.info("parent_code="+parentCode);
+	    	Node parentNode = Node.getNodeByKey(treeRootNode, parentCode);
+	    	logger.info("parentNode.text="+parentNode.getText());
+	    	Node.addChild(parentNode, ic.getCategoryName(), Node.buildList(new AbstractMap.SimpleEntry<String, String>("key", ic.getCategoryCode())));
+	    }
+	    StringBuffer jsTreeData = Node.buildJSTree(treeRootNode, "  ").append("}");
+	    logger.info(jsTreeData);
+			
+		model.put("jsTreeData", "["+jsTreeData.toString()+"]");
 		logger.info("leaving /item/getAllCategoryParent");
 		
 		return model;
@@ -245,6 +262,30 @@ public class ItemCategoryAcpController {
 			model.put("msg","no");
 		}
 		
+		//build jstree data
+		Node treeRootNode = new Node(null);
+	    treeRootNode.setText("Category Classification");
+	    treeRootNode.setState(Node.buildList(new AbstractMap.SimpleEntry<String, String>("key", "ROOT")));		//here ROOT is derived from table:item_category
+
+	    List<ItemCategory> list = new ArrayList<ItemCategory>();
+	    list = this.itemCategoryService.findAll();
+	    
+	    logger.info("list size:= "+list.size());
+	    
+	    for (ItemCategory ic : list) {
+	    	long parent = ic.getParentId();
+	    	logger.info("parent_id="+parent);
+	    	ItemCategory p = this.itemCategoryService.findByCategoryId(parent);
+	    	String parentCode = p.getCategoryCode();
+	    	logger.info("parent_code="+parentCode);
+	    	Node parentNode = Node.getNodeByKey(treeRootNode, parentCode);
+	    	logger.info("parentNode.text="+parentNode.getText());
+	    	Node.addChild(parentNode, ic.getCategoryName(), Node.buildList(new AbstractMap.SimpleEntry<String, String>("key", ic.getCategoryCode())));
+	    }
+	    StringBuffer jsTreeData = Node.buildJSTree(treeRootNode, "  ").append("}");
+	    logger.info(jsTreeData);
+			
+		model.put("jsTreeData", "["+jsTreeData.toString()+"]");
 	
 
 		logger.info("leaving /item/newCreateCategory");
