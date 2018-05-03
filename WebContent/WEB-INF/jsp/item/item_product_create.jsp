@@ -47,6 +47,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="${webapp_name}/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
         <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="${webapp_name}/assets/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css" />
+        
         <link href="${webapp_name}/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
         <link href="${webapp_name}/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="${webapp_name}/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
@@ -193,14 +195,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <div class="tab-content" >
                                                 <div class="tab-pane active" id="tab_general">
                                                     <div class="form-body">
-                                                    div class="form-group">
-														<label class="col-md-2 control-label">Category ID: <span class="required">
+                                                 <div class="form-group">
+														<label class="col-md-2 control-label">Category : <span class="required">
 														* </span>
 														</label>
-														<div class="col-md-10">
-															<select class="easyui-combotree" url="data/city_data.json" name="city" style="width:156px;"/>
-
-														</div>
+														
+														
+						<!--                         <div class="col-md-6"> -->
+						                                
+						                                    <div id="tree_3" class="tree-demo"> </div>
+						<!--                              </div> -->
 													</div>
                                                     
                                                     
@@ -373,6 +377,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="${webapp_name}/assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/global/plugins/plupload/js/plupload.full.min.js" type="text/javascript"></script>
+<!-- <script src="${webapp_name}/assets/global/plugins/jstree/dist/jstree.min.js" type="text/javascript"></script> -->
+<script src="${webapp_name}/assets/pages/scripts-local/jstree.js" type="text/javascript"></script>            
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
 <script src="${webapp_name}/assets/global/scripts/app.min.js" type="text/javascript"></script>
@@ -382,8 +388,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-create.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/global-validate.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts/jquery.easyui.min.js"></script>
-
-
+<script src="${webapp_name}/assets/pages/scripts-local/ui-tree.js" type="text/javascript"></script>       
 
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->

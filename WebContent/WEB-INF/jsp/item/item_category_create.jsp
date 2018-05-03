@@ -197,7 +197,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <div class="tab-pane active" id="tab_general">
                                                     <div class="form-body">
 													<div class="form-group">
-													<div style="clear:both"></div>
 														<label class="col-md-2 control-label">Parent ID: <span class="required">
 														* </span>
 														</label>
@@ -338,10 +337,7 @@ License: You must have a valid license purchased only from themeforest(the above
  
 <!-- END THEME LAYOUT SCRIPTS -->
 <script>
-$(function(){
-	window.setTimeout(alert("1ddd23"),2000000000)
 
-})
 </script>
 </body>
 

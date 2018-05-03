@@ -81,7 +81,7 @@ var UITree = function () {
         });
     }
 
-    var contextualMenuSample = function(callBack) {
+    var contextualMenuSample = function() {
     	
     	$("#tree_search_input").keyup(function() {
 
@@ -142,10 +142,6 @@ var UITree = function () {
 				}); 
 //			   $('#event_result').html('Orig : ' + orig + '      Dest : ' + dest);
 			});
-        
-        if(typeof callBack == 'function'){
-   		 callBack()
-   		}
     }
 
      var ajaxTreeSample = function() {
@@ -187,8 +183,8 @@ var UITree = function () {
 
             handleSample1();
             handleSample2();
-            contextualMenuSample(function(){alert('123')});
-            //ajaxTreeSample();
+            contextualMenuSample();
+            ajaxTreeSample();
            
         }
 
