@@ -91,6 +91,40 @@ public class ItemCategoryService {
 
 	public int createCategory(ItemCategory itemCategory) {
 		// TODO Auto-generated method stub
+		ItemCategory parentItemCatgory = this.itemCategoryDao.findByCategoryCode(itemCategory.getCategoryCode());
+		itemCategory.setParentId(parentItemCatgory.getCategoryId());
+		 
+		boolean isParent=this.itemCategoryDao.ifisParent(itemCategory.getCategoryCode());
+		 
+		String newStringCateCode="";
+
+		if(isParent){
+			System.out.println("11111111111111111111111111111111111111");
+			String newCategoryCode =this.itemCategoryDao.getInsertedCateCode(itemCategory.getCategoryCode());
+			System.out.println("newCategoryCode : "+newCategoryCode);
+			int newIntCategoryCode= Integer.parseInt(newCategoryCode.split("-")[newCategoryCode.split("-").length-1]);
+			newIntCategoryCode++;
+			
+			if(newIntCategoryCode<10){
+				newStringCateCode="-00"+newIntCategoryCode;
+			}
+			else if(newIntCategoryCode<=100&&newIntCategoryCode>10){
+				newStringCateCode="-0"+newIntCategoryCode;
+
+			}
+			 newStringCateCode=newCategoryCode.split("-")[0]+newStringCateCode;
+
+			System.out.println("newCategoryCode : "+newStringCateCode);
+		}else {
+			System.out.println("22222222222222222222222222222222222222222");
+		
+			newStringCateCode=itemCategory.getCategoryCode()+"-001";
+
+		}
+		itemCategory.setCategoryCode(newStringCateCode);
+		
+			
+		
 		int result1 = this.itemCategoryDao.createCategory(itemCategory);
 		int result2 = this.itemCategoryI18nDao.createCategoryI18n(itemCategory,result1);
 		

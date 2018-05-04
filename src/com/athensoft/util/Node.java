@@ -135,12 +135,12 @@ public void setState(List<Entry<String, String>> state) {
 		 }
 	 }
 	 for (Node n : node.getChildren()) {
-/*		 for (Entry<String, String> e : n.getState()) {
+		 for (Entry<String, String> e : n.getState()) {
 			 if (e.getKey()=="key" && e.getValue()==key) {
 //				 System.out.println("found key with node name: "+ n.getText());
 				 return n;
 			 }
-		 } */
+		 } 
 		 Node tmp = getNodeByKey(n, key);
 		 if (tmp != null) {
 			 return tmp;

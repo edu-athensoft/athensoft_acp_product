@@ -14,6 +14,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.EmptySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -328,6 +329,37 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 		String sql = sbf.toString();
 		jdbc.update(sql, paramSource, keyHolder);
 		return keyHolder.getKey().intValue();
+	}
+
+	@Override
+	public String getInsertedCateCode(String categoryCode) {
+		final String TABLE1 = "item_category";
+		StringBuffer sbf = new StringBuffer();
+
+		sbf.append("select max(category_code) from "+TABLE1) ;
+		sbf.append(" where category_code like '"+categoryCode+"%' ORDER BY category_code desc");
+		String sql = sbf.toString();
+		String newCategoryCode = jdbc.queryForObject(sql, EmptySqlParameterSource.INSTANCE, String.class); 
+		return newCategoryCode;
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean ifisParent(String categoryCode) {
+		final String TABLE1 = "item_category";
+		StringBuffer sbf = new StringBuffer();
+		//select count(*) from item_category where category_code = (select MAX(category_code)
+		//from item_category where category_code like '08-002%' ORDER BY category_code desc);
+		sbf.append("select count(*) from item_category where category_code = (");
+		sbf.append("select max(category_code) from "+TABLE1) ;
+		sbf.append(" where category_code like '"+categoryCode+"%' ORDER BY category_code desc )");
+		String sql = sbf.toString();
+		int resultNumber = jdbc.queryForInt(sql, EmptySqlParameterSource.INSTANCE); 
+		System.out.println("result "+resultNumber);
+		if(resultNumber>1){
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -15,10 +15,14 @@ public class TestTreeNode<T> {
 	}
 	
 	public static void main(String[] args) {
-		TestTreeNode<Integer> intNode = new TestTreeNode<Integer>();
+		/*TestTreeNode<Integer> intNode = new TestTreeNode<Integer>();
 		intNode.setID(1);
 		
-		System.out.println(intNode.getID());
+		System.out.println(intNode.getID());*/
+		
+		String aString= "01-02";
+		System.out.println(aString.split("-")[0]);
+		
 	}
 	
 	

@@ -63,7 +63,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="${webapp_name}/assets/layouts/layout2/css/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="${webapp_name}/assets/layouts/layout2/css/themes/blue.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="${webapp_name}/assets/layouts/layout2/css/custom.min.css" rel="stylesheet" type="text/css" />
-        <link href="${webapp_name}/assets/pages/css/wind.css">
+        <link href="${webapp_name}/assets/pages/css/wind.css" rel="stylesheet" type="text/css">
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
@@ -163,7 +163,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <i class="fa fa-angle-left"></i> Back</button>
                                             <button class="btn btn-secondary-outline"  type="reset" >
                                                 <i class="fa fa-reply"></i> Reset</button>
-                                            <button class="btn btn-success" onclick="createCategory(); return false;">
+                                            <button class="btn btn-success" type="button" onclick="createCategory(); return false;">
                                                 <i class="fa fa-check"></i> Save</button>
                                             <button class="btn btn-success" onclick="createCategoryAndContinue(); return false;" >
                                                 <i class="fa fa-check-circle"></i> Save &amp; Continue Edit</button>
@@ -325,7 +325,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <script>
         	
             </script>
-            <script src="${webapp_name}/assets/pages/scripts-local/ui-tree.js" type="text/javascript"></script>            
+            <script src="${webapp_name}/assets/pages/scripts-local/ui-tree-no-edit.js" type="text/javascript"></script>            
             <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="${webapp_name}/assets/layouts/layout2/scripts/layout.min.js" type="text/javascript"></script>
