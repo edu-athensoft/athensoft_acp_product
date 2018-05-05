@@ -144,14 +144,17 @@ public class ItemCategoryService {
 				else if(newIntCategoryCode<=100&&newIntCategoryCode>10){
 					newStringCateCode=""+newIntCategoryCode;
 
-				}		
+				}		//15-001-002 3
+						//15-001 2
+						//15-001-002-003 4
 			}else{
 				System.out.println("newCategoryCode.split00.)[0]"+newCategoryCode.split("-")[0]);
 				if(newIntCategoryCode<10){
-					newStringCateCode=newCategoryCode.split("-")[0]+"-00"+newIntCategoryCode;
+					newCategoryCode.substring(newCategoryCode.length()-3);
+					newStringCateCode=newCategoryCode.substring(0, newCategoryCode.lastIndexOf(newCategoryCode.substring(newCategoryCode.length()-3)))+"00"+newIntCategoryCode;
 				}
 				else if(newIntCategoryCode<=100&&newIntCategoryCode>10){
-					newStringCateCode=newCategoryCode.split("-")[0]+"-0"+newIntCategoryCode;
+					newStringCateCode=newCategoryCode.substring(0, newCategoryCode.lastIndexOf(newCategoryCode.substring(newCategoryCode.length()-3)))+"0"+newIntCategoryCode;
 				}
 			}
 		}else{

@@ -20,9 +20,11 @@ public class TestTreeNode<T> {
 		
 		System.out.println(intNode.getID());*/
 		
-		String aString= "01-02";
-		System.out.println(aString.split("-")[0]);
-		
+		String aString= "01-02-03";
+		System.out.println(aString.split("-").length);
+		System.out.println(aString.split("-")[aString.split("-").length-1]);
+		System.out.println(aString.substring(0, aString.lastIndexOf(aString.substring(aString.length()-3))));
+		System.out.println();
 	}
 	
 	
