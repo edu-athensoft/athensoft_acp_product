@@ -88,9 +88,13 @@ public interface ItemCategoryDao {
 
 	public int createCategory(ItemCategory itemCategory);
 
-	public String getInsertedCateCode(String categoryCode);
 
-	public boolean ifisParent(String categoryCode);
+
+	public boolean ifisParent(String categoryCode, int categoryLevel);
+
+	public String getInsertedCateCode(String categoryCode, int childCategoryLevel);
+
+	public String getInsertedCateCode(int childLevel);
 	
 
 }

@@ -43,7 +43,7 @@ function createCategory(){
 //	        timeout :     30000,
 	        
 	        success:function(msg){
-	        	location.href="categoryListData";
+	        	location.href="categoryList";
 	        },
 	        error:function(){
 	            alert("ERROR: News creating failed.");     

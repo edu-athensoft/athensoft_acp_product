@@ -40,7 +40,16 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 
 	@Override
 	public List<ItemCategory> findAll() {
-		String sql = "select * from item_category where category_level > 0 order by category_level, category_code";
+		StringBuffer sbf = new StringBuffer();
+		sbf.append( "select item_category.category_id ,item_category.parent_id,item_category.category_code,");
+	    sbf.append("item_category.category_level,item_category.category_status,");
+	    sbf.append("item_category_i18n.category_name,item_category_i18n.category_desc ");
+	    sbf.append( " from item_category, item_category_i18n where category_level > 0 ");
+		sbf.append(" and item_category.category_id = item_category_i18n.category_id ");
+		sbf.append(" and item_category_i18n.lang_no='1033' ");
+		sbf.append( " order by category_level, category_code");
+		 
+		String sql= sbf.toString();
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		// paramSource.addValue("global_id", globalId);
 		List<ItemCategory> x = new ArrayList<ItemCategory>();
@@ -118,11 +127,16 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 		 * sbf.append("AND lang_no = 1033 ");
 		 * sbf.append("AND category_id = :category_id ");
 		 */
-		sbf.append("select * from item_category where category_id =:category_id");
+		sbf.append("select * from item_category, item_category_i18n where item_category.category_id =:category_id");
+		sbf.append(" and item_category_i18n.category_id=item_category.category_id");
 
+		sbf.append(" and item_category_i18n.lang_no=:lang_no");
+  
 		String sql = sbf.toString();
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("category_id", categoryId);
+		paramSource.addValue("lang_no", 1033);
+		
 		ItemCategory x = null;
 		try {
 			x = jdbc.queryForObject(sql, paramSource, new ItemCategoryRowMapper());
@@ -332,34 +346,52 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 	}
 
 	@Override
-	public String getInsertedCateCode(String categoryCode) {
+	public String getInsertedCateCode(String categoryCode,int childCategoryLevel) {
 		final String TABLE1 = "item_category";
 		StringBuffer sbf = new StringBuffer();
 
 		sbf.append("select max(category_code) from "+TABLE1) ;
-		sbf.append(" where category_code like '"+categoryCode+"%' ORDER BY category_code desc");
+		sbf.append(" where category_code like '"+categoryCode+"%' ");
+		sbf.append(" and category_level = "+childCategoryLevel);
 		String sql = sbf.toString();
 		String newCategoryCode = jdbc.queryForObject(sql, EmptySqlParameterSource.INSTANCE, String.class); 
 		return newCategoryCode;
 	}
+	
+	@Override
+	public String getInsertedCateCode(int childLevel) {
+		final String TABLE1 = "item_category";
+		StringBuffer sbf = new StringBuffer();
 
+		sbf.append("select max(category_code) from "+TABLE1) ;
+		sbf.append(" where category_level = "+childLevel);
+		String sql = sbf.toString();
+		String newCategoryCode = jdbc.queryForObject(sql, EmptySqlParameterSource.INSTANCE, String.class); 
+		return newCategoryCode;
+	}
+	
+	
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean ifisParent(String categoryCode) {
+	public boolean ifisParent(String categoryCode,int childCategoryLevel) {
 		final String TABLE1 = "item_category";
 		StringBuffer sbf = new StringBuffer();
 		//select count(*) from item_category where category_code = (select MAX(category_code)
 		//from item_category where category_code like '08-002%' ORDER BY category_code desc);
-		sbf.append("select count(*) from item_category where category_code = (");
-		sbf.append("select max(category_code) from "+TABLE1) ;
-		sbf.append(" where category_code like '"+categoryCode+"%' ORDER BY category_code desc )");
+		sbf.append("select count(*) from "+TABLE1) ;
+		sbf.append(" where category_code like '"+categoryCode+"%' ");
+		sbf.append(" and category_level = "+childCategoryLevel);
+
 		String sql = sbf.toString();
+		System.out.println("sql :   "+sql);
 		int resultNumber = jdbc.queryForInt(sql, EmptySqlParameterSource.INSTANCE); 
 		System.out.println("result "+resultNumber);
-		if(resultNumber>1){
+		if(resultNumber>0){
 			return true;
 		}
 		return false;
 	}
+
+	
 
 }

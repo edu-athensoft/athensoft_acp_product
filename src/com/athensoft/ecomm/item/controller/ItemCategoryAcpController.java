@@ -264,32 +264,8 @@ public class ItemCategoryAcpController {
 			model.put("msg","no");
 		}
 		
-	/*	//build jstree data
-		Node treeRootNode = new Node(null);
-	    treeRootNode.setText("Category Classification");
-	    treeRootNode.setState(Node.buildList(new AbstractMap.SimpleEntry<String, String>("key", "ROOT")));		//here ROOT is derived from table:item_category
-
-	    List<ItemCategory> list = new ArrayList<ItemCategory>();
-	    list = this.itemCategoryService.findAll();
-	    
-	    logger.info("list size:= "+list.size());
-	    
-	    for (ItemCategory ic : list) {
-	    	long parent = ic.getParentId();
-	    	logger.info("parent_id="+parent);
-	    	ItemCategory p = this.itemCategoryService.findByCategoryId(parent);
-	    	String parentCode = p.getCategoryCode();
-	    	logger.info("parent_code="+parentCode);
-	    	Node parentNode = Node.getNodeByKey(treeRootNode, parentCode);
-	    	logger.info("parentNode.text="+parentNode.getText());
-	    	Node.addChild(parentNode, ic.getCategoryName(), Node.buildList(new AbstractMap.SimpleEntry<String, String>("key", ic.getCategoryCode())));
-	    }
-	    StringBuffer jsTreeData = Node.buildJSTree(treeRootNode, "  ").append("}");
-	    logger.info(jsTreeData);
-			
-		model.put("jsTreeData", "["+jsTreeData.toString()+"]");*/
 	
-		mav.setViewName("item/categoryListData");
+		mav.setViewName("item/categoryList");
 		logger.info("leaving /item/newCreateCategory");
 	
 		return model;
