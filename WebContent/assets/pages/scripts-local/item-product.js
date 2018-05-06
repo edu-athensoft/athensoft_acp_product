@@ -6,6 +6,7 @@
 /* item product - global variables and functions*/
 function getProductObject(){	
 //	create a json object
+	
     var p1 = $("#prodId").val();
     var p2 = $("#prodBizId").val();        
     var p3 = $("#prodSeqNo").val();
@@ -16,6 +17,22 @@ function getProductObject(){
     var p8 = $("#prodDescLong").val();
     var p9 = $("#prodName").val();
     var p10 = $("#prodNameAlias").val();
+    var p11 = key;
+   if(p2.trim()==""&&p3.trim()==""&&p4==0&&p5==0&&p6==0&&p7.trim()==""&&p8.trim()==""&&p9.trim()==""&&p10.trim()==""){
+   	alert("please fill out all columns");
+
+    	return false;
+    }
+ 
+    if(p11=="ROOT"){
+    	alert("category can not be ROOT");
+    	return false;
+    }
+    
+    
+    
+    var p12 = text;
+    alert(key+","+text);
   /*  var p10 = $("#eventStatus").val();*/
     
     var businessObject =
@@ -27,7 +44,9 @@ function getProductObject(){
     		prodStatus:    p5,            
     		prodSaleType    	:    p6,            
     		itemProductI18n		:{prodDesc   :    p7,prodDescLong	:    p8,
-        						  prodName		:	p9,prodNameAlias	:	p10} 
+        						  prodName		:	p9,prodNameAlias	:	p10},
+        	categoryCode   : p11,
+        	categoryName : p12
     		
     		
     };

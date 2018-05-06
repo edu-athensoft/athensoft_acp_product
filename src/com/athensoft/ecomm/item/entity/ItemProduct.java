@@ -16,7 +16,7 @@ public class ItemProduct {
 	private String		prodCreaterDatetime;	
 	private String 		prodImgUrl;
 	
-	private Long 		categoryId;
+	private String 		categoryCode;
 	private String 		categoryName;
 	
 	//not in use
@@ -27,15 +27,16 @@ public class ItemProduct {
 	private Date		prodPublisherDatetime;
 	private Integer			prodUnPublisherId;
 	private Date		prodUnPublisherDatetime;
+
 	
-	public Long getCategoryId() {
-		return categoryId;
+	public String getCategoryCode() {
+		return categoryCode;
 	}
-	
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
+
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
 	}
-	
+
 	public String getCategoryName() {
 		return categoryName;
 	}

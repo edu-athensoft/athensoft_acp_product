@@ -63,6 +63,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="${webapp_name}/assets/layouts/layout2/css/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="${webapp_name}/assets/layouts/layout2/css/themes/blue.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="${webapp_name}/assets/layouts/layout2/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <link href="${webapp_name}/assets/pages/css/wind.css" rel="stylesheet" type="text/css">
+        
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
@@ -195,8 +197,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <div class="tab-content" >
                                                 <div class="tab-pane active" id="tab_general">
                                                     <div class="form-body">
-                                                 <div class="form-group">
-														<label class="col-md-2 control-label">Category : <span class="required">
+                                                <div class="form-group">
+														<label class="col-md-2 control-label"> Category: <span class="required">
 														* </span>
 														</label>
 														
@@ -206,7 +208,6 @@ License: You must have a valid license purchased only from themeforest(the above
 						                                    <div id="tree_3" class="tree-demo"> </div>
 						<!--                              </div> -->
 													</div>
-                                                    
                                                     
 													<div class="form-group">
 														<label class="col-md-2 control-label">Business ID: <span class="required">
@@ -388,7 +389,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-create.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/global-validate.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts/jquery.easyui.min.js"></script>
-<script src="${webapp_name}/assets/pages/scripts-local/ui-tree.js" type="text/javascript"></script>       
+<script src="${webapp_name}/assets/pages/scripts-local/ui-tree-no-edit.js" type="text/javascript"></script>       
 
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->

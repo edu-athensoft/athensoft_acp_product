@@ -1,13 +1,8 @@
-/**
- * Ajax to get the data from database
- * to initialize the drop down menu of parent node
- * 
- * 
- * */
+
 var jsTreeData;
 $().ready(function(){
 	
-	var promise =$.ajax({
+	$.ajax({
     	type    :    "post",
     	async: false,
     //	dataType:    "json",
@@ -27,10 +22,12 @@ $().ready(function(){
 })
 
 function createCategory(){
+	
+	
 	  var itemCategory = getBusinessObject();
 	 
 	    var dd=JSON.stringify(itemCategory);
-	   alert(dd);
+	//   alert(dd);
 	  // dd='{"itemCategory" :'+dd+'}';
 	   console.log(dd);
 	    //execute saving

@@ -100,43 +100,17 @@ public class ItemCategoryService {
 		int  childLevel = categoryLevel+1;
 		
 		boolean isParent=this.itemCategoryDao.ifisParent(itemCategory.getCategoryCode(),childLevel);
-		System.out.println("itemCategory.getCategoryCode()"+itemCategory.getCategoryCode());
 		if(itemCategory.getCategoryCode().equals("ROOT")){
-			
 			isParent=true;
 		}
-		
+		String newCategoryCode="";
+		int newIntCategoryCode=0;
 		
 		if(isParent){
-			String newCategoryCode="";
+			
 			if("ROOT".equals(itemCategory.getCategoryCode())){
 				newCategoryCode = this.itemCategoryDao.getInsertedCateCode(childLevel);
-
-			}else{
-			    newCategoryCode = this.itemCategoryDao.getInsertedCateCode(itemCategory.getCategoryCode(),childLevel);
-	
-			}
-			
-			System.out.println("asdasdasdasdasd"+newCategoryCode);
-			//11-001
-			int newIntCategoryCode=0;
-			if("ROOT".equals(itemCategory.getCategoryCode())){
-				
 				newIntCategoryCode= Integer.parseInt(newCategoryCode.split("-")[0]);
-			}
-			else{
-				int length=newCategoryCode.split("-").length;
-				System.out.println(length);
-				if(length>1){
-					newIntCategoryCode= Integer.parseInt(newCategoryCode.split("-")[newCategoryCode.split("-").length-1]);
-						
-				}
-			
-				}
-		
-			
-			newIntCategoryCode++;
-			if("ROOT".equals(itemCategory.getCategoryCode())){
 				
 				if(newIntCategoryCode<10){
 					newStringCateCode="00"+newIntCategoryCode;
@@ -147,8 +121,15 @@ public class ItemCategoryService {
 				}		//15-001-002 3
 						//15-001 2
 						//15-001-002-003 4
+				
 			}else{
-				System.out.println("newCategoryCode.split00.)[0]"+newCategoryCode.split("-")[0]);
+			    newCategoryCode = this.itemCategoryDao.getInsertedCateCode(itemCategory.getCategoryCode(),childLevel);
+
+				int length=newCategoryCode.split("-").length;
+				System.out.println(length);
+				if(length>1){
+					newIntCategoryCode= Integer.parseInt(newCategoryCode.split("-")[newCategoryCode.split("-").length-1]);
+				}
 				if(newIntCategoryCode<10){
 					newCategoryCode.substring(newCategoryCode.length()-3);
 					newStringCateCode=newCategoryCode.substring(0, newCategoryCode.lastIndexOf(newCategoryCode.substring(newCategoryCode.length()-3)))+"00"+newIntCategoryCode;
@@ -157,16 +138,14 @@ public class ItemCategoryService {
 					newStringCateCode=newCategoryCode.substring(0, newCategoryCode.lastIndexOf(newCategoryCode.substring(newCategoryCode.length()-3)))+"0"+newIntCategoryCode;
 				}
 			}
+			
 		}else{
 			newStringCateCode=itemCategory.getCategoryCode()+"-001";
 
 		}
-		System.out.println("newStringCateCode"+newStringCateCode);
 		  
 		itemCategory.setCategoryCode(newStringCateCode);
 		itemCategory.setCategoryLevel(childLevel);
-		
-			
 		
 		int result1 = this.itemCategoryDao.createCategory(itemCategory);
 		int result2 = this.itemCategoryI18nDao.createCategoryI18n(itemCategory,result1);

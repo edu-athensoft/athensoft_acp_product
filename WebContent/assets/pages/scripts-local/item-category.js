@@ -7,13 +7,22 @@
 function getBusinessObject(){	
 //	create a json object
     var p1 = key
-    alert("p1 "+p1)
+    //alert("p1 "+p1)
    
     var p2 = $("#categoryName").val();        
     var p3 = $("#categoryDesc").val();
-    var p4 = $("#categoryLevel").val();
     var p5 = $("#categoryStatus").val();
-
+    if(p2.trim()==""){
+    	alert("Category Name can not be empty");
+    	return false;
+    }else if(p3.trim()==""){
+    	alert("Category Description can not be empty");
+    	return false;
+    }
+    else if(p5==0){
+    	alert("Must choose a Status");
+    	return false;
+    }
     
     
     var businessObject =
@@ -22,7 +31,7 @@ function getBusinessObject(){
     		categoryCode    :    p1,
     		categoryName   :    p2,
     		categoryDesc    	:    p3,
-    		categoryLevel    	:    p4,
+    	
     		categoryStatus    	:    p5,
     };
     
