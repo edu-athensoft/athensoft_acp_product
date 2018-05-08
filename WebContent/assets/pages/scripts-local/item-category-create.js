@@ -43,7 +43,7 @@ function createCategory(){
 	        	location.href="categoryList";
 	        },
 	        error:function(){
-	            alert("ERROR: News creating failed.");     
+	            alert("ERROR: Category creating failed.");     
 	        },            
 	        complete: function(XMLHttpRequest, textStatus){
 	            //reset to avoid duplication

@@ -580,6 +580,26 @@ public class ItemCategoryAcpController {
 		}
 		return list;
 	}
+	@RequestMapping(value="/item/gotoCategoryEdit")
+	public ModelAndView gotoCategoryEdit(@RequestParam String categoryId){
+		logger.info("entering /item/categoryEdit");
+		
+		ModelAndView mav = new ModelAndView(); 
+		
+		//view	
+		String viewName = "item/item_category_edit";
+		mav.setViewName(viewName);
+		
+		//data
+		Map<String, Object> model = mav.getModel();
+		
+		//data - news
+		ItemCategory itemCategory = this.itemCategoryService.findByCategoryId(Long.parseLong(categoryId));	 
+		System.out.println("categoryObject :"+itemCategory.toString());
+		model.put("categoryObject", itemCategory);
+		logger.info("leaving /item/categoryEdit");
+		return mav;
+	} 
 	
 	
 	/**
@@ -620,7 +640,8 @@ public class ItemCategoryAcpController {
 			String categoryStatus = categoryStatusPair[1];
 			field7 = "<span class='label label-sm label-"+categoryStatusKey+"'>"+categoryStatus+"</span>";
 //			field8 = "<a href='/acp/item/"+getAction(actionName)+"?eventUUID="+field1+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+actionName+"</a>";
-			field8 = "TODO";
+			field8 = "<a href='/acp/item/gotoCategoryEdit?categoryId="+listCategory.get(i).getCategoryId()+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i>Update</a><button onclick='deleteCategory("+listCategory.get(i).getCategoryId()+")' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+"Delete"+"</button>";
+
 			
 			//logger.info("field8="+field8);
 			
@@ -634,7 +655,7 @@ public class ItemCategoryAcpController {
 			data[i][7] = field7;
 			data[i][8] = field8;
 		}
-		
+		 
 		System.out.println(">>>>>>>>>>");
 		System.out.println(">>>>>>>>>> data size = "+data.length);
 		//ArrayHelper.printArray(data);		

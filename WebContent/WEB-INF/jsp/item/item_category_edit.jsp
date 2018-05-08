@@ -213,9 +213,9 @@ License: You must have a valid license purchased only from themeforest(the above
 														</label>
 														<div class="col-md-10">
 													<input type="hidden" class="form-control" name="categoryId" id="categoryId"  placeholder="" >
-														<input type="hidden" class="form-control" name="categoryCode" id="categoryCode"  placeholder="" >
+														<input type="hidden" class="form-control" name="categoryCode" id="categoryCode"  placeholder=""  value="${categoryObject.categoryCode}" >
 														
-															<input type="text" class="form-control" name="categoryName" id="categoryName"  placeholder="" >
+															<input type="text" class="form-control" name="categoryName" id="categoryName"  placeholder=""  value="${categoryObject.categoryName}">
 														</div>
 													</div>
 													
@@ -224,17 +224,17 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
-															<input type="text" class="form-control" id="categoryDesc" name="categoryDesc" placeholder="" >
+															<input type="text" class="form-control" id="categoryDesc" name="categoryDesc" placeholder=""  value="${categoryObject.categoryDesc}"> 
 														</div>
 													</div>
-														<div class="form-group">
+														<!-- <div class="form-group">
 														<label class="col-md-2 control-label">Level: <span class="required">
 														* </span>
 														</label>
 														<div class="col-md-10">
 															<input type="text" class="form-control" id="categoryLevel" name="categoryLevel" placeholder=""  >
 														</div>
-													</div>
+													</div> -->
 													
 													
 													<div class="form-group">
@@ -243,12 +243,12 @@ License: You must have a valid license purchased only from themeforest(the above
 														</label>
 														<div class="col-md-10">
 															<select class="table-group-action-input form-control input-medium" id="categoryStatus" name="categoryStatus">
-																<option value="0" ${productObject.prodStatus == '0' ? 'selected' : ''}>Select...</option>
-																<option value="1" ${productObject.prodStatus == '1' ? 'selected' : ''}>Available</option>
-																<option value="2" ${productObject.prodStatus == '2' ? 'selected' : ''}>UnAvailable</option>
-																<option value="3" ${productObject.prodStatus == '3' ? 'selected' : ''}>Discontinued</option>
-																<option value="4" ${productObject.prodStatus == '4' ? 'selected' : ''}>UpComing</option>
-																<option value="5" ${productObject.prodStatus == '5' ? 'selected' : ''}>Deleted</option>
+																<option value="0" ${categoryObject.categoryStatus == '0' ? 'selected' : ''}>Select...</option>
+																<option value="1" ${categoryObject.categoryStatus == '1' ? 'selected' : ''}>Available</option>
+																<option value="2" ${categoryObject.categoryStatus== '2' ? 'selected' : ''}>UnAvailable</option>
+																<option value="3" ${categoryObject.categoryStatus== '3' ? 'selected' : ''}>Discontinued</option>
+																<option value="4" ${categoryObject.categoryStatus== '4' ? 'selected' : ''}>UpComing</option>
+																<option value="5" ${categoryObject.categoryStatus== '5' ? 'selected' : ''}>Deleted</option>
 															</select>
 														</div>
 													</div>

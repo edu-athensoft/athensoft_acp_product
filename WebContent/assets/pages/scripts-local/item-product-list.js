@@ -156,8 +156,6 @@ function filterSearch(){
 	   
 	 //   var p10 = $("#prodNameAlias").val();
 
-  debugger;
-  alert("123123")
     var businessObject =
     {
     		//prodId    :    p2,
@@ -177,7 +175,6 @@ function filterSearch(){
     		eventStatus	:    p10*/
     };
     var d=JSON.stringify( businessObject );
-    alert(d);
      var dt = $("#datatable_productList").DataTable();
    /* var dt = $("#datatable_productList").DataTable( {
     			"destroy": true,
@@ -195,17 +192,23 @@ function filterSearch(){
     
 }
 
-
-/* list news - datatable:button:filter reset */
-function filterReset(){
-//	alert("do filterReset()");44
-
-	 $("#prodBizId").val("");        
-    $("#prodSeqNo").val("");
- 	 $("#prodType").val(0);
-    $("#prodStatus").val(0);
-    $("#prodSaleType").val(0);
-    $("#createDatetimeFrom").val("");
-    $("#createDatetimeTo").val("");
-    $("#prodName").val("");
+function deleteProduct(prodId){
+	  $.ajax({
+	    	type    :    "post",
+	    	
+	        url        : "deleteProduct?prodId="+prodId,
+//	        timeout :     30000,
+	        
+	        success:function(msg){
+	        	alert("product deleted!")
+	        	location.href="productList";
+	        },
+	        error:function(){
+	            alert("ERROR: product delete failed.");     
+	        },            
+	        complete: function(XMLHttpRequest, textStatus){
+	            //reset to avoid duplication
+	        }        
+	    });
+	///acp/item/deleteProduct?prodId="+listProduct.get(i).getProdId()+"' 
 }

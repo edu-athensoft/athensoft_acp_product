@@ -31,6 +31,9 @@ public interface ItemProductDao {
 	public List<ItemProduct> findProductsByFilter(ItemProduct itemProduct);
 
 
+	public int deleteProductByProdBizId(String prodId);
+
+
 	
 	/**
 	 * @param queryString

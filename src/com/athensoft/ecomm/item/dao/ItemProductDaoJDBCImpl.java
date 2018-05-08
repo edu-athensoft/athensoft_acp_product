@@ -242,10 +242,10 @@ public int createProduct(ItemProduct itemProduct) {
 public List<ItemProduct> findProductsByFilter(ItemProduct itemProduct) {
 	StringBuffer sbf = new StringBuffer();
 	System.out.println(itemProduct.toString());
-	sbf.append("select * from"
-				+ " item_product ip,"
-				+ "item_product_i18n ipi, "
-				+ "info_language il where ");
+	sbf.append("select * from");
+	sbf.append( " item_product ip,");
+	sbf.append("item_product_i18n ipi, ");
+	sbf.append("info_language il where ");
 	if(itemProduct.getProdBizId()!= null){
 		sbf.append(" prod_biz_id like '%"+itemProduct.getProdBizId()+"%' and ");
 	}
@@ -265,7 +265,6 @@ public List<ItemProduct> findProductsByFilter(ItemProduct itemProduct) {
 		sbf.append("  prod_name like '%"+itemProduct.getItemProductI18n().getProdName()+"%' and ");
 	}
 	if( null!=(itemProduct.getProdCreaterDatetime())){
-		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		if(itemProduct.getProdCreaterDatetime().contains(",")){
 			String[] datetimes= itemProduct.getProdCreaterDatetime().split(",");
 			//System.out.println(datetimes[0]+", "+datetimes[1]);
@@ -305,6 +304,26 @@ public List<ItemProduct> findProductsByFilter(ItemProduct itemProduct) {
 		x = null;
 	}
 	return x;
+}
+
+@Override
+public int deleteProductByProdBizId(String prodId) {
+	StringBuffer sbf = new StringBuffer();
+	sbf.append("delete from ");
+	sbf.append( " item_product ");
+	//sbf.append("item_product_i18n ipi  ");
+	sbf.append( " where prod_id =:prod_id ");
+	//sbf.append("and  ip.prod_id = ipi.prod_id ");
+	//sbf.append("and  ipi.lang_no=:lang_no ");
+	MapSqlParameterSource paramSource = new MapSqlParameterSource();
+	//paramSource.addValue("lang_no", 1052);
+	paramSource.addValue("prod_id", prodId);
+	System.out.println(sbf.toString());
+	String sql = sbf.toString();
+	int result= jdbc.update(sql, paramSource);
+	
+	return result; 
+	 
 }
 		 
 		

@@ -216,21 +216,6 @@ public class ItemProductAcpController {
 			model.put("msg","no");
 		}
 		
-		
-		//view	
-		/*String viewName = "item/productListData";
-		mav.setViewName(viewName);
-	
-		
-		/*
-		//data
-		Map<String, Object> model = mav.getModel();
-		*/
-		
-		
-		/*//data - news
-		ItemProduct product = itemProductService.getProductByProdBizId(prodId);	
-		model.put("productObject", product);*/
 
 		logger.info("leaving /item/newCreateProduct");
 	
@@ -307,7 +292,7 @@ public class ItemProductAcpController {
 			field7 = "<span class='label label-sm label-"+productStatusKey+"'>"+productStatu+"</span>";
 			
 			
-			field8 = "<a href='/acp/item/"+getAction(actionName)+"?prodId="+listProduct.get(i).getProdId()+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+actionName+"</a>";
+			field8 = "<a href='/acp/item/"+getAction(actionName)+"?prodId="+listProduct.get(i).getProdId()+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+actionName+"</a><button onclick='deleteProduct("+listProduct.get(i).getProdId()+")' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+"Delete"+"</button>";
 			//field9 = "<a href='/acp/item/"+getAction(actionName)+"?prodBizId="+field1+"' '><i class='fa fa-pencil'></i> "+"test"+"</a>";
 			
 			//logger.info("field8="+field8);
@@ -354,6 +339,23 @@ public class ItemProductAcpController {
 		
 		logger.info("leaving /item/product_edit");
 		return mav;
+	}
+	@RequestMapping(value="/item/deleteProduct")
+	@ResponseBody
+	public Map<String,Object> deleteProduct(@RequestParam String prodId){
+		logger.info("entering /item/deleteProduct");
+		
+		Map<String,Object> model= new HashMap<String,Object> ();
+		int result =itemProductService.deleteProductByProdBizId(prodId);	
+		if(result==1){
+			model.put("success", true);
+		}else{
+			model.put("success", false);
+		}
+		
+		
+		logger.info("leaving /item/deleteProduct");
+		return model;
 	}
 	
 	@RequestMapping(value="/item/productUpdate",method=RequestMethod.POST)

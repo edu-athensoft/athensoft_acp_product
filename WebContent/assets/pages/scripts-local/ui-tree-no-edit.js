@@ -2,7 +2,7 @@ var UITree = function () {
 
 
     var contextualMenuSample = function() {
-    	
+    	$('#tree_3').jstree("destroy");
     	$("#tree_search_input").keyup(function() {
 
             var searchString = $(this).val();
@@ -40,7 +40,7 @@ var UITree = function () {
     	    stateInfo=data.instance.get_node(data.selected[0]).state
     	   
     	   if(stateInfo!= undefined){
-    		   alert(JSON.stringify(stateInfo)) 
+    		   alert(JSON.stringify(stateInfo)+". "+data.selected) 
     			key = stateInfo.key 
     			text = data.instance.get_node(data.selected[0]).text
     	   }
@@ -53,7 +53,14 @@ var UITree = function () {
 		    }
 //		    $('#event_result').html('Selected: ' + r.join(', '));
 		  }) 
-		
+		/*  .on('loaded.jstree', function() {
+			  $('#tree_3').jstree('select_node', 'j1_102');
+			  });*/
+        
+        $('#tree_3').bind("loaded.jstree", function (e, data) {
+        	  $('#tree_3').jstree('select_node', 'j1_102');
+        });
+        $('#tree_3').jstree("destroy");
     }
 
     return {

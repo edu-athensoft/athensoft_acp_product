@@ -57,7 +57,7 @@ function createProduct() {
         	location.href="productList";
         },
         error:function(){
-            alert("ERROR: News creating failed.");     
+            alert("ERROR: Product creating failed.");     
         },            
         complete: function(XMLHttpRequest, textStatus){
             //reset to avoid duplication
