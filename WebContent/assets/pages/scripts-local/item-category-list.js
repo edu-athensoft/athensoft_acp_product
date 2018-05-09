@@ -14,7 +14,7 @@ var ItemCategoryList = function () {
 
     var handleProducts = function() {
         var grid = new Datatable();
-        alert("123123");
+        //alert("123123");
         grid.init({
             src: $("#datatable_itemCategoryList"),
             onSuccess: function (grid) {

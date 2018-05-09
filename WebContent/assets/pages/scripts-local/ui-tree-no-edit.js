@@ -2,20 +2,15 @@ var UITree = function () {
 
 
     var contextualMenuSample = function() {
-    	$('#tree_3').jstree("destroy");
-    	$("#tree_search_input").keyup(function() {
+    
+    	//$.jstree.defaults.core.expand_selected_onload = false;
 
-            var searchString = $(this).val();
-            $('#tree_3').jstree('search', searchString);
-        });
-    	
         $("#tree_3").jstree({
             "core" : {
-                "themes" : {
+            	"themes" : {
                     "responsive": false
                 }, 
-                // so that create works
-                "check_callback" : true,
+            
                
                 'data':jsTreeData
               
@@ -28,39 +23,37 @@ var UITree = function () {
                     "icon" : "fa fa-file icon-state-warning icon-lg"
                 }
             },
-            "state" : { "key" : "demo2" },
-            "search": {
-                "case_insensitive": true,
-                "show_only_matches" : true
-            },
-            "plugins" : [ "state", "types", "search" ]
+            
+            "state" : { "key" : "demo1" },
+            "plugins" : ["types", "search" ]
         })
        .on('changed.jstree', function (e, data) {
 //        	alert($("#tree_3").jstree().get_selected(true)[0].text); //ok
     	    stateInfo=data.instance.get_node(data.selected[0]).state
     	   
     	   if(stateInfo!= undefined){
-    		   alert(JSON.stringify(stateInfo)+". "+data.selected) 
+    		   console.log(data);
+    		   //alert(JSON.stringify(stateInfo)+". "+data.selected) 
     			key = stateInfo.key 
     			text = data.instance.get_node(data.selected[0]).text
     	   }
     	  
-     	console.log("The selected nodes are:");
+     	/*console.log("The selected nodes are:");
             console.log(data.selected);
 		    var i, j, r = [];
 		    for(i = 0, j = data.selected.length; i < j; i++) {
 		      r.push(data.instance.get_node(data.selected[i]).text);
-		    }
-//		    $('#event_result').html('Selected: ' + r.join(', '));
+		    }*/
 		  }) 
-		/*  .on('loaded.jstree', function() {
-			  $('#tree_3').jstree('select_node', 'j1_102');
-			  });*/
-        
+		  var _tree3 = $("#tree_3 ul");
         $('#tree_3').bind("loaded.jstree", function (e, data) {
-        	  $('#tree_3').jstree('select_node', 'j1_102');
+        	var datas= data.instance._model.data;
+        	$.each(datas,function(i,val){
+        		if(val.text==categoryName){
+        			$('#tree_3').jstree('select_node', val.id);
+        		}
+        	})
         });
-        $('#tree_3').jstree("destroy");
     }
 
     return {
@@ -78,4 +71,31 @@ if (App.isAngularJsApp() === false) {
        UITree.init();
       
     });
+}
+
+function categoryIterator(level){
+	debugger;
+	for(var i=0;i<level.length;i++){
+
+    	console.log(i);
+    	var keyz =level[i].state.key;
+    	if(keyz==categoryCode){
+
+  		  $('#tree_3').bind("loaded.jstree", function (e, data) {
+          	  $('#tree_3').jstree('select_node', 'j1_96');
+          });
+          
+    	}
+    	if(level[i].children!=undefined){
+    		
+    		var secondLevel=level[i].children;
+    		categoryIterator(secondLevel);
+        	
+
+    	}
+    	
+    
+        
+        
+    }
 }

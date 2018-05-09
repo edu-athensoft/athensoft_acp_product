@@ -95,6 +95,8 @@ public interface ItemCategoryDao {
 	public String getInsertedCateCode(String categoryCode, int childCategoryLevel);
 
 	public String getInsertedCateCode(int childLevel);
+
+	public void updateCategory(ItemCategory itemCategory);
 	
 
 }

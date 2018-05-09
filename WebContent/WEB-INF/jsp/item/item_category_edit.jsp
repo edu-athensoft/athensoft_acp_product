@@ -34,7 +34,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <head>
         <meta charset="utf-8" />
-        <title>Athensoft | Category - Category Create</title>
+        <title>Athensoft | Category - Category Edit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Preview page of Metronic Admin Theme #2 for edit product" name="description" />
@@ -107,7 +107,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- BEGIN THEME PANEL -->
                     <jsp:include page="${inc_dir}/theme-panel.jsp"></jsp:include>
                     <!-- END THEME PANEL -->
-                    <h1 class="page-title">Item System <small> Create category</small></h1>
+                    <h1 class="page-title">Item System <small> Edit category</small></h1>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
 						<li>
@@ -157,37 +157,17 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="portlet">
                                     <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-shopping-cart"></i>Create Category<span class="caption-helper"> create Category name, description, status, etc.</span> </div>
+                                            <i class="fa fa-shopping-cart"></i>Edit Category<span class="caption-helper"> edit Category name, description, status, etc.</span> </div>
                                         <div class="actions btn-set">
                                             <button type="button" name="back" class="btn btn-secondary-outline" onclick="backToProductList(); return false;">
                                                 <i class="fa fa-angle-left"></i> Back</button>
                                             <button class="btn btn-secondary-outline"  type="reset" >
                                                 <i class="fa fa-reply"></i> Reset</button>
-                                            <button class="btn btn-success" type="button" onclick="createCategory(); return false;">
+                                            <button class="btn btn-success" type="button" onclick="editCategory(); return false;">
                                                 <i class="fa fa-check"></i> Save</button>
-                                            <button class="btn btn-success" onclick="createCategoryAndContinue(); return false;" >
+                                            <button class="btn btn-success" onclick="editCategoryAndContinue(); return false;" >
                                                 <i class="fa fa-check-circle"></i> Save &amp; Continue Edit</button>
-                                            <div class="btn-group">
-                                                <a class="btn btn-success dropdown-toggle" href="javascript:;" data-toggle="dropdown">
-                                                    <i class="fa fa-share"></i> More
-                                                    <i class="fa fa-angle-down"></i>
-                                                </a>
-                                                <div class="dropdown-menu pull-right">
-                                                	<ul>
-                                                    <li>
-                                                        <a href="javascript:;"> Duplicate </a>
-                                                    </li>
-                                                   	<li>
-														<a href="javascript:;"  onclick="markNewsStatusDeleted('${newsObject.eventUUID}'); return false;">
-														Mark Deleted </a>
-													</li>
-                                                    <li class="dropdown-divider"> </li>
-                                                    <li>
-                                                        <a href="javascript:;"> Print </a>
-                                                    </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                     <div class="portlet-body">
@@ -212,7 +192,7 @@ License: You must have a valid license purchased only from themeforest(the above
 														* </span>
 														</label>
 														<div class="col-md-10">
-													<input type="hidden" class="form-control" name="categoryId" id="categoryId"  placeholder="" >
+													<input type="text" class="form-control" name="categoryId" id="categoryId"  placeholder=""  value="${categoryObject.categoryId}" >
 														<input type="hidden" class="form-control" name="categoryCode" id="categoryCode"  placeholder=""  value="${categoryObject.categoryCode}" >
 														
 															<input type="text" class="form-control" name="categoryName" id="categoryName"  placeholder=""  value="${categoryObject.categoryName}">
@@ -309,8 +289,10 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-category.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-category-create.js"></script>
+<script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-category.js"></script>
+
+<script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-category-edit.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/global-validate.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts/jquery.easyui.min.js"></script>
 
@@ -338,6 +320,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END THEME LAYOUT SCRIPTS -->
 <script>
 
+var categoryName ="${categoryObject.categoryName}";
 </script>
 </body>
 

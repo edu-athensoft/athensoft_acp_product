@@ -23,8 +23,8 @@ function getBusinessObject(){
     	alert("Must choose a Status");
     	return false;
     }
-    
-    
+    var p6 = $("#categoryId").val();
+   
     var businessObject =
     {
     		
@@ -33,6 +33,7 @@ function getBusinessObject(){
     		categoryDesc    	:    p3,
     	
     		categoryStatus    	:    p5,
+    		categoryId			: p6
     };
     
     return businessObject;

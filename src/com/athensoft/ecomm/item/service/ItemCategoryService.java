@@ -118,10 +118,7 @@ public class ItemCategoryService {
 				else if(newIntCategoryCode<=100&&newIntCategoryCode>10){
 					newStringCateCode=""+newIntCategoryCode;
 
-				}		//15-001-002 3
-						//15-001 2
-						//15-001-002-003 4
-				
+				}
 			}else{
 			    newCategoryCode = this.itemCategoryDao.getInsertedCateCode(itemCategory.getCategoryCode(),childLevel);
 
@@ -157,6 +154,68 @@ public class ItemCategoryService {
 		}
 		
 		
+	}
+
+	public void updateCategory(ItemCategory itemCategory) {
+		if(itemCategory.getCategoryCode().split("-").length!=1){
+			ItemCategory parentItemCatgory = this.itemCategoryDao.findByCategoryCode(itemCategory.getCategoryCode());
+			itemCategory.setParentId(parentItemCatgory.getCategoryId());
+		}else{
+			itemCategory.setParentId(1);
+		}
+	
+		String newStringCateCode="";
+		int categoryLevel=itemCategory.getCategoryCode().split("-").length;
+		int  childLevel = categoryLevel+1;
+		
+		boolean isParent=this.itemCategoryDao.ifisParent(itemCategory.getCategoryCode(),childLevel);
+		if(itemCategory.getCategoryCode().equals("ROOT")){
+			isParent=true;
+		}
+		String newCategoryCode="";
+		int newIntCategoryCode=0;
+		
+		if(isParent){
+			
+			if("ROOT".equals(itemCategory.getCategoryCode())){
+				newCategoryCode = this.itemCategoryDao.getInsertedCateCode(childLevel);
+				newIntCategoryCode= Integer.parseInt(newCategoryCode.split("-")[0]);
+				
+				if(newIntCategoryCode<10){
+					newStringCateCode="00"+newIntCategoryCode;
+				}
+				else if(newIntCategoryCode<=100&&newIntCategoryCode>10){
+					newStringCateCode=""+newIntCategoryCode;
+
+				}
+			}else{
+			    newCategoryCode = this.itemCategoryDao.getInsertedCateCode(itemCategory.getCategoryCode(),childLevel);
+
+				int length=newCategoryCode.split("-").length;
+				System.out.println(length);
+				if(length>1){
+					newIntCategoryCode= Integer.parseInt(newCategoryCode.split("-")[newCategoryCode.split("-").length-1]);
+				}
+				if(newIntCategoryCode<10){
+					newCategoryCode.substring(newCategoryCode.length()-3);
+					newStringCateCode=newCategoryCode.substring(0, newCategoryCode.lastIndexOf(newCategoryCode.substring(newCategoryCode.length()-3)))+"00"+newIntCategoryCode;
+				}
+				else if(newIntCategoryCode<=100&&newIntCategoryCode>10){
+					newStringCateCode=newCategoryCode.substring(0, newCategoryCode.lastIndexOf(newCategoryCode.substring(newCategoryCode.length()-3)))+"0"+newIntCategoryCode;
+				}
+			}
+			
+		}else{
+			newStringCateCode=itemCategory.getCategoryCode()+"-001";
+
+		}
+		  
+		itemCategory.setCategoryCode(newStringCateCode);
+		itemCategory.setCategoryLevel(childLevel);
+		
+		 
+		
+		this.itemCategoryDao.updateCategory(itemCategory);
 	}
 
 }

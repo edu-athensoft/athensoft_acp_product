@@ -227,14 +227,7 @@ License: You must have a valid license purchased only from themeforest(the above
 															<input type="text" class="form-control" id="categoryDesc" name="categoryDesc" placeholder="" >
 														</div>
 													</div>
-														<div class="form-group">
-														<label class="col-md-2 control-label">Level: <span class="required">
-														* </span>
-														</label>
-														<div class="col-md-10">
-															<input type="text" class="form-control" id="categoryLevel" name="categoryLevel" placeholder=""  >
-														</div>
-													</div>
+													
 													
 													
 													<div class="form-group">

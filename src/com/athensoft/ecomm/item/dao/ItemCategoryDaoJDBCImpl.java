@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 
 import com.athensoft.ecomm.item.entity.ItemCategory;
 import com.athensoft.ecomm.item.entity.ItemCategoryStatus;
+import com.athensoft.ecomm.item.entity.ItemProduct;
 import com.athensoft.util.id.UUIDHelper;
 
 @Component
@@ -57,7 +58,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 			x = jdbc.query(sql, paramSource, new ItemCategoryRowMapper());
 		} catch (EmptyResultDataAccessException ex) {
 			x = null;
-		}
+		} 
 		return x;
 	}
 
@@ -145,7 +146,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 		}
 		return x;
 	}
-
+ 
 	@Override
 	public ItemCategory findByCategoryCode(String categoryCode) {
 		String sql = "select * from item_category where category_code =:categoryCode";
@@ -390,6 +391,58 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void updateCategory(ItemCategory itemCategory) {
+	// TODO Auto-generated method stub
+	final String TABLE1 = "item_category ic, item_category_i18n ici";
+	System.out.println("ID = "+itemCategory.getCategoryName());
+	StringBuffer sbf = new StringBuffer();
+/*	sbf.append("insert into " + TABLE1 + "(category_code");
+	sbf.append(",parent_id,");
+	sbf.append("category_status,");
+	sbf.append("category_level) values(");
+	sbf.append(":category_code,");
+	sbf.append(":parent_id,");
+	sbf.append(":category_status,");
+	sbf.append(":category_level)");*/
+	
+	sbf.append("update "+TABLE1+" ");
+	sbf.append("set ");
+	sbf.append("category_code = :category_code, ");
+	sbf.append("category_status = :category_status, ");
+	sbf.append("parent_id = :parent_id, ");
+	sbf.append("category_level = :category_level, ");
+	sbf.append("ici.category_name = :category_name ,");
+	sbf.append("ici.category_desc = :category_desc ");
+	sbf.append("where ic.category_id = ici.category_id  ");
+	sbf.append("and ic.category_id = :category_id  ");
+	sbf.append("and ici.lang_no = :lang_no");
+			
+			/*+ "(,author,post_datetime,view_num,desc_short,desc_long,event_class,event_status) ");*/
+	
+	String sql = sbf.toString();
+	
+//	final Date dateCreate 			= new Date();
+//	final Date dateLastModified 	= dateCreate;
+	MapSqlParameterSource paramSource = new MapSqlParameterSource();
+//	paramSource.addValue("global_id", news.getGlobalId());
+	paramSource.addValue("category_code", itemCategory.getCategoryCode());
+	paramSource.addValue("category_status", itemCategory.getCategoryStatus());
+	paramSource.addValue("parent_id",itemCategory.getParentId());
+	paramSource.addValue("category_level",itemCategory.getCategoryLevel());
+	paramSource.addValue("category_name",itemCategory.getCategoryName());
+	paramSource.addValue("category_desc", itemCategory.getCategoryDesc());
+	paramSource.addValue("category_id", itemCategory.getCategoryId());
+	
+	paramSource.addValue("lang_no", 1033);
+	
+	KeyHolder keyholder = new GeneratedKeyHolder();
+	int update = jdbc.update(sql, paramSource, keyholder);
+	System.out.println("update result "+update);
+	System.out.println(sql);
+
 	}
 
 	

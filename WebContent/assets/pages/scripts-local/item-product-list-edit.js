@@ -215,7 +215,8 @@ var productEdit = function (option) {
 function backToNewsList(){
 	location.href = "/acp/item/productListData";
 }
-/* event news - button:save change,update */
+
+/* edit product - button:save change,update */
 function updateProduct() {
     var productObject = getProductObject();
     
@@ -231,7 +232,7 @@ function updateProduct() {
             location.href="productList";
         },
         error:function(){
-            alert("ERROR: News updating failed.");     
+            alert("ERROR:Product updating failed.");     
         },            
         complete: function(XMLHttpRequest, textStatus){
             //reset to avoid duplication

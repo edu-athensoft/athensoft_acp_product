@@ -107,7 +107,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- BEGIN THEME PANEL -->
                     <jsp:include page="${inc_dir}/theme-panel.jsp"></jsp:include>
                     <!-- END THEME PANEL -->
-                    <h1 class="page-title"> Item System <small>manage products and services</small></h1>
+                    <h1 class="page-title"> Item System <small>manage Item Categories</small></h1>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
 							<li>
@@ -145,7 +145,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="portlet light">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="fa fa-shopping-cart"></i>Category Listing <span class="caption-helper">listing product or service categories</span></div>
+                                        <i class="fa fa-shopping-cart"></i>Category Listing <span class="caption-helper">listing categories</span></div>
                                     <div class="actions">
                                         <a href="itemCategoryCreate" class="btn btn-circle btn-info">
                                             <i class="fa fa-plus"></i><span class="hidden-xs"> Create category </span>

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.athensoft.content.event.entity.Event;
 import com.athensoft.ecomm.item.entity.ItemCategory;
 import com.athensoft.ecomm.item.entity.ItemCategoryStatus;
@@ -142,7 +143,7 @@ public class ItemCategoryAcpController {
 	    	//System.out.println(p.toString());
 	    	String parentCode = p.getCategoryCode();
 	    	logger.info("parent_code="+parentCode);
-
+ 
 	    	Node parentNode = Node.getNodeByKey(treeRootNode, parentCode);
 	    	logger.info("parentNode.text="+parentNode.getText());
 	    	Node.addChild(parentNode, ic.getCategoryName(), Node.buildList(new AbstractMap.SimpleEntry<String, String>("key", ic.getCategoryCode())));
@@ -285,7 +286,7 @@ public class ItemCategoryAcpController {
 		
 		//data
 		Map<String, Object> model = mav.getModel();
-		JSONObject jobj= new JSONObject(itemJSONString);
+		JSONObject jobj= new JSONObject();
 		
 		String where1 = jobj.getString("categoryId").trim();
 		String where2 = jobj.getString("parentId").trim();
@@ -306,7 +307,7 @@ public class ItemCategoryAcpController {
 			where6b = Integer.parseInt(strLevelTo);
 		}
 		
-		int where7 = jobj.getInt("categoryStatus");
+		//int where7 = jobj.getInt("categoryStatus");
 		
 		/* construct query string */
 		StringBuffer queryString = new StringBuffer();
@@ -316,7 +317,7 @@ public class ItemCategoryAcpController {
 		queryString.append(where4.length()==0?" ":" and category_name like '%"+where4+"%' ");
 		queryString.append(where5.length()==0?" ":" and category_desc like '%"+where5+"%' ");
 		queryString.append(where6.length()==0?" ":" and category_level <= "+where6b+" ");
-		queryString.append(where7==0?" ":" and category_status = "+where7+" ");
+		//queryString.append(where7==0?" ":" and category_status = "+where7+" ");
 		
 		logger.info("QueryString = "+ queryString.toString());
 		
@@ -600,6 +601,25 @@ public class ItemCategoryAcpController {
 		logger.info("leaving /item/categoryEdit");
 		return mav;
 	} 
+
+	@RequestMapping(value="/item/categoryUpdate",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> categoryUpdate(@RequestParam String itemJSONString){
+		logger.info("entering /item/categoryUpdate");
+		System.out.println(itemJSONString);
+		
+		ModelAndView mav = new ModelAndView();
+		JSONObject ic_job= new JSONObject();
+		ItemCategory itemCategory = ic_job.parseObject(itemJSONString, ItemCategory.class);
+		
+		itemCategoryService.updateCategory(itemCategory);
+		
+		logger.info("leaving /item/categoryUpdate");
+		Map<String,Object> map=new HashMap<String, Object>();
+        map.put("success",true);
+        map.put("msg","ok");
+		return map;
+	}
 	
 	
 	/**
