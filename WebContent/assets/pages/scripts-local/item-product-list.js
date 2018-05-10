@@ -151,11 +151,8 @@ function filterSearch(){
 			p7=p7+p8;
 		
 	    var p9 = $("#prodName").val();
-	  //  var p7 = $("#prodDesc").val();
-	  //  var p8 = $("#prodDescLong").val();
-	   
-	 //   var p10 = $("#prodNameAlias").val();
-
+	    var p10 = $("#categoryName").val();
+	    alert(p10);
     var businessObject =
     {
     		//prodId    :    p2,
@@ -165,8 +162,8 @@ function filterSearch(){
     		prodStatus:    p5,            
     		prodSaleType    	:   p6,  
     		prodCreaterDatetime:p7,
-    		itemProductI18n		:{ prodName		:	p9} 
-    		
+    		itemProductI18n		:{ prodName		:	p9},
+    		categoryName 		: p10
     		
            
     //		descShort   :    p7,

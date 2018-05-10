@@ -263,6 +263,9 @@ public List<ItemProduct> findProductsByFilter(ItemProduct itemProduct) {
 	if(itemProduct.getProdStatus()!=0){
 		sbf.append("  prod_status like '%"+itemProduct.getProdStatus()+"%' and ");
 	}
+	if(itemProduct.getCategoryName()!=null){
+		sbf.append("  prod_category_name like '%"+itemProduct.getCategoryName()+"%' and ");
+	}
 	if( !"".equals(itemProduct.getItemProductI18n().getProdName().trim())){
 		sbf.append("  prod_name like '%"+itemProduct.getItemProductI18n().getProdName()+"%' and ");
 	}
