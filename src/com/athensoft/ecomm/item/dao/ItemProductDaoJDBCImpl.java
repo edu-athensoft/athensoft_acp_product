@@ -51,10 +51,10 @@ public class ItemProductDaoJDBCImpl implements ItemProductDao{
 				+ "and ip.lang_no = il.lang_no "
 				+ "and ip.lang_no=:lang_no";
 		
-		//near 'i.prod_id=ip.prod_id where ip.lang_no = il.lang_no and ip.lang_no=1052
+		//near 'i.prod_id=ip.prod_id where ip.lang_no = il.lang_no and ip.lang_no=1033
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 //		paramSource.addValue("global_id", globalId);
-		paramSource.addValue("lang_no",1052 );
+		paramSource.addValue("lang_no",1033 );
 		List<ItemProduct> x = new ArrayList<ItemProduct>();
 		try{
 			x = jdbc.query(sql, paramSource, new ItemProductRowMapper());
@@ -76,7 +76,7 @@ public class ItemProductDaoJDBCImpl implements ItemProductDao{
 				+ "and ip.lang_no=:lang_no";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("prod_id", prodId);
-		paramSource.addValue("lang_no",1052 );
+		paramSource.addValue("lang_no",1033 );
 
 		ItemProduct x = null;
 		try{
@@ -103,6 +103,8 @@ class ItemProductRowMapper implements RowMapper<ItemProduct>{
 		x.setProdType(rs.getInt("prod_type"));
 		x.setProdSaleType(rs.getInt("prod_sale_type"));
 		x.setProdSeqNo(rs.getInt("prod_seqno"));
+		x.setCategoryName(rs.getString("prod_category_name"));
+		x.setCategoryCode(rs.getString("prod_category_code"));
 		x.setProdCreaterId(rs.getInt("prod_creater_id"));
 		x.setProdCreaterDatetime(rs.getString("prod_create_datetime"));
 		x.setProdModifierId(rs.getInt("prod_modifier_id"));
@@ -111,7 +113,7 @@ class ItemProductRowMapper implements RowMapper<ItemProduct>{
 		x.setProdPublisherDatetime(rs.getDate("prod_publish_datetime"));
 		x.setProdUnPublisherId(rs.getInt("prod_unpublisher_id"));
 		x.setProdUnPublisherDatetime(rs.getDate("prod_unpublish_datetime"));
-		i18n.setLangNo(1052);
+		i18n.setLangNo(1033);
 		i18n.setProdDesc(rs.getString("prod_desc"));
 		i18n.setProdId(x.getProdId());
 		i18n.setProdDescLong(rs.getString("prod_desc_long"));
@@ -160,7 +162,7 @@ public void updateProduct(ItemProduct itemProduct) {
 	paramSource.addValue("prod_desc_long", itemProduct.getItemProductI18n().getProdDescLong());
 	paramSource.addValue("prod_name", itemProduct.getItemProductI18n().getProdName());
 	paramSource.addValue("prod_name_alias", itemProduct.getItemProductI18n().getProdNameAlias());
-	paramSource.addValue("lang_no", 1052);
+	paramSource.addValue("lang_no", 1033);
 	
 	KeyHolder keyholder = new GeneratedKeyHolder();
 	jdbc.update(sql, paramSource, keyholder);
@@ -213,7 +215,7 @@ public int createProduct(ItemProduct itemProduct) {
 		paramSource.addValue("prod_desc_long", itemProduct.getItemProductI18n().getProdDescLong());
 		paramSource.addValue("prod_name", itemProduct.getItemProductI18n().getProdName());
 		paramSource.addValue("prod_name_alias", itemProduct.getItemProductI18n().getProdNameAlias());
-		paramSource.addValue("lang_no", 1052);
+		paramSource.addValue("lang_no", 1033);
 		
 		KeyHolder keyholder = new GeneratedKeyHolder();
 		System.out.println(sql);
@@ -292,7 +294,7 @@ public List<ItemProduct> findProductsByFilter(ItemProduct itemProduct) {
 	sbf.append("and il.lang_no = ipi.lang_no");
 	
 	MapSqlParameterSource paramSource = new MapSqlParameterSource();
-	paramSource.addValue("lang_no", 1052);
+	paramSource.addValue("lang_no", 1033);
 	
 	System.out.println(sbf.toString());
 	
@@ -316,7 +318,7 @@ public int deleteProductByProdBizId(String prodId) {
 	//sbf.append("and  ip.prod_id = ipi.prod_id ");
 	//sbf.append("and  ipi.lang_no=:lang_no ");
 	MapSqlParameterSource paramSource = new MapSqlParameterSource();
-	//paramSource.addValue("lang_no", 1052);
+	//paramSource.addValue("lang_no", 1033);
 	paramSource.addValue("prod_id", prodId);
 	System.out.println(sbf.toString());
 	String sql = sbf.toString();

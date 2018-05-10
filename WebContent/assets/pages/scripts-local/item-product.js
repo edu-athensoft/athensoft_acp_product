@@ -18,7 +18,14 @@ function getProductObject(){
     var p9 = $("#prodName").val();
     var p10 = $("#prodNameAlias").val();
     var p11 = key;
-   if(p2.trim()==""&&p3.trim()==""&&p4==0&&p5==0&&p6==0&&p7.trim()==""&&p8.trim()==""&&p9.trim()==""&&p10.trim()==""){
+    
+   if( p4==0&&
+		   p5==0&&
+		   p6==0&&
+		   p7.trim()==""&&
+		   p8.trim()==""&&
+		   p9.trim()==""&&
+		   p10.trim()==""){
    	alert("please fill out all columns");
 
     	return false;
@@ -50,6 +57,6 @@ function getProductObject(){
     		
     		
     };
-    
+    alert(businessObject);
     return businessObject;
 }

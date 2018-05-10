@@ -269,7 +269,7 @@ public class ItemProductAcpController {
 		String field6 = "";	//view num
 		String field7 = "";	//event status
 		String field8 = "";	//action
-		//String field9 = "";
+		String field9 = "";
 		
 		for(int i=0; i<entryLength ; i++){			
 			field0 = "<input type='checkbox' name='id[]' value="+listProduct.get(i).getProdId()+">";
@@ -282,17 +282,19 @@ public class ItemProductAcpController {
 				listProduct.get(i).getProdSaleType()==2?"Outlet":listProduct.get(i).getProdSaleType()==3?"Both":"n/a"+"";
 
 			field5 = listProduct.get(i).getItemProductI18n().getProdName()+""; 
-			field6 = listProduct.get(i).getProdCreaterDatetime()+"";
+			field6 =  listProduct.get(i).getCategoryName()+"";
+
+			field7 = listProduct.get(i).getProdCreaterDatetime()+"";
 			
 		/*	int intProductStatus = listProduct.get(i).getProdStatus();*/
 			String[] productStatus= getProductStatus(listProduct.get(i));
 			String productStatu= productStatus[0];
 			String productStatusKey=productStatus[1];
 			
-			field7 = "<span class='label label-sm label-"+productStatusKey+"'>"+productStatu+"</span>";
+			field8 = "<span class='label label-sm label-"+productStatusKey+"'>"+productStatu+"</span>";
 			
 			
-			field8 = "<a href='/acp/item/"+getAction(actionName)+"?prodId="+listProduct.get(i).getProdId()+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+actionName+"</a><button onclick='deleteProduct("+listProduct.get(i).getProdId()+")' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+"Delete"+"</button>";
+			field9 = "<a href='/acp/item/"+getAction(actionName)+"?prodId="+listProduct.get(i).getProdId()+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+actionName+"</a><button onclick='deleteProduct("+listProduct.get(i).getProdId()+")' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+"Delete"+"</button>";
 			//field9 = "<a href='/acp/item/"+getAction(actionName)+"?prodBizId="+field1+"' '><i class='fa fa-pencil'></i> "+"test"+"</a>";
 			
 			//logger.info("field8="+field8);
@@ -306,7 +308,7 @@ public class ItemProductAcpController {
 			data[i][6] = field6;
 			data[i][7] = field7;
 			data[i][8] = field8;
-			//data[i][9] = field9;
+			data[i][9] = field9;
 			
 		}
 		
@@ -367,7 +369,7 @@ public class ItemProductAcpController {
 		ModelAndView mav = new ModelAndView();
 		JSONObject ic_job= new JSONObject();
 		ItemProduct itemProduct = ic_job.parseObject(itemJSONString, ItemProduct.class);
-		
+		 
 		itemProductService.updateProduct(itemProduct);
 		
 		logger.info("leaving /item/product_edit");

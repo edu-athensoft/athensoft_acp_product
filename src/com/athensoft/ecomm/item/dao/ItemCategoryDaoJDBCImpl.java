@@ -128,7 +128,17 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 		 * sbf.append("AND lang_no = 1033 ");
 		 * sbf.append("AND category_id = :category_id ");
 		 */
-		sbf.append("select * from item_category, item_category_i18n where item_category.category_id =:category_id");
+		sbf.append("select ");
+				sbf.append("item_category.category_id,");
+				sbf.append("parent_id,");
+				sbf.append("category_code,");
+				sbf.append("item_category_i18n.category_name,");
+				sbf.append("item_category_i18n.category_desc,");
+				sbf.append("category_level,");
+				sbf.append("category_status,");
+				sbf.append("tree_ui_id ");
+	
+		sbf.append("from item_category, item_category_i18n where item_category.category_id =:category_id");
 		sbf.append(" and item_category_i18n.category_id=item_category.category_id");
 
 		sbf.append(" and item_category_i18n.lang_no=:lang_no");
@@ -149,11 +159,11 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
  
 	@Override
 	public ItemCategory findByCategoryCode(String categoryCode) {
-		String sql = "select * from item_category where category_code =:categoryCode";
+		String sql = "select * from item_category ic,item_category_i18n ici where category_code =:categoryCode and ic.category_id=ici.category_id and lang_no=1033";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("categoryCode", categoryCode);
 		ItemCategory x = null;
-		try {
+		try { 
 			x = jdbc.queryForObject(sql, paramSource, new ItemCategoryRowMapper());
 		} catch (EmptyResultDataAccessException ex) {
 			x = null;
@@ -360,12 +370,12 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 	}
 	
 	@Override
-	public String getInsertedCateCode(int childLevel) {
+	public String getInsertedCateCode(int cateLevel) {
 		final String TABLE1 = "item_category";
 		StringBuffer sbf = new StringBuffer();
 
 		sbf.append("select max(category_code) from "+TABLE1) ;
-		sbf.append(" where category_level = "+childLevel);
+		sbf.append(" where category_level = "+cateLevel);
 		String sql = sbf.toString();
 		String newCategoryCode = jdbc.queryForObject(sql, EmptySqlParameterSource.INSTANCE, String.class); 
 		return newCategoryCode;
@@ -395,7 +405,6 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 
 	@Override
 	public void updateCategory(ItemCategory itemCategory) {
-	// TODO Auto-generated method stub
 	final String TABLE1 = "item_category ic, item_category_i18n ici";
 	System.out.println("ID = "+itemCategory.getCategoryName());
 	StringBuffer sbf = new StringBuffer();

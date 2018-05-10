@@ -190,9 +190,9 @@ License: You must have a valid license purchased only from themeforest(the above
 													<div class="form-group">
 														<label class="col-md-2 control-label">Category Name: <span class="required">
 														* </span>
-														</label>
+														</label> 
 														<div class="col-md-10">
-													<input type="text" class="form-control" name="categoryId" id="categoryId"  placeholder=""  value="${categoryObject.categoryId}" >
+													<input type="hidden" class="form-control" name="categoryId" id="categoryId"  placeholder=""  value="${categoryObject.categoryId}" >
 														<input type="hidden" class="form-control" name="categoryCode" id="categoryCode"  placeholder=""  value="${categoryObject.categoryCode}" >
 														
 															<input type="text" class="form-control" name="categoryName" id="categoryName"  placeholder=""  value="${categoryObject.categoryName}">

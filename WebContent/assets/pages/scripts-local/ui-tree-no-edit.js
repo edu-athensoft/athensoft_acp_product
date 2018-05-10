@@ -10,10 +10,7 @@ var UITree = function () {
             	"themes" : {
                     "responsive": false
                 }, 
-            
-               
                 'data':jsTreeData
-              
             },
            "types" : {
                 "default" : {
@@ -38,22 +35,25 @@ var UITree = function () {
     			text = data.instance.get_node(data.selected[0]).text
     	   }
     	  
-     	/*console.log("The selected nodes are:");
-            console.log(data.selected);
-		    var i, j, r = [];
-		    for(i = 0, j = data.selected.length; i < j; i++) {
-		      r.push(data.instance.get_node(data.selected[i]).text);
-		    }*/
 		  }) 
-		  var _tree3 = $("#tree_3 ul");
+		  var urlRequest = window.location.href;
+      		if(urlRequest.indexOf("gotoCategoryEdit")!= -1) var flag=false;
+      		
         $('#tree_3').bind("loaded.jstree", function (e, data) {
         	var datas= data.instance._model.data;
         	$.each(datas,function(i,val){
+        		if(flag!=undefined)  disable( val.id );    
+        		  
         		if(val.text==categoryName){
         			$('#tree_3').jstree('select_node', val.id);
         		}
         	})
+        	
+        	
+        	
         });
+        
+      
     }
 
     return {
@@ -72,30 +72,10 @@ if (App.isAngularJsApp() === false) {
       
     });
 }
-
-function categoryIterator(level){
-	debugger;
-	for(var i=0;i<level.length;i++){
-
-    	console.log(i);
-    	var keyz =level[i].state.key;
-    	if(keyz==categoryCode){
-
-  		  $('#tree_3').bind("loaded.jstree", function (e, data) {
-          	  $('#tree_3').jstree('select_node', 'j1_96');
-          });
-          
-    	}
-    	if(level[i].children!=undefined){
-    		
-    		var secondLevel=level[i].children;
-    		categoryIterator(secondLevel);
-        	
-
-    	}
-    	
-    
-        
-        
-    }
-}
+function disable(node_id) {
+	  var node = $("#tree_3").jstree().get_node( node_id );
+	  $("#tree_3").jstree().disable_node(node); 
+	  node.children.forEach( function(child_id) {            
+	    disable( child_id );
+	  })
+	} 

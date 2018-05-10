@@ -1,6 +1,29 @@
 /** item-product_edit.jsp */
 
 /* edit product - init */
+
+$().ready(function(){
+	
+	$.ajax({
+    	type    :    "post",
+    	async: false,
+    //	dataType:    "json",
+        url        : "getAllCategoryParent",
+        
+        success:function(data){
+        	//alert(data['data'][0]);
+        	jsTreeData=data['jsTreeData'];
+        	jsTreeData=JSON.parse(jsTreeData);
+        	
+        },
+        error:function(xhr){alert(xhr.responseText)},            
+        complete: function(XMLHttpRequest, textStatus){
+            //reset to avoid duplication
+        }        
+    });
+})
+
+
 var productEdit = function (option) {
 
    /* var handleImages = function(option) {
@@ -219,7 +242,7 @@ function backToNewsList(){
 /* edit product - button:save change,update */
 function updateProduct() {
     var productObject = getProductObject();
-    
+    alert(productObject);
     //execute saving
     $.ajax({      
     	

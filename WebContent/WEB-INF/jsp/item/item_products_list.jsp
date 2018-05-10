@@ -204,10 +204,11 @@ License: You must have a valid license purchased only from themeforest(the above
 													<th width="10%">Sequence Number</th>
 													<th width="10%">Product Type</th>
 													<th width="10%">Product Sale Type</th>
-													<th width="20%">Product Name</th>
-													<th width="14%">Created Date</th>
+													<th width="15%">Product Name</th>
+													<th width="15%">Category Name</th>
+													<th width="18%">Created Date</th>
 													<th width="8%">Status</th>
-													<th width="8%">Actions</th>
+													<th width="14%">Actions</th>
                                                 </tr>
                                                 <tr role="row" class="filter">
 													<td><input type="hidden" class="form-control form-filter input-sm" name="prodId" id="prodId"></td>
@@ -234,6 +235,12 @@ License: You must have a valid license purchased only from themeforest(the above
 														
 														
 														<input type="text" class="form-control form-filter input-sm" name="prodName" placeholder="search" id="prodName"/>
+													</td>
+													
+													<td>
+														
+														
+														<input type="text" class="form-control form-filter input-sm" name="categoryName" placeholder="search" id="categoryName"/>
 													</td>
 													<td>
 													<div class="input-group date date-picker margin-bottom-5" data-date-format="yyyy-mm-dd">

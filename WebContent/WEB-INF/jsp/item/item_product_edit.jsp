@@ -38,6 +38,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta content="Preview page of Metronic Admin Theme #2 for edit product" name="description" />
         <meta content="" name="author" />
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="${webapp_name}/assets/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css" />
+        <link href="${webapp_name}/assets/pages/css/wind.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
         <link href="${webapp_name}/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="${webapp_name}/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
@@ -158,7 +160,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <i class="fa fa-angle-left"></i> Back</button>
                                             <button class="btn btn-secondary-outline"  type="reset" >
                                                 <i class="fa fa-reply"></i> Reset</button>
-                                            <button class="btn btn-success" onclick="updateProduct(); return false;">
+                                            <button class="btn btn-success" type="button" onclick="updateProduct(); return false;">
                                                 <i class="fa fa-check"></i> Save</button>
                                             <button class="btn btn-success" onclick="updateProductAndContinue(); return false;" >
                                                 <i class="fa fa-check-circle"></i> Save &amp; Continue Edit</button>
@@ -196,6 +198,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <div class="tab-content" >
                                                 <div class="tab-pane active" id="tab_general">
                                                     <div class="form-body">
+                                                     <div class="form-group">
+														<label class="col-md-2 control-label"> Category: <span class="required">
+														* </span>
+														</label>
+														
+														
+						<!--                         <div class="col-md-6"> -->
+						                                
+						                                    <div id="tree_3" class="tree-demo"> </div>
+						<!--                              </div> -->
+													</div>
+                                                    
+                                                    
+                                                    
 													<div class="form-group">
 														<label class="col-md-2 control-label">Business ID: <span class="required">
 														* </span>
@@ -364,14 +380,17 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="${webapp_name}/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/global/plugins/plupload/js/plupload.full.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN THEME GLOBAL SCRIPTS -->
-<script src="${webapp_name}/assets/global/scripts/app.min.js" type="text/javascript"></script>
-<!-- END THEME GLOBAL SCRIPTS -->
+
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-list.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-list-edit.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
+<!-- BEGIN THEME GLOBAL SCRIPTS -->
+<script src="${webapp_name}/assets/global/scripts/app.min.js" type="text/javascript"></script>
+<script src="${webapp_name}/assets/pages/scripts-local/jstree.js" type="text/javascript"></script>            
+<script src="${webapp_name}/assets/pages/scripts-local/ui-tree-no-edit.js" type="text/javascript"></script>       
+<!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="${webapp_name}/assets/layouts/layout2/scripts/layout.min.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/layouts/layout2/scripts/demo.min.js" type="text/javascript"></script>
@@ -399,34 +418,7 @@ jQuery(document).ready(function() {
 	$("#prodStatus").val(productStatus);
 	
 });
-
-function resetProduct(){
-	//object for reset
-		
-//	create a json object
-   /*  var p1 = $("#prodId").val();
-    var p2 = $("#bizId").val();        
-    var p3 = $("#prodSeqNo").val(); */
-    var p3 ='${productObject.itemProductI18n.prodName}';
-    var p4 ='${productObject.prodType}';
-    var p5 ='${productObject.prodStatus}';
-    var p6 ='${productObject.prodSaleType}';
-    var p7 ='${productObject.itemProductI18n.prodDesc}';
-    var p8 ='${productObject.itemProductI18n.prodDescLong}';
-  /*  var p9 = $("#eventClass").val();
-    var p10 = $("#eventStatus").val();*/
-
-	//$("#globalId").val(p1);
-	//$("#eventUUID").val(p2);
-	$("#prodName").val(p3);
-	$("#prodType").val(p4);
-	//$("#postDatetime").val(p5);
-	$("#prodStatus").val(p5);
-	$("#prodSaleType").val(p6);
-	$("#prodDesc").val(p7);
-	$("#prodDescLong").val(p8);
-	//$("#eventStatus").val(p10);
-}    
+var categoryName ="${productObject.categoryName}";
 </script>
 </body>
 
