@@ -69,7 +69,14 @@ public class ItemCategoryService {
 	}
 
 	public String createResultSaved(long parentId, String text, int parentLevel) {
-		return this.itemCategoryDao.createResultSaved(parentId, text, parentLevel);
+		String categoryCode=this.itemCategoryDao.getCategoryCodeByParentId(parentId);
+		ItemCategory itemCategory = new ItemCategory();
+		itemCategory.setCategoryCode(categoryCode);
+		itemCategory.setCategoryName(text);
+		itemCategory.setParentId(parentId);
+		int createCategory = this.createCategory(itemCategory);
+		
+		return "";
 	}
 
 	public List<ItemCategory> getChildren(long categoryId) {
@@ -81,6 +88,7 @@ public class ItemCategoryService {
 	}
 
 	public void deleteItemCategoryByCategoryId(long categoryId) {
+		this.itemCategoryI18nDao.deleteCategoryI18nByCategoryId(categoryId);
 		this.itemCategoryDao.deleteItemCategoryByCategoryId(categoryId);
 	}
 
@@ -91,12 +99,17 @@ public class ItemCategoryService {
 
 	public int createCategory(ItemCategory itemCategory) {
 		// TODO Auto-generated method stub
-		ItemCategory parentItemCatgory = this.itemCategoryDao.findByCategoryCode(itemCategory.getCategoryCode());
-		itemCategory.setParentId(parentItemCatgory.getCategoryId());
-		
+		if(itemCategory.getParentId()==0){
+			ItemCategory parentItemCatgory = this.itemCategoryDao.findByCategoryCode(itemCategory.getCategoryCode());
+			itemCategory.setParentId(parentItemCatgory.getCategoryId());
+		}
 		 
 		String newStringCateCode="";
-		int categoryLevel=itemCategory.getCategoryCode().split("-").length;
+		int categoryLevel=0;
+		if(!itemCategory.getCategoryCode().equals("ROOT")){
+			categoryLevel=itemCategory.getCategoryCode().split("-").length;
+		}
+		
 		int  childLevel = categoryLevel+1;
 		
 		boolean isParent=this.itemCategoryDao.ifisParent(itemCategory.getCategoryCode(),childLevel);
@@ -109,7 +122,7 @@ public class ItemCategoryService {
 		if(isParent){
 			 
 			if("ROOT".equals(itemCategory.getCategoryCode())){
-				newCategoryCode = this.itemCategoryDao.getInsertedCateCode(categoryLevel);
+				newCategoryCode = this.itemCategoryDao.getInsertedCateCode(childLevel);
 				newIntCategoryCode= Integer.parseInt(newCategoryCode.split("-")[0]);
 				newIntCategoryCode++;
 				
@@ -143,9 +156,9 @@ public class ItemCategoryService {
 			newStringCateCode=itemCategory.getCategoryCode()+"-001";
 
 		}
-		  
+		
 		itemCategory.setCategoryCode(newStringCateCode);
-		itemCategory.setCategoryLevel(categoryLevel); 
+		itemCategory.setCategoryLevel(childLevel); 
 		
 		int result1 = this.itemCategoryDao.createCategory(itemCategory);
 		int result2 = this.itemCategoryI18nDao.createCategoryI18n(itemCategory,result1);

@@ -437,6 +437,18 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 	System.out.println(sql);
 
 	}
+ 
+	@Override
+	public String getCategoryCodeByParentId(long parentId) {
+		final String TABLE1 = "item_category";
+		StringBuffer sbf = new StringBuffer();
+
+		sbf.append("select category_code from "+TABLE1) ;
+		sbf.append(" where category_id = "+parentId);
+		String sql = sbf.toString();
+		String categoryCode = jdbc.queryForObject(sql, EmptySqlParameterSource.INSTANCE, String.class); 
+		return categoryCode;
+	}
 
 	
 

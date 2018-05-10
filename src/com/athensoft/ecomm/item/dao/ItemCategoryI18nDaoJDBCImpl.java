@@ -52,4 +52,17 @@ public class ItemCategoryI18nDaoJDBCImpl implements ItemCategoryI18nDao{
 		return jdbc.update(sql, paramSource, keyHolder);
 	}
 
+	@Override
+	public void deleteCategoryI18nByCategoryId(long categoryId) {
+ 
+		String sql = "delete from item_category_i18n where category_id =:category_id and lang_no=1033";
+		MapSqlParameterSource paramSource = new MapSqlParameterSource();
+		paramSource.addValue("category_id", categoryId);
+
+		KeyHolder keyholder = new GeneratedKeyHolder();
+		jdbc.update(sql, paramSource, keyholder);
+		return;
+		
+	}
+
 }

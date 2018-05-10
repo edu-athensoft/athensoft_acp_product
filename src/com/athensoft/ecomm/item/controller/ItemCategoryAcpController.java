@@ -367,17 +367,12 @@ public class ItemCategoryAcpController {
 		list.add(old); //getDesendants does not include this node.
 		list = this.getDesendants(list, old.getCategoryId());
 		logger.info("p.level="+p.getCategoryLevel()+"  old.level="+old.getCategoryLevel()+"  levelDifference="+levelDifference);
-
-		for (ItemCategory ic : list) {
-			if (ic.getCategoryCode().equals(orig)) {
-				this.itemCategoryService.updateItemCategoryParent(ic.getCategoryId(),p.getCategoryId(),  p.getCategoryLevel()+1);
-			}
-			else {
-				if (levelDifference != 0) {
-					this.itemCategoryService.updateItemCategoryParent(ic.getCategoryId(), ic.getParentId(),  ic.getCategoryLevel()+levelDifference);
-				}
-			}
-		}		
+ 
+		old.setCategoryCode(p.getCategoryCode());
+		old.setCategoryLevel(0);
+		old.setParentId(p.getCategoryId());
+		this.itemCategoryService.createCategory(old); 
+		this.itemCategoryService.deleteItemCategoryByCategoryId(old.getCategoryId());
 		
 		model.put("orig",orig);
 		model.put("dest", dest);
