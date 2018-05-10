@@ -119,15 +119,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 		final String TABLE1 = "view_item_category_i18n";
 
 		StringBuffer sbf = new StringBuffer();
-		/*
-		 * sbf.append("SELECT "); sbf.append("category_id,");
-		 * sbf.append("parent_id,"); sbf.append("category_code,");
-		 * sbf.append("category_name,"); sbf.append("category_desc,");
-		 * sbf.append("category_level,"); sbf.append("category_status ");
-		 * sbf.append("FROM "+TABLE1+ " "); sbf.append("WHERE 1=1 ");
-		 * sbf.append("AND lang_no = 1033 ");
-		 * sbf.append("AND category_id = :category_id ");
-		 */
+	
 		sbf.append("select ");
 				sbf.append("item_category.category_id,");
 				sbf.append("parent_id,");
@@ -194,7 +186,9 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 
 	@Override
 	public void renameResultSaved(String key, String newText) {
-		String sql = "update item_category set category_name =:newText where category_code =:key";
+		String sql = "update item_category_i18n set category_name =:newText "
+				+ " where category_id = (select category_id from item_category "
+				+ " where category_code=:key)";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("newText", newText);
 		paramSource.addValue("key", key);
@@ -208,7 +202,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 	@Override
 	public String createResultSaved(long parentId, String text, int parentLevel) {
 
-		final String TABLE1 = "item_category";
+		final String TABLE1 = "item_category ic, item_category_i18n ici";
 		// String newCategoryCode = this.getBiggestCategoryNo()+1;
 		String newCategoryCode = UUIDHelper.getUUID();
 
@@ -408,14 +402,6 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 	final String TABLE1 = "item_category ic, item_category_i18n ici";
 	System.out.println("ID = "+itemCategory.getCategoryName());
 	StringBuffer sbf = new StringBuffer();
-/*	sbf.append("insert into " + TABLE1 + "(category_code");
-	sbf.append(",parent_id,");
-	sbf.append("category_status,");
-	sbf.append("category_level) values(");
-	sbf.append(":category_code,");
-	sbf.append(":parent_id,");
-	sbf.append(":category_status,");
-	sbf.append(":category_level)");*/
 	
 	sbf.append("update "+TABLE1+" ");
 	sbf.append("set ");
@@ -429,8 +415,6 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 	sbf.append("and ic.category_id = :category_id  ");
 	sbf.append("and ici.lang_no = :lang_no");
 			
-			/*+ "(,author,post_datetime,view_num,desc_short,desc_long,event_class,event_status) ");*/
-	
 	String sql = sbf.toString();
 	
 //	final Date dateCreate 			= new Date();

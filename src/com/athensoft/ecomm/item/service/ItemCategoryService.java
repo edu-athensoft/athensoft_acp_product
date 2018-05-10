@@ -145,7 +145,7 @@ public class ItemCategoryService {
 		}
 		  
 		itemCategory.setCategoryCode(newStringCateCode);
-		itemCategory.setCategoryLevel(childLevel);
+		itemCategory.setCategoryLevel(categoryLevel); 
 		
 		int result1 = this.itemCategoryDao.createCategory(itemCategory);
 		int result2 = this.itemCategoryI18nDao.createCategoryI18n(itemCategory,result1);
