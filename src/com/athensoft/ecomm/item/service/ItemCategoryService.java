@@ -87,9 +87,16 @@ public class ItemCategoryService {
 		this.itemCategoryDao.updateItemCategoryParent(categoryId, parentId, level);
 	}
 
-	public void deleteItemCategoryByCategoryId(long categoryId) {
-		this.itemCategoryI18nDao.deleteCategoryI18nByCategoryId(categoryId);
-		this.itemCategoryDao.deleteItemCategoryByCategoryId(categoryId);
+	public int deleteItemCategoryByCategoryId(long categoryId) {
+		int result1 = this.itemCategoryI18nDao.deleteCategoryI18nByCategoryId(categoryId);
+		int result2= this.itemCategoryDao.deleteItemCategoryByCategoryId(categoryId);
+		
+		if(result1==1 && result2==1){
+			return 1;
+		}else{
+			return 0;
+		}
+		
 	}
 
 	public List<ItemCategory> findAllParentCategories() {
@@ -99,13 +106,17 @@ public class ItemCategoryService {
 
 	public int createCategory(ItemCategory itemCategory) {
 		// TODO Auto-generated method stub
+		String newStringCateCode="";
+		int categoryLevel=0;
+		int newIntCategoryCode=0;
+		String newCategoryCode="";
+
 		if(itemCategory.getParentId()==0){
 			ItemCategory parentItemCatgory = this.itemCategoryDao.findByCategoryCode(itemCategory.getCategoryCode());
 			itemCategory.setParentId(parentItemCatgory.getCategoryId());
 		}
 		 
-		String newStringCateCode="";
-		int categoryLevel=0;
+		
 		if(!itemCategory.getCategoryCode().equals("ROOT")){
 			categoryLevel=itemCategory.getCategoryCode().split("-").length;
 		}
@@ -116,8 +127,6 @@ public class ItemCategoryService {
 		if(itemCategory.getCategoryCode().equals("ROOT")){
 			isParent=true;
 		}
-		String newCategoryCode="";
-		int newIntCategoryCode=0;
 		 
 		if(isParent){
 			 

@@ -260,14 +260,14 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 	}
 
 	@Override
-	public void deleteItemCategoryByCategoryId(long categoryId) {
+	public int deleteItemCategoryByCategoryId(long categoryId) {
 		String sql = "delete from item_category where category_id =:category_id";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("category_id", categoryId);
 
 		KeyHolder keyholder = new GeneratedKeyHolder();
-		jdbc.update(sql, paramSource, keyholder);
-		return;
+		return jdbc.update(sql, paramSource, keyholder);
+	
 	}
 
 	private static class ItemCategoryRowMapper implements RowMapper<ItemCategory> {

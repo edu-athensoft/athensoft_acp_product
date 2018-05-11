@@ -81,8 +81,9 @@ public interface ItemCategoryDao {
 	/**
 	 * @param categoryId
 	 * @author Fangze Sun
+	 * @return 
 	 */
-	public void deleteItemCategoryByCategoryId(long categoryId);
+	public int deleteItemCategoryByCategoryId(long categoryId);
 
 	public List<ItemCategory> findAllParentCategories();
 

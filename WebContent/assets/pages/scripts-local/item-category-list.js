@@ -179,6 +179,25 @@ function filterSearch(){
     
 }
 
+function deleteCategory(categoryId){
+	  $.ajax({
+	    	type    :    "post",
+	    	
+	        url        : "deleteCategory?categoryId="+categoryId,
+//	        timeout :     30000,
+	        
+	        success:function(msg){
+	        	alert("Category deleted!")
+	        	location.href="categoryList";
+	        },
+	        error:function(){
+	            alert("ERROR: Category delete failed.");     
+	        },            
+	        complete: function(XMLHttpRequest, textStatus){
+	            //reset to avoid duplication
+	        }        
+	    });
+}
 
 /* list news - datatable:button:filter reset */
 function filterReset(){

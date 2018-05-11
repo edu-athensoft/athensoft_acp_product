@@ -255,6 +255,23 @@ public class ItemCategoryAcpController {
 		return model;
 	}
 	
+	@RequestMapping(value="/item/deleteCategory")
+	@ResponseBody
+	public Map<String,Object> deleteCategory(@RequestParam String categoryId){
+		logger.info("entering /item/deleteCategory");
+		
+		Map<String,Object> model= new HashMap<String,Object> ();
+		int result =this.itemCategoryService.deleteItemCategoryByCategoryId(Long.parseLong(categoryId));
+		if(result==1){
+			model.put("success", true);
+		}else{
+			model.put("success", false);
+		}
+		
+		
+		logger.info("leaving /item/deleteProduct");
+		return model;
+	}
 	
 	@RequestMapping(value="/item/newCreateCategory",method=RequestMethod.POST)
 	@ResponseBody
@@ -343,7 +360,7 @@ public class ItemCategoryAcpController {
 		 
 			String fileName="item_category_list";
 			HttpSession session = request.getSession();
-			List<ItemCategory> listcategories =(	List<ItemCategory>) session.getAttribute("listCategoryByFilter");
+			List<ItemCategory> listcategories =(List<ItemCategory>) session.getAttribute("listCategoryByFilter");
 	    
 			if(null==listcategories){
 				listcategories = this.itemCategoryService.findAll();
@@ -790,10 +807,10 @@ public class ItemCategoryAcpController {
 			String categoryStatus = categoryStatusPair[1];
 			field7 = "<span class='label label-sm label-"+categoryStatusKey+"'>"+categoryStatus+"</span>";
 //			field8 = "<a href='/acp/item/"+getAction(actionName)+"?eventUUID="+field1+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+actionName+"</a>";
-			field8 = "TODO";
+			field8 = "<a href='/acp/item/gotoCategoryEdit?categoryId="+listCategory.get(i).getCategoryId()+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i>Update</a><button onclick='deleteCategory("+listCategory.get(i).getCategoryId()+")' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+"Delete"+"</button>";
 			
 			//logger.info("field8="+field8);
-			
+			 
 			data[i][0] = field0;
 			data[i][1] = field1;
 			data[i][2] = field2;
