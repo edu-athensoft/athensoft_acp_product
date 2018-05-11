@@ -1,12 +1,22 @@
 package com.athensoft.ecomm.item.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +36,7 @@ import com.athensoft.ecomm.item.entity.ItemCategoryStatus;
 import com.athensoft.ecomm.item.entity.ItemProduct;
 import com.athensoft.ecomm.item.service.ItemCategoryService;
 import com.athensoft.util.Node;
+import com.athensoft.util.excel.ExcelExport;
 import com.athensoft.util.matrix.ArrayHelper;
 import com.athensoft.util.tree.ManyNodeTree;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -279,7 +290,7 @@ public class ItemCategoryAcpController {
 	 */
 	@RequestMapping(value="/item/categorySearchFilterData",produces="application/json")
 	@ResponseBody
-	public Map<String, Object> getDataSearchCategoryByFilter(@RequestParam String itemJSONString){
+	public Map<String, Object> getDataSearchCategoryByFilter(@RequestParam String itemJSONString,HttpServletRequest request){
 		logger.info("entering /item/categorySearchFilterData");
 		
 		ModelAndView mav = new ModelAndView();
@@ -294,38 +305,25 @@ public class ItemCategoryAcpController {
 		String where3 = itemCategory.getCategoryCode();
 		String where4 = itemCategory.getCategoryName(); 
 		String where5 = itemCategory.getCategoryDesc();
-/*		String where6 = jobj.getString("levelTo").trim();
-*/		  
-				/* where6b */
-		/*String strLevelTo = jobj.getString("levelTo").trim();
-		int where6b = 0;
-		
-		if(strLevelTo==null){
-			strLevelTo = "";
-		}
-		
-		if(!strLevelTo.equals("")){
-			where6b = Integer.parseInt(strLevelTo);
-		}
-		*/
-		//int where7 = jobj.getInt("categoryStatus");
-		
-		/* construct query string */
+		String where6 = itemCategory.getCategoryLevel()+"";
+	  
 		StringBuffer queryString = new StringBuffer();
-		queryString.append(where1.length()==0?" ":" and ic.category_id like '%"+where1+"%' ");
-		queryString.append(where2.length()==0?" ":" and parent_id like '%"+where2+"%' ");
-		queryString.append(where3.length()==0?" ":" and category_code like '%"+where3+"%' ");
-		queryString.append(where4.length()==0?" ":" and category_name like '%"+where4+"%' ");
-		queryString.append(where5.length()==0?" ":" and category_desc like '%"+where5+"%' ");
-		//queryString.append(where6.length()==0?" ":" and category_level <= "+where6b+" ");
+		queryString.append(where1.trim().length()==0||where1.equals("null")?" ":" and ic.category_id like '%"+where1+"%' ");
+		queryString.append(where2.trim().length()==0||where2.equals("null")?" ":" and parent_id like '%"+where2+"%' ");
+		queryString.append(where3.trim().length()==0?" ":" and category_code like '%"+where3+"%' ");
+		queryString.append(where4.trim().length()==0?" ":" and category_name like '%"+where4+"%' ");
+		queryString.append(where5.trim().length()==0?" ":" and category_desc like '%"+where5+"%' ");
+		queryString.append(where6.trim().length()==0||where6.equals("null")?" ":" and category_level = "+where6+" ");
 		//queryString.append(where7==0?" ":" and category_status = "+where7+" ");
 		 
 		logger.info("QueryString = "+ queryString.toString());
 		 
 		List<ItemCategory> listCategory = itemCategoryService.getCategoryByFilter(queryString.toString());
 		logger.info("Length of ItemCategory entries = "+ listCategory.size());
-		
-		
+		  
+		HttpSession session = request.getSession();
+		session.setAttribute("listCategoryByFilter", listCategory);
+		 
 		String[][] data = getDataWithoutTree(listCategory);
 		
 		model.put("draw", new Integer(1));
@@ -340,7 +338,78 @@ public class ItemCategoryAcpController {
 		return model;
 	} 
 	
+	@RequestMapping(value="/item/exportCategoryExcel",method={RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView exportCategoryExcel(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		 
+			String fileName="item_category_list";
+			HttpSession session = request.getSession();
+			List<ItemCategory> listcategories =(	List<ItemCategory>) session.getAttribute("listCategoryByFilter");
+	    
+			if(null==listcategories){
+				listcategories = this.itemCategoryService.findAll();
+			}
+	        List<Map<String,Object>> list=createExcelRecord(listcategories);
+	        String columnNames[]={"Category ID","Parent ID","Category Code","Category Name",
+	        					"Description ","Level ","Status"};
+	        String keys[]    =     {"category_id","parent_id","category_code","category_name","category_desc","category_level"
+	        		,"category_status"};
+	        ByteArrayOutputStream os = new ByteArrayOutputStream();
+	        try {
+	        	ExcelExport.createWorkBook(list,keys,columnNames).write(os);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        byte[] content = os.toByteArray();
+	        InputStream is = new ByteArrayInputStream(content);
+	        response.reset();
+	        response.setContentType("application/vnd.ms-excel;charset=utf-8");
+	        response.setHeader("Content-Disposition", "attachment;filename="+ new String((fileName + ".xls").getBytes(), "utf-8"));
+	        ServletOutputStream out = response.getOutputStream();
+	        BufferedInputStream bis = null;
+	        BufferedOutputStream bos = null;
+	        try {
+	            bis = new BufferedInputStream(is);
+	            bos = new BufferedOutputStream(out);
+	            byte[] buff = new byte[2048];
+	            int bytesRead;
+	            // Simple read/write loop.
+	            while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+	                bos.write(buff, 0, bytesRead);
+	            }
+	        } catch (final IOException e) {
+	            throw e;
+	        } finally {
+	            if (bis != null)
+	                bis.close();
+	            if (bos != null)
+	                bos.close();
+	        }
+	        return null;
+	    }
+	 
 	
+	
+    private List<Map<String, Object>> createExcelRecord(List<ItemCategory> listCategories) {
+        List<Map<String, Object>> listmap = new ArrayList<Map<String, Object>>();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("sheetName", "sheet1");
+        listmap.add(map);
+        ItemCategory itemCategory=null;
+        for (int j = 0; j < listCategories.size(); j++) {
+        	itemCategory=listCategories.get(j);
+            Map<String, Object> mapValue = new HashMap<String, Object>();
+            mapValue.put("category_id", itemCategory.getCategoryId());
+            mapValue.put("category_code", itemCategory.getCategoryCode());
+            mapValue.put("category_desc", itemCategory.getCategoryDesc());
+            mapValue.put("category_name", itemCategory.getCategoryName());
+            mapValue.put("category_level",itemCategory.getCategoryLevel());
+            mapValue.put("category_status",itemCategory.getCategoryStatus());
+            mapValue.put("parent_id",itemCategory.getParentId());
+            listmap.add(mapValue);
+        }
+        return listmap;
+    
+}
 	
 	@RequestMapping(value="/item/dragAndDropResultSaved",method=RequestMethod.POST,produces="application/json")
 	@ResponseBody

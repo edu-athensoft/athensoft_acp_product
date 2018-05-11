@@ -179,7 +179,7 @@ public class ItemCategoryService {
 			ItemCategory parentItemCatgory = this.itemCategoryDao.findByCategoryCode(parentCode);
 			itemCategory.setParentId(parentItemCatgory.getCategoryId());
 		}else{
-			itemCategory.setParentId(1);
+			itemCategory.setParentId(1l);
 		}
 		int categoryLevel=itemCategory.getCategoryCode().split("-").length;
 		int  childLevel = categoryLevel+1;

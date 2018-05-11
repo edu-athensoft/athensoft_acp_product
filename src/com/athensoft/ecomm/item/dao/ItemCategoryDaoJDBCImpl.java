@@ -67,8 +67,15 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 		final String TABLE1 = "item_category ic, item_category_i18n ici";
 
 		StringBuffer sbf = new StringBuffer();
-		sbf.append(" SELECT * FROM " + TABLE1);
-		
+		sbf.append(" SELECT  ");
+		sbf.append("ic.category_id,");
+		sbf.append("parent_id,");
+		sbf.append("category_code,");
+		sbf.append("ici.category_name,");
+		sbf.append("ici.category_desc,");
+		sbf.append("category_level,");
+		sbf.append("category_status");
+		sbf.append(" FROM " + TABLE1);
 		sbf.append(" where lang_no=1033 ");
 		sbf.append(" AND ic.category_id = ici.category_id ");
 		sbf.append(queryString);   

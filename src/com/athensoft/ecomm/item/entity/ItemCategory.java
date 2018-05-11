@@ -2,13 +2,13 @@ package com.athensoft.ecomm.item.entity;
 
 public class ItemCategory {
 	
-	private long 		categoryId;
-	private long 		parentId;
+	private Long 		categoryId;
+	private Long 		parentId;
 	private String 		categoryName;
 	private String 		categoryDesc;
 	private String 		categoryCode;
-	private int			categoryLevel;
-	private int			categoryStatus;
+	private Integer			categoryLevel;
+	private Integer			categoryStatus;
 	
 	/*
 	 * 
@@ -35,19 +35,19 @@ public class ItemCategory {
 				+ categoryLevel + ", categoryStatus=" + categoryStatus + "]";
 	}
 
-	public long getCategoryId() {
+	public Long getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(long categoryId) {
+	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
 
-	public long getParentId() {
+	public Long getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(long parentId) {
+	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 
@@ -75,22 +75,22 @@ public class ItemCategory {
 		this.categoryCode = categoryCode;
 	}
 
-	public int getCategoryLevel() {
+	public Integer getCategoryLevel() {
 		return categoryLevel;
 	}
 
-	public void setCategoryLevel(int categoryLevel) {
+	public void setCategoryLevel(Integer categoryLevel) {
 		this.categoryLevel = categoryLevel;
 	}
 
-	public int getCategoryStatus() {
+	public Integer getCategoryStatus() {
 		return categoryStatus;
 	}
 
-	public void setCategoryStatus(int categoryStatus) {
+	public void setCategoryStatus(Integer categoryStatus) {
 		this.categoryStatus = categoryStatus;
 	}
-	
+
 	
 	
 	

@@ -157,14 +157,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
                                             <ul class="dropdown-menu pull-right">
-                                                <li><a href="javascript:;"> Export to Excel </a></li>
+                                                <li><a href="exportCategoryExcel"> Export to Excel </a></li>
                                                 <li><a href="javascript:;"> Export to CSV </a></li>
                                                 <li><a href="javascript:;"> Export to XML </a></li>
                                                 <li class="divider"></li>
                                                 <li><a href="javascript:;"> Print Invoices </a></li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
                                 <div class="portlet-body">
                                     <div class="table-container">

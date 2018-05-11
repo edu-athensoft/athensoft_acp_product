@@ -168,10 +168,10 @@ function filterSearch(){
     		categoryName	:	p4,            
     		categoryDesc	:	p5,            
 //    		levelFrom 		:   p6a,            
-    		levelTo 		:   p6b,            
+    		categoryLevel 		:   p6b,            
     		categoryStatus  :   p7,
     };
-
+    alert(JSON.stringify(businessObject));
     var dt = $("#datatable_itemCategoryList").DataTable();
     
     var x = dt.ajax.url("categorySearchFilterData?itemJSONString="+JSON.stringify(businessObject)).load();
