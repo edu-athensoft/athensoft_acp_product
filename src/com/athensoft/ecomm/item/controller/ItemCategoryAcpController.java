@@ -287,16 +287,17 @@ public class ItemCategoryAcpController {
 		//data
 		Map<String, Object> model = mav.getModel();
 		JSONObject jobj= new JSONObject();
+		ItemCategory itemCategory= jobj.parseObject(itemJSONString, ItemCategory.class);
 		
-		String where1 = jobj.getString("categoryId").trim();
-		String where2 = jobj.getString("parentId").trim();
-		String where3 = jobj.getString("categoryCode").trim();
-		String where4 = jobj.getString("categoryName").trim();
-		String where5 = jobj.getString("categoryDesc").trim();
-		String where6 = jobj.getString("levelTo").trim();
-		
+		String where1 = itemCategory.getCategoryId()+"";
+		String where2 = itemCategory.getParentId()+"";
+		String where3 = itemCategory.getCategoryCode();
+		String where4 = itemCategory.getCategoryName(); 
+		String where5 = itemCategory.getCategoryDesc();
+/*		String where6 = jobj.getString("levelTo").trim();
+*/		  
 				/* where6b */
-		String strLevelTo = jobj.getString("levelTo").trim();
+		/*String strLevelTo = jobj.getString("levelTo").trim();
 		int where6b = 0;
 		
 		if(strLevelTo==null){
@@ -306,21 +307,21 @@ public class ItemCategoryAcpController {
 		if(!strLevelTo.equals("")){
 			where6b = Integer.parseInt(strLevelTo);
 		}
-		
+		*/
 		//int where7 = jobj.getInt("categoryStatus");
 		
 		/* construct query string */
 		StringBuffer queryString = new StringBuffer();
-		queryString.append(where1.length()==0?" ":" and category_id like '%"+where1+"%' ");
+		queryString.append(where1.length()==0?" ":" and ic.category_id like '%"+where1+"%' ");
 		queryString.append(where2.length()==0?" ":" and parent_id like '%"+where2+"%' ");
 		queryString.append(where3.length()==0?" ":" and category_code like '%"+where3+"%' ");
 		queryString.append(where4.length()==0?" ":" and category_name like '%"+where4+"%' ");
 		queryString.append(where5.length()==0?" ":" and category_desc like '%"+where5+"%' ");
-		queryString.append(where6.length()==0?" ":" and category_level <= "+where6b+" ");
+		//queryString.append(where6.length()==0?" ":" and category_level <= "+where6b+" ");
 		//queryString.append(where7==0?" ":" and category_status = "+where7+" ");
-		
+		 
 		logger.info("QueryString = "+ queryString.toString());
-		
+		 
 		List<ItemCategory> listCategory = itemCategoryService.getCategoryByFilter(queryString.toString());
 		logger.info("Length of ItemCategory entries = "+ listCategory.size());
 		
@@ -337,7 +338,7 @@ public class ItemCategoryAcpController {
 		logger.info("leaving /item/categorySearchFilterData");
 		
 		return model;
-	}
+	} 
 	
 	
 	
@@ -367,7 +368,7 @@ public class ItemCategoryAcpController {
 		list.add(old); //getDesendants does not include this node.
 		list = this.getDesendants(list, old.getCategoryId());
 		logger.info("p.level="+p.getCategoryLevel()+"  old.level="+old.getCategoryLevel()+"  levelDifference="+levelDifference);
- 
+
 		old.setCategoryCode(p.getCategoryCode());
 		old.setCategoryLevel(0);
 		old.setParentId(p.getCategoryId());

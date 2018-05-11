@@ -64,13 +64,14 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 
 	@Override
 	public List<ItemCategory> findByFilter(String queryString) {
-		final String TABLE1 = "view_item_category_i18n";
+		final String TABLE1 = "item_category ic, item_category_i18n ici";
 
 		StringBuffer sbf = new StringBuffer();
 		sbf.append(" SELECT * FROM " + TABLE1);
-		sbf.append(" where 1=1 ");
-		sbf.append(" AND lang_no=1033 ");
-		sbf.append(queryString);
+		
+		sbf.append(" where lang_no=1033 ");
+		sbf.append(" AND ic.category_id = ici.category_id ");
+		sbf.append(queryString);   
 		String sql = sbf.toString();
 
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
@@ -82,7 +83,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 		}
 		return x;
 	}
-
+ 
 	public List<ItemCategory> findCategoryTreeByCategoryId(int categoryId) {
 		final String TABLE1 = "item_category ,item_category_i18n ";
 		StringBuffer sbf = new StringBuffer();
