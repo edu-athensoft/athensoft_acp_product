@@ -19,13 +19,7 @@ function getProductObject(){
     var p10 = $("#prodNameAlias").val();
     var p11 = key;
     
-   if( p4==0&&
-		   p5==0&&
-		   p6==0&&
-		   p7.trim()==""&&
-		   p8.trim()==""&&
-		   p9.trim()==""&&
-		   p10.trim()==""){
+   if( p4==0|| p5==0|| p6==0|| p7.trim()==""|| p8.trim()==""||p9.trim()==""||  p10.trim()==""){
    	alert("please fill out all columns");
 
     	return false;
@@ -57,6 +51,15 @@ function getProductObject(){
     		
     		
     };
-    alert(businessObject);
+   // alert(businessObject);
     return businessObject;
+}
+
+function changeLang(selectElement){
+	var paramPrefix="?lang=";
+	var langValue = selectElement.value;
+	//alert(langValue);
+	window.location = paramPrefix+langValue; 
+	
+	//$("#selectLang").val(langValue);
 }

@@ -1021,3 +1021,12 @@ var App = function() {
 jQuery(document).ready(function() {    
    App.init(); // init metronic core componets
 });
+
+function changeLang(selectElement){
+	var paramPrefix="?lang=";
+	var langValue = selectElement.value;
+	alert(langValue);
+	window.location = paramPrefix+langValue; 
+	
+	//$("#selectLang").val(langValue);
+}

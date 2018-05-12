@@ -1,15 +1,25 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page pageEncoding="utf-8"%>
+<%@ taglib prefix = "spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page isELIgnored="false" %>
 
 <!-- global variables settings -->
 <c:set var="webapp_name" value="/acp"/>
 
 <!-- page variables  -->
 <c:set var="inc_dir" value="../inc"/>
+
+
+<c:set var="loc" value="en_US"/>
+<c:if test="${!(empty param.lang)}" >
+  <c:set var="loc" value="${param.lang}"/>
+</c:if>
+<fmt:setLocale value="${loc}" />
 <!-- ENDS page variables -->
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <!-- 
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.7
 Version: 4.7.5
@@ -26,7 +36,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en">
+<html >
     <!--<![endif]-->
     <!-- BEGIN HEAD -->
     <head>
@@ -107,33 +117,33 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- BEGIN THEME PANEL -->
                     <jsp:include page="${inc_dir}/theme-panel.jsp"></jsp:include>
                     <!-- END THEME PANEL -->
-                    <h1 class="page-title"> Item System <small>manage products</small></h1>
+                    <h1 class="page-title"><spring:message code="itemSystem"/><small><spring:message code="manage"/><spring:message code="products"/></small></h1>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
 							<li>
 								<i class="fa fa-home"></i>
-								<a href="#">Home</a>
+								<a href="#"><spring:message code="home"/></a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="itemDashBoard">Item</a>
+								<a href="itemDashBoard"><spring:message code="item"/></a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Product</a>
+								<a href="#"><spring:message code="Product"/></a>
 							</li>
 						</ul>
                         <div class="page-toolbar">
                             <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> Actions
+                                <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> <spring:message code="Actions"/>
                                     <i class="fa fa-angle-down"></i>
                                 </button>
                                 <ul class="dropdown-menu pull-right" role="menu">
-                                    <li><a href="#"><i class="icon-bell"></i> Action</a></li>
-                                    <li><a href="#"><i class="icon-shield"></i> Another action</a></li>
-                                    <li><a href="#"><i class="icon-user"></i> Something else here</a></li>
+                                    <li><a href="#"><i class="icon-bell"></i> <spring:message code="manage"/></a></li>
+                                    <li><a href="#"><i class="icon-shield"></i> <spring:message code="manage"/></a></li>
+                                    <li><a href="#"><i class="icon-user"></i> <spring:message code="manage"/></a></li>
                                     <li class="divider"> </li>
-                                    <li><a href="#"><i class="icon-bag"></i> Separated link</a></li>
+                                    <li><a href="#"><i class="icon-bag"></i> <spring:message code="manage"/></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -145,23 +155,23 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="portlet light">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="fa fa-shopping-cart"></i>Products Listing <span class="caption-helper">listing product, search, group action...</span></div>
+                                        <i class="fa fa-shopping-cart"></i><spring:message code="ProductsListing"/> <span class="caption-helper"><spring:message code="titel"/> </span></div>
                                     <div class="actions">
                                         <a href="itemProductCreate" class="btn btn-circle btn-info">
-                                            <i class="fa fa-plus"></i><span class="hidden-xs"> Create product </span>
+                                            <i class="fa fa-plus"></i><span class="hidden-xs"> <spring:message code="CreateProdcut"/> </span>
                                         </a>
                                         <div class="btn-group">
                                             <a class="btn btn-circle btn-default dropdown-toggle" href="javascript:;" data-toggle="dropdown">
                                                 <i class="fa fa-share"></i>
-                                                <span class="hidden-xs"> Tools </span>
+                                                <span class="hidden-xs"> <spring:message code="Tools"/>  </span>
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
                                             <ul class="dropdown-menu pull-right">
-                                                <li><a href="exportProductExcel"> Export to Excel </a></li>
-                                                <li><a href="javascript:;"> Export to CSV </a></li>
-                                                <li><a href="javascript:;"> Export to XML </a></li>
+                                                <li><a href="exportProductExcel"><spring:message code="Export"/>  Excel </a></li>
+                                                <li><a href="javascript:;"> <spring:message code="Export"/>  CSV </a></li>
+                                                <li><a href="javascript:;"><spring:message code="Export"/> XML </a></li>
                                                 <li class="divider"></li>
-                                                <li><a href="javascript:;"> Print Invoices </a></li>
+                                                <li><a href="javascript:;"> <spring:message code="PrintInvoice"/>  </a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -171,14 +181,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <div class="table-actions-wrapper">
                                             <span> </span>
                                             <select class="table-group-action-input form-control input-inline input-small input-sm" name="groupOption">
-                                                <option value="">Select...</option>
-												<option value="1">Publish</option>
-												<option value="2">Wait to post</option>
-												<option value="3">Delete</option>
-												<option value="4">Out of date</option>
-												<option value="5">Suspend</option>
+                                                <option value=""><spring:message code="ProductsListing"/> </option>
+												<option value="1"><spring:message code="Publish"/> </option>
+												<option value="2"><spring:message code="Waittopost"/> </option>
+												<option value="3"><spring:message code="Delete"/> </option>
+												<option value="4"><spring:message code="OutOfDate"/> </option>
+												<option value="5"><spring:message code="Suspend"/> </option>
                                             </select>
-                                            <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> Submit</button>
+                                            <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> <spring:message code="ProductsListing"/> </button>
                                         </div>
                                         <table class="table table-striped table-bordered table-hover table-checkable" id="datatable_productList">
                                             <thead>
@@ -200,15 +210,15 @@ License: You must have a valid license purchased only from themeforest(the above
 										String field6 = "";	//view num
 										String field7 = "";	//event status
 										String field8 = "";	//action -->
-                                                    <th width="8%">ID</th>
-													<th width="10%">Sequence Number</th>
-													<th width="10%">Product Type</th>
-													<th width="10%">Product Sale Type</th>
-													<th width="15%">Product Name</th>
-													<th width="15%">Category Name</th>
-													<th width="18%">Created Date</th>
-													<th width="8%">Status</th>
-													<th width="14%">Actions</th>
+                                                    <th width="8%"><spring:message code="ID"/> </th>
+													<th width="10%"><spring:message code="SequenceNumber"/> </th>
+													<th width="10%"><spring:message code="ProductType"/> </th>
+													<th width="10%"><spring:message code="ProductSaleType"/> </th>
+													<th width="15%"><spring:message code="ProductName"/> </th>
+													<th width="15%"><spring:message code="CategoryName"/> </th>
+													<th width="18%"><spring:message code="CreatedDate"/> </th>
+													<th width="8%"><spring:message code="Status"/> </th>
+													<th width="14%"><spring:message code="Actions"/> </th>
                                                 </tr>
                                                 <tr role="row" class="filter">
 													<td><input type="hidden" class="form-control form-filter input-sm" name="prodId" id="prodId"></td>
@@ -321,7 +331,6 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="${webapp_name}/assets/global/scripts/app.js" type="text/javascript"></script>
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/event-news.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/global-validate.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-list.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
@@ -337,7 +346,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <script>
 productList.init();
 //$("#menu-myevents").addClass("selected");
-
+var initLoc = "${loc}";
+alert("page just loaded in "+initLoc);
 </script>
 </body>
 

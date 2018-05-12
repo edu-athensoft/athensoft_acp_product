@@ -34,7 +34,7 @@ public class ItemProductI18nDaoJDBCImpl implements ItemProductI18nDao{
 		sbf.append( " where prod_id =:prod_id ");
 		sbf.append("and  lang_no=:lang_no ");
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-		paramSource.addValue("lang_no", 1052);
+		paramSource.addValue("lang_no", 1033);
 		paramSource.addValue("prod_id", prodId);
 		System.out.println(sbf.toString());
 		String sql = sbf.toString();

@@ -44,8 +44,8 @@ var UITree = function () {
         	$.each(datas,function(i,val){
         		if(flag!=undefined)  disable( val.id );    
         		  
-        		if(val.text==categoryName){
-        			$('#tree_3').jstree('select_node', val.id);
+        			if(val.text==categoryName){
+            			$('#tree_3').jstree('select_node', val.id);
         		}
         	})
         	

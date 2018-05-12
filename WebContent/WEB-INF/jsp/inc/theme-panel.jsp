@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <div class="theme-panel">
                         <div class="toggler tooltips" data-container="body" data-placement="left" data-html="true" data-original-title="Click to open advance theme customizer panel">
                             <i class="icon-settings"></i>
@@ -16,8 +18,17 @@
                                     <li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light"> </li>
                                 </ul>
                             </div>
+                               <div class="theme-option">
+                                <span><spring:message code="language"/>:</span>
+                                <select class="layout-style-option form-control input-small"  id="selectLang"  onchange="changeLang(this)">
+									<option value ="#" >--- choose a language ---</option>
+									<option value ="en_US" >English</option>
+								    <option value ="fr_CA" > Français</option>  
+								    <option value ="zh_CN" >中文</option> 
+                                </select>
+                            </div>
                             <div class="theme-option">
-                                <span> Theme Style </span>
+                                <span> Theme Style </span> 
                                 <select class="layout-style-option form-control input-small">
                                     <option value="square" selected="selected">Square corners</option>
                                     <option value="rounded">Rounded corners</option>

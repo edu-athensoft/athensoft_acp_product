@@ -186,6 +186,7 @@ function filterSearch(){
    var x = dt.ajax.url("getDataProductByFilter?itemJSONString="+JSON.stringify(businessObject)).load();
 }
 
+
 function deleteProduct(prodId){
 	  $.ajax({
 	    	type    :    "post",

@@ -7,3 +7,4 @@ public class ItemCategoryStatus {
 	public static final int UPCOMIGN = 4;
 	public static final int DELETED = 5;
 }
+ 
