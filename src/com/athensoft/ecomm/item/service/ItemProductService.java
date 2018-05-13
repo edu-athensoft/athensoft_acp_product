@@ -24,8 +24,8 @@ public class ItemProductService {
 	public ItemProductI18nDao itemProductI18nDao;
 	
 	
-	public List<ItemProduct> findAllProduct(){
-		List<ItemProduct> findAll = itemProductDao.findAll();
+	public List<ItemProduct> findAllProduct(String localeStr){
+		List<ItemProduct> findAll = itemProductDao.findAll(localeStr);
 		return findAll;
 		
 	}

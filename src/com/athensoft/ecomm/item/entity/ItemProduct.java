@@ -15,13 +15,12 @@ public class ItemProduct {
 	private Integer			prodCreaterId;
 	private String		prodCreaterDatetime;	
 	private String 		prodImgUrl;
-	
+	private String		langNo;
 	private String 		categoryCode;
 	private String 		categoryName;
 	
 	//not in use
 	private Integer			prodModifierId;
-
 	private Date		prodModifierDatetime;
 	private Integer			prodPublisherId;
 	private Date		prodPublisherDatetime;
@@ -29,6 +28,14 @@ public class ItemProduct {
 	private Date		prodUnPublisherDatetime;
 
 	
+	
+	public String getLangNo() {
+		return langNo;
+	}
+	
+	public void setLang_no(String langNo) {
+		this.langNo = langNo;
+	}
 	public String getCategoryCode() {
 		return categoryCode;
 	}

@@ -42,7 +42,7 @@ public class ItemProductDaoJDBCImpl implements ItemProductDao{
 	}
 
 	@Override
-	public List<ItemProduct> findAll() {
+	public List<ItemProduct> findAll(String localeStr) {
 		String sql = "select * from"
 				+ " item_product i ,"
 				+ "item_product_i18n ip, "
@@ -54,7 +54,7 @@ public class ItemProductDaoJDBCImpl implements ItemProductDao{
 		//near 'i.prod_id=ip.prod_id where ip.lang_no = il.lang_no and ip.lang_no=1033
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 //		paramSource.addValue("global_id", globalId);
-		paramSource.addValue("lang_no",1033 );
+		paramSource.addValue("lang_no",localeStr );
 		List<ItemProduct> x = new ArrayList<ItemProduct>();
 		try{
 			x = jdbc.query(sql, paramSource, new ItemProductRowMapper());
@@ -215,7 +215,7 @@ public int createProduct(ItemProduct itemProduct) {
 		paramSource.addValue("prod_desc_long", itemProduct.getItemProductI18n().getProdDescLong());
 		paramSource.addValue("prod_name", itemProduct.getItemProductI18n().getProdName());
 		paramSource.addValue("prod_name_alias", itemProduct.getItemProductI18n().getProdNameAlias());
-		paramSource.addValue("lang_no", 1033);
+		paramSource.addValue("lang_no", itemProduct.getLangNo());
 		
 		KeyHolder keyholder = new GeneratedKeyHolder();
 		System.out.println(sql);

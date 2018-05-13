@@ -43,6 +43,7 @@ import com.athensoft.ecomm.item.entity.ItemProductI18n;
 import com.athensoft.ecomm.item.entity.ItemProductStatus;
 import com.athensoft.ecomm.item.service.ItemProductService;
 import com.athensoft.util.excel.ExcelExport;
+import com.athensoft.util.locale.LocaleFetcher;
 
 @Controller
 public class ItemProductAcpController {
@@ -85,9 +86,11 @@ public class ItemProductAcpController {
 			String fileName="item_product_list";
 			HttpSession session = request.getSession();
 			List<ItemProduct> listProduct =(	List<ItemProduct>) session.getAttribute("listProductByFilter");
-	    
+			
 			if(null==listProduct){
-				listProduct = itemProductService.findAllProduct();
+				String localeStr=(String)session.getAttribute("localeStr");
+				listProduct = itemProductService.findAllProduct(localeStr);
+				
 			}
 		
 			
@@ -201,7 +204,8 @@ public class ItemProductAcpController {
 	public Map<String, Object>  createProduct(@RequestBody ItemProduct itemProduct){
 	
 		logger.info("entering  /item/newCreateProduct");
-		
+		System.out.println(itemProduct.getLangNo());
+		itemProduct.setLang_no(LocaleFetcher.localToLangNo(itemProduct.getLangNo()));
 		ModelAndView mav = new ModelAndView();
 		System.out.println("biz id : "+itemProduct.getProdBizId());
 
@@ -231,13 +235,15 @@ public class ItemProductAcpController {
 	@ResponseBody
 	public Map<String,Object> getDataProductList(HttpServletRequest request){
 		logger.info("entering /item/productListData");
-		
+		String localeStr = LocaleFetcher.getLocaleStr();
+		System.out.println("localeStr = "+localeStr);
 		HttpSession session = request.getSession();
-		session.invalidate();
+		//session.invalidate();
+		session.setAttribute("localeStr", localeStr);
 		ModelAndView mav = new ModelAndView();
 		
 		//data
-		List<ItemProduct> listProduct = itemProductService.findAllProduct();
+		List<ItemProduct> listProduct = itemProductService.findAllProduct(localeStr);
 		logger.info("Length of product entries: "+ listProduct.size());
 		
 		String[][] data = getData(listProduct, ACTION_EDIT);
@@ -270,7 +276,7 @@ public class ItemProductAcpController {
 		String field7 = "";	//event status
 		String field8 = "";	//action
 		String field9 = "";
-		
+		 
 		for(int i=0; i<entryLength ; i++){			
 			field0 = "<input type='checkbox' name='id[]' value="+listProduct.get(i).getProdId()+">";
 			field1 = listProduct.get(i).getProdBizId()+"";

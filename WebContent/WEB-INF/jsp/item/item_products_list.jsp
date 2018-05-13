@@ -157,7 +157,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="caption">
                                         <i class="fa fa-shopping-cart"></i><spring:message code="ProductsListing"/> <span class="caption-helper"><spring:message code="titel"/> </span></div>
                                     <div class="actions">
-                                        <a href="itemProductCreate" class="btn btn-circle btn-info">
+                                        <a href="itemProductCreate?lang=${loc }" class="btn btn-circle btn-info">
                                             <i class="fa fa-plus"></i><span class="hidden-xs"> <spring:message code="CreateProdcut"/> </span>
                                         </a>
                                         <div class="btn-group">
@@ -331,6 +331,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="${webapp_name}/assets/global/scripts/app.js" type="text/javascript"></script>
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
+
+<script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/global-validate.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-list.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
@@ -346,8 +348,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <script>
 productList.init();
 //$("#menu-myevents").addClass("selected");
-var initLoc = "${loc}";
-alert("page just loaded in "+initLoc);
+//var initLoc = "${loc}";
+//alert("page just loaded in "+initLoc);
 </script>
 </body>
 

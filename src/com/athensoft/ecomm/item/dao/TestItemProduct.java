@@ -41,10 +41,10 @@ public class TestItemProduct {
 	@Transactional
 	@Rollback(true)
 	public void test() {
-		List<ItemProduct> productList = itemProductService.findAllProduct();
+	/*	List<ItemProduct> productList = itemProductService.findAllProduct();
 		for (ItemProduct itemProduct : productList) {
 			System.out.println(itemProduct.getProdId());
-		}
+		}*/
 	}
 
 }

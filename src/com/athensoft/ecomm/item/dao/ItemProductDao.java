@@ -11,7 +11,7 @@ public interface ItemProductDao {
 	 * @return
 	 * @author Yang Liu
 	 */
-	public List<ItemProduct> findAll();
+	public List<ItemProduct> findAll(String localeStr);
 
 	
 	/**

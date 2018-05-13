@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page pageEncoding="utf-8"%>
+<%@ taglib prefix = "spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false"%>  
@@ -9,6 +10,12 @@
 
 <!-- page variables  -->
 <c:set var="inc_dir" value="../inc"/>
+
+<c:set var="loc" value="en_US"/>
+<c:if test="${!(empty param.lang)}" >
+  <c:set var="loc" value="${param.lang}"/>
+</c:if>
+<fmt:setLocale value="${loc}" />
 <!-- ENDS page variables -->
 
 <!DOCTYPE html>
@@ -385,6 +392,11 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="${webapp_name}/assets/global/scripts/app.min.js" type="text/javascript"></script>
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script>
+debugger;
+var initLoc = "${loc}";
+alert(initLoc);
+</script>  
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-create.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/global-validate.js"></script>
