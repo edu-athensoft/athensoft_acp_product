@@ -152,7 +152,7 @@ function filterSearch(){
 		
 	    var p9 = $("#prodName").val();
 	    var p10 = $("#categoryName").val();
-	    alert(p10);
+	  //  alert(p10);
     var businessObject =
     {
     		//prodId    :    p2,

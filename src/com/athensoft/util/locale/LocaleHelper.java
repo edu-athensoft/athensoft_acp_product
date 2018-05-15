@@ -7,7 +7,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 
 import com.athensoft.ecomm.item.entity.ItemProductStatus;
 
-public class LocaleFetcher {
+public class LocaleHelper{
 	
 	  public static String getLocaleStr() {
 		  Locale locale = LocaleContextHolder.getLocale();  

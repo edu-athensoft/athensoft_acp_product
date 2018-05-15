@@ -171,7 +171,7 @@ function filterSearch(){
     		categoryLevel 		:   p6b,            
     		categoryStatus  :   p7,
     };
-    alert(JSON.stringify(businessObject));
+    //alert(JSON.stringify(businessObject));
     var dt = $("#datatable_itemCategoryList").DataTable();
     
     var x = dt.ajax.url("categorySearchFilterData?itemJSONString="+JSON.stringify(businessObject)).load();

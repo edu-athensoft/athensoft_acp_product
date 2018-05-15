@@ -41,8 +41,8 @@ public class ItemCategoryService {
 		this.itemCategoryDao.renameResultSaved(key, newText);
 	}
 
-	public List<ItemCategory> findAll() {
-		return this.itemCategoryDao.findAll();
+	public List<ItemCategory> findAll(String localeStr) {
+		return this.itemCategoryDao.findAll(localeStr);
 	}
 	
 	public ItemCategory findByCategoryId(long categoryId) {
@@ -50,9 +50,9 @@ public class ItemCategoryService {
 	}
 	
 	//findTreeByCategoryId
-	public List<ItemCategory> findCategoryTreeByCategoryId(int categoryId) { 
+	public List<ItemCategory> findCategoryTreeByCategoryId(String localeStr,int categoryId) { 
 		
-		return this.itemCategoryDao.findCategoryTreeByCategoryId(categoryId);
+		return this.itemCategoryDao.findCategoryTreeByCategoryId(localeStr,categoryId);
 	}
 
 	public ItemCategory findByCategoryCode(String categoryCode) {

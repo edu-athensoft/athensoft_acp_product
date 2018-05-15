@@ -1,12 +1,19 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix = "spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>
 <!-- global variables settings -->
 <c:set var="webapp_name" value="/acp"/>
 
 <!-- page variables  -->
 <c:set var="inc_dir" value="../inc"/>
+<c:set var="loc" value="en_US"/>
+<c:if test="${!(empty param.lang)}" >
+  <c:set var="loc" value="${param.lang}"/>
+</c:if>
+<fmt:setLocale value="${loc}" />
+
 <!-- ENDS page variables -->
 
 <!DOCTYPE html>
@@ -192,6 +199,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <script src="${webapp_name}/assets/pages/scripts-local/jstree.js" type="text/javascript"></script>            
             <!-- END PAGE LEVEL PLUGINS -->
             <!-- BEGIN THEME GLOBAL SCRIPTS -->
+            <script src="${webapp_name}/assets/global/scripts/app.js" type="text/javascript"></script>
             <script src="${webapp_name}/assets/global/scripts/app.min.js" type="text/javascript"></script>
             <!-- END THEME GLOBAL SCRIPTS -->
             <!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -206,9 +214,10 @@ License: You must have a valid license purchased only from themeforest(the above
             <script src="${webapp_name}/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
             <script src="${webapp_name}/assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
             <!-- END THEME LAYOUT SCRIPTS -->
-            <script>
-               
-            </script>
+           
     </body>
-
+ 			<script>
+            var initLoc = "${loc}";
+            $("#selectLang").val(initLoc);
+            </script> 
 </html>

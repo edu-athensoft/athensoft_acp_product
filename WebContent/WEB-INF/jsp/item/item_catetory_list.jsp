@@ -1,13 +1,24 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page pageEncoding="utf-8"%>
+<%@ taglib prefix = "spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false"%>  
+<%@page import="java.util.Date" %>
 <!-- global variables settings -->
 <c:set var="webapp_name" value="/acp"/>
 
 <!-- page variables  -->
+
 <c:set var="inc_dir" value="../inc"/>
 <!-- ENDS page variables -->
+
+<c:set var="loc" value="en_US"/>
+
+<c:if test="${!(empty param.lang)}" >
+  <c:set var="loc" value="${param.lang}"/>
+</c:if>
+<fmt:setLocale value="${loc}" />
 
 <!DOCTYPE html>
 <!-- 
@@ -26,7 +37,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en">
+<html>
     <!--<![endif]-->
     <!-- BEGIN HEAD -->
     <head>
@@ -107,33 +118,33 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- BEGIN THEME PANEL -->
                     <jsp:include page="${inc_dir}/theme-panel.jsp"></jsp:include>
                     <!-- END THEME PANEL -->
-                    <h1 class="page-title"> Item System <small>manage Item Categories</small></h1>
+                    <h1 class="page-title"><spring:message code="itemSystem"/><small><spring:message code="manage"/><spring:message code="Category"/></small></h1>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
 							<li>
 								<i class="fa fa-home"></i>
-								<a href="#">Home</a>
+								<a href="#"><spring:message code="home"/></a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="eventsDashboard">Item System</a>
+								<a href="eventsDashboard"><spring:message code="itemSystem"/></a>
 								<i class="fa fa-angle-right"></i>
 							</li>
 							<li>
-								<a href="#">Category Management</a>
+								<a href="#"><spring:message code="Category"/><spring:message code="manage"/></a>
 							</li>
 						</ul>
                         <div class="page-toolbar">
                             <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> Actions
+                                <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> <spring:message code="Actions"/>
                                     <i class="fa fa-angle-down"></i>
                                 </button>
                                 <ul class="dropdown-menu pull-right" role="menu">
-                                    <li><a href="#"><i class="icon-bell"></i> Action</a></li>
-                                    <li><a href="#"><i class="icon-shield"></i> Another action</a></li>
-                                    <li><a href="#"><i class="icon-user"></i> Something else here</a></li>
+                                    <li><a href="#"><i class="icon-bell"></i> <spring:message code="Actions"/></a></li>
+                                    <li><a href="#"><i class="icon-shield"></i> <spring:message code="Actions"/></a></li>
+                                    <li><a href="#"><i class="icon-user"></i>  <spring:message code="Actions"/></a></li>
                                     <li class="divider"> </li>
-                                    <li><a href="#"><i class="icon-bag"></i> Separated link</a></li>
+                                    <li><a href="#"><i class="icon-bag"></i>  <spring:message code="Actions"/></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -145,23 +156,23 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="portlet light">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="fa fa-shopping-cart"></i>Category Listing <span class="caption-helper">listing categories</span></div>
+                                        <i class="fa fa-shopping-cart"></i> <spring:message code="Category"/><spring:message code="Listing"/> <span class="caption-helper"><spring:message code="Listing"/><spring:message code="Category"/></span></div>
                                     <div class="actions">
                                         <a href="itemCategoryCreate" class="btn btn-circle btn-info">
-                                            <i class="fa fa-plus"></i><span class="hidden-xs"> Create category </span>
+                                            <i class="fa fa-plus"></i><span class="hidden-xs"> <spring:message code="Create"/> <spring:message code="Category"/> </span>
                                         </a>
                                         <div class="btn-group">
                                             <a class="btn btn-circle btn-default dropdown-toggle" href="javascript:;" data-toggle="dropdown">
                                                 <i class="fa fa-share"></i>
-                                                <span class="hidden-xs"> Tools </span>
+                                                <span class="hidden-xs"> <spring:message code="Tools"/>  </span>
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
                                             <ul class="dropdown-menu pull-right">
-                                                <li><a href="exportCategoryExcel"> Export to Excel </a></li>
-                                                <li><a href="javascript:;"> Export to CSV </a></li>
-                                                <li><a href="javascript:;"> Export to XML </a></li>
+                                                <li><a href="exportCategoryExcel"> <spring:message code="Export"/>   Excel </a></li>
+                                                <li><a href="javascript:;"> <spring:message code="Export"/>  CSV </a></li>
+                                                <li><a href="javascript:;"><spring:message code="Export"/>   XML </a></li>
                                                 <li class="divider"></li>
-                                                <li><a href="javascript:;"> Print Invoices </a></li>
+                                                <li><a href="javascript:;"> <spring:message code="PrintInvoice"/>  </a></li>
                                             </ul>
                                         </div>
                                     </div> 
@@ -171,12 +182,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <div class="table-actions-wrapper">
                                             <span> </span>
                                             <select class="table-group-action-input form-control input-inline input-small input-sm" name="groupOption">
-                                                <option value="">Select...</option>
-												<option value="1">Available</option>
-												<option value="2">Unavailable</option>
-												<option value="5">Deleted</option>
+                                                <option value=""> <spring:message code="Select"/></option>
+												<option value="1"><spring:message code="available"/></option>
+												<option value="2"><spring:message code="unavailable"/></option>
+												<option value="5"><spring:message code="Delete"/></option>
                                             </select>
-                                            <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> Submit</button>
+                                            <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> </button>
                                         </div>
                                         <table class="table table-striped table-bordered table-hover table-checkable" id="datatable_itemCategoryList">
                                             <thead>
@@ -188,14 +199,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             <span></span>
                                                         </label>
                                                     </th>
-                                                    <th width="6%">Category ID</th>
-													<th width="6%">Parent ID</th>
-													<th width="15%">Category Code</th>
-													<th width="15%">Category Name</th>
-													<th width="15%">Description</th>
-													<th width="6%">Level</th>
-													<th width="8%">Status</th>
-													<th width="10%">Actions</th>
+                                                    <th width="10%"><spring:message code="Category"/> <spring:message code="ID"/></th>
+													<th width="6%"><spring:message code="parent"/> <spring:message code="ID"/></th>
+													<th width="15%"><spring:message code="Category"/> <spring:message code="code"/></th>
+													<th width="15%"><spring:message code="Category"/> <spring:message code="name"/></th>
+													<th width="15%"><spring:message code="description"/></th>
+													<th width="6%"><spring:message code="level"/></th>
+													<th width="8%"><spring:message code="Status"/></th>
+													<th width="10%"><spring:message code="Actions"/></th>
                                                 </tr>
                                                  
                                                 <tr role="row" class="filter">
@@ -215,16 +226,16 @@ License: You must have a valid license purchased only from themeforest(the above
 													</td>
 													<td>
 														<select class="form-control form-filter input-sm" name="category_status" id="categoryStatus">
-															<option value="0">Select...</option>
-															<option value="1">Available</option>
-															<option value="2">Unavailable</option>
-															<option value="5">Deleted</option>
+															<option value=""> <spring:message code="Select"/></option>
+															<option value="1"><spring:message code="available"/></option>
+															<option value="2"><spring:message code="unavailable"/></option>
+															<option value="5"><spring:message code="Delete"/></option>
 														</select>
 													</td>
 													<td>
 														<div class="margin-bottom-5">
-														<button class="btn btn-sm yellow filter-submit1 margin-bottom" onclick="filterSearch();"><i class="fa fa-search"></i> Search</button>
-														<button class="btn btn-sm red filter-cancel1" onclick="filterReset();"><i class="fa fa-times"></i> Reset</button>
+														<button class="btn btn-sm yellow filter-submit1 margin-bottom" onclick="filterSearch();"><i class="fa fa-search"></i> <spring:message code="Search"/></button>
+														<button class="btn btn-sm red filter-cancel1" onclick="filterReset();"><i class="fa fa-times"></i> <spring:message code="Reset"/></button>
 														</div>
 													</td>
 												</tr>
@@ -265,6 +276,9 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="${webapp_name}/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
+<script>
+var initLoc = "${loc}";
+</script>
 <script src="${webapp_name}/assets/global/scripts/datatable.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
@@ -293,7 +307,12 @@ License: You must have a valid license purchased only from themeforest(the above
 <script>
 ItemCategoryList.init();
 //$("#menu-myevents").addClass("selected");
+$(document).ready(function(){
+	var initLoc = "${loc}";
+	//alert("loc : "+initLoc)
+	$("#selectLang").val(initLoc);
 
+})
 </script>
 </body>
 

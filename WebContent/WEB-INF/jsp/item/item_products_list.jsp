@@ -155,10 +155,10 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="portlet light">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="fa fa-shopping-cart"></i><spring:message code="ProductsListing"/> <span class="caption-helper"><spring:message code="titel"/> </span></div>
+                                        <i class="fa fa-shopping-cart"></i><spring:message code="Product"/><spring:message code="Listing"/> <span class="caption-helper"><spring:message code="titel"/> </span></div>
                                     <div class="actions">
                                         <a href="itemProductCreate?lang=${loc }" class="btn btn-circle btn-info">
-                                            <i class="fa fa-plus"></i><span class="hidden-xs"> <spring:message code="CreateProdcut"/> </span>
+                                            <i class="fa fa-plus"></i><span class="hidden-xs"> <spring:message code="Create"/> <spring:message code="Product"/> </span>
                                         </a>
                                         <div class="btn-group">
                                             <a class="btn btn-circle btn-default dropdown-toggle" href="javascript:;" data-toggle="dropdown">
@@ -181,14 +181,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <div class="table-actions-wrapper">
                                             <span> </span>
                                             <select class="table-group-action-input form-control input-inline input-small input-sm" name="groupOption">
-                                                <option value=""><spring:message code="ProductsListing"/> </option>
+                                                <option value=""><spring:message code="Select"/> </option>
 												<option value="1"><spring:message code="Publish"/> </option>
 												<option value="2"><spring:message code="Waittopost"/> </option>
 												<option value="3"><spring:message code="Delete"/> </option>
 												<option value="4"><spring:message code="OutOfDate"/> </option>
 												<option value="5"><spring:message code="Suspend"/> </option>
                                             </select>
-                                            <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> <spring:message code="ProductsListing"/> </button>
+                                            <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> <spring:message code="Submit"/> </button>
                                         </div>
                                         <table class="table table-striped table-bordered table-hover table-checkable" id="datatable_productList">
                                             <thead>
@@ -226,19 +226,19 @@ License: You must have a valid license purchased only from themeforest(the above
 													<td><input type="text" class="form-control form-filter input-sm" name="prodSeqNo" id="prodSeqNo"></td>
 													<td>
 													<select class="form-control form-filter input-sm" name="prodType" id="prodType">
-															<option value="0">Select...</option>
-															<option value="1">Product</option>
-															<option value="2">Digital</option>
-															<option value="3">Service</option>
+															<option value="0"><spring:message code="Select"/></option>
+															<option value="1"><spring:message code="Product"/></option>
+															<option value="2"><spring:message code="Digital"/></option>
+															<option value="3"><spring:message code="Service"/></option>
 														</select>
 													
 													</td>
 													<td>
 														<select class="form-control form-filter input-sm" name="prodSaleType" id="prodSaleType">
-															<option value="0">Select...</option>
-															<option value="1">Online</option>
-															<option value="2">Outlet</option>
-															<option value="3">Both</option>
+															<option value="0"><spring:message code="Select"/></option>
+															<option value="1"><spring:message code="online"/></option>
+															<option value="2"><spring:message code="outlet"/></option>
+															<option value="3"><spring:message code="both"/></option>
 														</select>
 													</td>
 													<td>
@@ -319,6 +319,9 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="${webapp_name}/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
+<script>
+var initLoc = "${loc}";
+</script>
 <script src="${webapp_name}/assets/global/scripts/datatable.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
@@ -331,7 +334,6 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="${webapp_name}/assets/global/scripts/app.js" type="text/javascript"></script>
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/global-validate.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-list.js"></script>
@@ -348,8 +350,10 @@ License: You must have a valid license purchased only from themeforest(the above
 <script>
 productList.init();
 //$("#menu-myevents").addClass("selected");
-//var initLoc = "${loc}";
 //alert("page just loaded in "+initLoc);
+
+$("#selectLang").val(initLoc);
+
 </script>
 </body>
 

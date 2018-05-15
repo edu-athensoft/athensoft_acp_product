@@ -6,7 +6,6 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,11 +18,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.log4j.Logger;
-import org.apache.poi.hssf.model.Workbook;
-import org.junit.runner.Request;
 /*import org.json.JSONObject;*/
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,19 +27,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.condition.ProducesRequestCondition;
 
 import com.alibaba.fastjson.JSONObject;
-import com.athensoft.content.event.controller.NewsAcpController;
-import com.athensoft.content.event.entity.Event;
-import com.athensoft.content.event.entity.EventMedia;
-import com.athensoft.content.event.entity.News;
 import com.athensoft.ecomm.item.entity.ItemProduct;
-import com.athensoft.ecomm.item.entity.ItemProductI18n;
 import com.athensoft.ecomm.item.entity.ItemProductStatus;
 import com.athensoft.ecomm.item.service.ItemProductService;
 import com.athensoft.util.excel.ExcelExport;
-import com.athensoft.util.locale.LocaleFetcher;
+import com.athensoft.util.locale.LocaleHelper;
 
 @Controller
 public class ItemProductAcpController {
@@ -204,8 +194,7 @@ public class ItemProductAcpController {
 	public Map<String, Object>  createProduct(@RequestBody ItemProduct itemProduct){
 	
 		logger.info("entering  /item/newCreateProduct");
-		System.out.println(itemProduct.getLangNo());
-		itemProduct.setLang_no(LocaleFetcher.localToLangNo(itemProduct.getLangNo()));
+		System.out.println(LocaleHelper.localToLangNo(itemProduct.getLangNo()));
 		ModelAndView mav = new ModelAndView();
 		System.out.println("biz id : "+itemProduct.getProdBizId());
 
@@ -235,11 +224,11 @@ public class ItemProductAcpController {
 	@ResponseBody
 	public Map<String,Object> getDataProductList(HttpServletRequest request){
 		logger.info("entering /item/productListData");
-		String localeStr = LocaleFetcher.getLocaleStr();
+		String localeStr = LocaleHelper.getLocaleStr();
 		System.out.println("localeStr = "+localeStr);
 		HttpSession session = request.getSession();
-		//session.invalidate();
-		session.setAttribute("localeStr", localeStr);
+		session.invalidate();
+		//session.setAttribute("localeStr", localeStr);
 		ModelAndView mav = new ModelAndView();
 		
 		//data

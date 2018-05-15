@@ -37,6 +37,7 @@ import com.athensoft.ecomm.item.entity.ItemProduct;
 import com.athensoft.ecomm.item.service.ItemCategoryService;
 import com.athensoft.util.Node;
 import com.athensoft.util.excel.ExcelExport;
+import com.athensoft.util.locale.LocaleHelper;
 import com.athensoft.util.matrix.ArrayHelper;
 import com.athensoft.util.tree.ManyNodeTree;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -49,7 +50,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 @Controller
 public class ItemCategoryAcpController {
-	
+	 
 	private static final Logger logger = Logger.getLogger(ItemCategoryAcpController.class);
 
 	/**
@@ -84,9 +85,11 @@ public class ItemCategoryAcpController {
 		Node treeRootNode = new Node(null);
 	    treeRootNode.setText("Category Classification");
 	    treeRootNode.setState(Node.buildList(new AbstractMap.SimpleEntry<String, String>("key", "ROOT")));		//here ROOT is derived from table:item_category
-
+	    String localeStr = LocaleHelper.getLocaleStr();
+	    localeStr=LocaleHelper.localToLangNo(localeStr);
+	    
 	    List<ItemCategory> list = new ArrayList<ItemCategory>();
-	    list = this.itemCategoryService.findAll();
+	    list = this.itemCategoryService.findAll(localeStr);
 	    
 	    logger.info("list size:= "+list.size());
 	    
@@ -142,8 +145,12 @@ public class ItemCategoryAcpController {
 	    treeRootNode.setText("Category Classification");
 	    treeRootNode.setState(Node.buildList(new AbstractMap.SimpleEntry<String, String>("key", "ROOT")));		//here ROOT is derived from table:item_category
 
+	    String localeStr = LocaleHelper.getLocaleStr();
+	    localeStr=LocaleHelper.localToLangNo(localeStr);
+	    
+	    
 	    List<ItemCategory> list = new ArrayList<ItemCategory>();
-	    list = this.itemCategoryService.findAll();
+	    list = this.itemCategoryService.findAll(localeStr);
 	    
 	    logger.info("list size:= "+list.size());
 	    
@@ -190,9 +197,11 @@ public class ItemCategoryAcpController {
 		Node treeRootNode = new Node(null);
 	    treeRootNode.setText("Category Classification");
 	    treeRootNode.setState(Node.buildList(new AbstractMap.SimpleEntry<String, String>("key", "ROOT")));		//here ROOT is derived from table:item_category
-
+	    String localeStr = LocaleHelper.getLocaleStr();
+	    localeStr=LocaleHelper.localToLangNo(localeStr);
+	    
 	    List<ItemCategory> list = new ArrayList<ItemCategory>();
-	    list = this.itemCategoryService.findAll();
+	    list = this.itemCategoryService.findAll(localeStr);
 	    
 	    logger.info("list size:= "+list.size());
 	    
@@ -236,8 +245,11 @@ public class ItemCategoryAcpController {
 		logger.info("entering /item/categoryListData");	
 		ModelAndView mav = new ModelAndView();
 	//data
+		String localeStr = LocaleHelper.getLocaleStr();
+	    localeStr=LocaleHelper.localToLangNo(localeStr);
+	    
 		List<ItemCategory> listCategory = new ArrayList<ItemCategory>();
-		listCategory = itemCategoryService.findCategoryTreeByCategoryId(1);
+		listCategory = itemCategoryService.findCategoryTreeByCategoryId(localeStr,1);
 		logger.info("Length of news entries: "+ listCategory.size());
 		
 		String[][] data = getData(listCategory);
@@ -361,9 +373,11 @@ public class ItemCategoryAcpController {
 			String fileName="item_category_list";
 			HttpSession session = request.getSession();
 			List<ItemCategory> listcategories =(List<ItemCategory>) session.getAttribute("listCategoryByFilter");
-	    
+			 String localeStr = LocaleHelper.getLocaleStr();
+			    localeStr=LocaleHelper.localToLangNo(localeStr);
+			    
 			if(null==listcategories){
-				listcategories = this.itemCategoryService.findAll();
+				listcategories = this.itemCategoryService.findAll(localeStr);
 			}
 	        List<Map<String,Object>> list=createExcelRecord(listcategories);
 	        String columnNames[]={"Category ID","Parent ID","Category Code","Category Name",

@@ -30,7 +30,57 @@ var Datatable = function() {
             if (!$().dataTable) {
                 return;
             }
-
+            
+            alert(initLoc);
+            
+            switch (initLoc){
+            	case"en_US":
+            	var	metronicGroupActions="_TOTAL_ records selected: ";
+            	var	metronicAjaxRequestGeneralError="Could not complete request. Please check your internet connection";
+            	var	lengthMenu="View _MENU_ records";
+            	var  info="Found total _TOTAL_ records";
+            	var  infoEmpty= "No records found to show";
+            	var  emptyTable= "No data available in table";
+            	var  zeroRecords= "No matching records found";
+            	var  previous= "Prev";
+            	var   next= 	"Next";
+            	var  last= 	"Last";
+            	var   first= "First";
+            	var  page=	"Page";
+            	var  pageOf= "of";
+            		break;
+            	case"fr_CA":
+            		var metronicGroupActions = "_ TOTAL_: sélectionné";
+            		var metronicAjaxRequestGeneralError = "Erreur de requête. Veuillez vérifier le réseau";
+            		var lengthMenu = "Afficher les enregistrements _MENU_";
+            		var info = "Total _TOTAL_ records trouvés";
+            		var infoEmpty = "Il n'y a pas d'enregistrement";
+            		var emptyTable = "Il n'y a pas de données";
+            		var zeroRecords = "Il n'y a aucun enregistrement correspondant";
+            		var précédent = "avant";
+            		var suivant = "après";
+            		var last = "dernier";
+            		var premier = "Premier";
+            		var page = "pages";
+            		var pageOf = "in";
+            		break;
+            	case"zh_CN":
+            		var	metronicGroupActions="_TOTAL_ : 已选择";
+                	var	metronicAjaxRequestGeneralError=" 请求错误. 请检查网络";
+                	var	lengthMenu="查看 _MENU_ 记录";
+                	var  info="共找到 _TOTAL_ 条记录";
+                	var  infoEmpty= "没有任何记录";
+                	var  emptyTable= "没有任何数据";
+                	var  zeroRecords= "没有匹配的记录";
+                	var  previous= "前";
+                	var   next= 	"后";
+                	var  last= 	"最后";
+                	var   first= "最前";
+                	var  page=	"页";
+                	var  pageOf= "in";
+            		break;
+            }
+            
             the = this;
 
             // default settings
@@ -45,22 +95,22 @@ var Datatable = function() {
                     "pageLength": 10, // default records per page
                     "language": { // language settings
                         // metronic spesific
-                        "metronicGroupActions": "_TOTAL_ records selected:  ",
-                        "metronicAjaxRequestGeneralError": "Could not complete request. Please check your internet connection",
+                        "metronicGroupActions": metronicGroupActions,
+                        "metronicAjaxRequestGeneralError": metronicAjaxRequestGeneralError,
 
                         // data tables spesific
-                        "lengthMenu": "<span class='seperator'>|</span>View _MENU_ records",
-                        "info": "<span class='seperator'>|</span>Found total _TOTAL_ records",
-                        "infoEmpty": "No records found to show",
-                        "emptyTable": "No data available in table",
-                        "zeroRecords": "No matching records found",
+                        "lengthMenu": "<span class='seperator'>|</span>"+lengthMenu,
+                        "info": "<span class='seperator'>|</span>"+info,
+                        "infoEmpty": infoEmpty,
+                        "emptyTable":emptyTable ,
+                        "zeroRecords": zeroRecords,
                         "paginate": {
-                            "previous": "Prev",
-                            "next": "Next",
-                            "last": "Last",
-                            "first": "First",
-                            "page": "Page",
-                            "pageOf": "of"
+                            "previous":previous ,
+                            "next": next,
+                            "last":last ,
+                            "first": first,
+                            "page": page,
+                            "pageOf": pageOf
                         }
                     },
 

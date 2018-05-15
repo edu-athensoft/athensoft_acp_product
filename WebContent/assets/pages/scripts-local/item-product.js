@@ -21,7 +21,7 @@ function getProductObject(){
     var p12 = text;
     //alert(key+","+text);
   /*  var p10 = $("#eventStatus").val();*/
-    alert(initLoc);
+   // alert(initLoc);
     var p13 = initLoc;
     alert(p13);
     if( p4==0|| p5==0|| p6==0|| p7.trim()==""|| p8.trim()==""||p9.trim()==""||  p10.trim()==""){

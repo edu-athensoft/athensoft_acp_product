@@ -9,8 +9,9 @@ public interface ItemCategoryDao {
 	/**
 	 * @return
 	 * @author Fangze Sun
+	 * @param localeStr 
 	 */
-	public List<ItemCategory> findAll();
+	public List<ItemCategory> findAll(String localeStr);
 	
 	/**
 	 * @param queryString
@@ -19,12 +20,12 @@ public interface ItemCategoryDao {
 	 */
 	public List<ItemCategory> findByFilter(String queryString);
 	
-	/**
+	/** 
 	 * @param categoryId
 	 * @return
 	 * @author Athens
 	 */
-	public List<ItemCategory> findCategoryTreeByCategoryId(int categoryId);
+	public List<ItemCategory> findCategoryTreeByCategoryId(String localeStr,int categoryId);
 	
 	/**
 	 * @param categoryId
@@ -100,6 +101,7 @@ public interface ItemCategoryDao {
 	public void updateCategory(ItemCategory itemCategory);
 
 	public String getCategoryCodeByParentId(long parentId);
+
 	
 
 }

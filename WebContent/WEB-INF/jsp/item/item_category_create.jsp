@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page pageEncoding="utf-8"%>
+<%@ taglib prefix = "spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false"%>  
@@ -9,6 +10,13 @@
 
 <!-- page variables  -->
 <c:set var="inc_dir" value="../inc"/>
+<c:set var="loc" value="en_US"/>
+<c:if test="${!(empty param.lang)}" >
+  <c:set var="loc" value="${param.lang}"/>
+</c:if>
+<fmt:setLocale value="${loc}" />
+
+
 <!-- ENDS page variables -->
 
 <!DOCTYPE html>
@@ -28,13 +36,13 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en">
+<html>
     <!--<![endif]-->
     <!-- BEGIN HEAD -->
 
     <head>
         <meta charset="utf-8" />
-        <title>Athensoft | Category - Category Create</title>
+        <title>Athensoft | <spring:message code="Category"/> - <spring:message code="Category"/> <spring:message code="Create"/></title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Preview page of Metronic Admin Theme #2 for edit product" name="description" />
@@ -107,45 +115,33 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- BEGIN THEME PANEL -->
                     <jsp:include page="${inc_dir}/theme-panel.jsp"></jsp:include>
                     <!-- END THEME PANEL -->
-                    <h1 class="page-title">Item System <small> Create category</small></h1>
+                    <h1 class="page-title"><spring:message code="itemSystem"/> <small> <spring:message code="Create"/> <spring:message code="Category"/></small></h1>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
 						<li>
 							<i class="fa fa-home"></i>
-							<a href="#">Home</a>
+							<a href="#"><spring:message code="home"/></a>
 							<i class="fa fa-angle-right"></i>
 						</li>
 						<li>
-							<a href="itemDashboard">Item</a>
+							<a href="index"><spring:message code="item"/></a>
 							<i class="fa fa-angle-right"></i>
-						</li>
+						</li> 
 						<li>
-							<a href="#">Category</a>
+							<a href="#"><spring:message code="Category"/></a>
 						</li>
 					</ul>
                         <div class="page-toolbar">
                             <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> Actions
+                                <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> <spring:message code="Actions"/>
                                     <i class="fa fa-angle-down"></i>
                                 </button>
                                 <ul class="dropdown-menu pull-right" role="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-bell"></i> Action</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-shield"></i> Another action</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-user"></i> Something else here</a>
-                                    </li>
+                                    <li><a href="#"><i class="icon-bell"></i> <spring:message code="manage"/></a></li>
+                                    <li><a href="#"><i class="icon-shield"></i> <spring:message code="manage"/></a></li>
+                                    <li><a href="#"><i class="icon-user"></i> <spring:message code="manage"/></a></li>
                                     <li class="divider"> </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-bag"></i> Separated link</a>
-                                    </li>
+                                    <li><a href="#"><i class="icon-bag"></i> <spring:message code="manage"/></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -157,33 +153,36 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="portlet">
                                     <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-shopping-cart"></i>Create Category<span class="caption-helper"> create Category name, description, status, etc.</span> </div>
+                                            <i class="fa fa-shopping-cart"></i><spring:message code="Create"/>  <spring:message code="Category"/> <span class="caption-helper">
+                                             <spring:message code="Create"/>  <spring:message code="Category"/>  <spring:message code="name"/> , <spring:message code="description"/> , <spring:message code="Status"/> .</span> </div>
                                         <div class="actions btn-set">
                                             <button type="button" name="back" class="btn btn-secondary-outline" onclick="backToProductList(); return false;">
-                                                <i class="fa fa-angle-left"></i> Back</button>
-                                            <button class="btn btn-secondary-outline"  type="reset" >
-                                                <i class="fa fa-reply"></i> Reset</button>
-                                            <button class="btn btn-success" type="button" onclick="createCategory(); return false;">
-                                                <i class="fa fa-check"></i> Save</button>
-                                            <button class="btn btn-success" onclick="createCategoryAndContinue(); return false;" >
-                                                <i class="fa fa-check-circle"></i> Save &amp; Continue Edit</button>
+                                                <i class="fa fa-angle-left"></i> <spring:message code="back"/></button>
+                                            <button class="btn btn-secondary-outline" type="reset" >
+                                                <i class="fa fa-reply"></i> <spring:message code="reset"/></button>
+                                            <button class="btn btn-success" onclick="createProduct(); return false;">
+                                                <i class="fa fa-check"></i> <spring:message code="save"/></button>
+                                            <button class="btn btn-success" onclick="createProductAndContinue(); return false;" >
+                                                <i class="fa fa-check-circle"></i> 
+                                                <spring:message code="save"/> &amp;<spring:message code="continueEdit"/></button>
                                             <div class="btn-group">
                                                 <a class="btn btn-success dropdown-toggle" href="javascript:;" data-toggle="dropdown">
-                                                    <i class="fa fa-share"></i> More
+                                                    <i class="fa fa-share"></i> 
+                                                    <spring:message code="more"/>
                                                     <i class="fa fa-angle-down"></i>
                                                 </a>
                                                 <div class="dropdown-menu pull-right">
                                                 	<ul>
                                                     <li>
-                                                        <a href="javascript:;"> Duplicate </a>
+                                                        <a href="javascript:;"> <spring:message code="duplicate"/> </a>
                                                     </li>
                                                    	<li>
 														<a href="javascript:;"  onclick="markNewsStatusDeleted('${newsObject.eventUUID}'); return false;">
-														Mark Deleted </a>
+														<spring:message code="markDeleted"/> </a>
 													</li>
                                                     <li class="dropdown-divider"> </li>
                                                     <li>
-                                                        <a href="javascript:;"> Print </a>
+                                                        <a href="javascript:;"> <spring:message code="print"/> </a>
                                                     </li>
                                                     </ul>
                                                 </div>
@@ -197,7 +196,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <div class="tab-pane active" id="tab_general">
                                                     <div class="form-body">
 													<div class="form-group">
-														<label class="col-md-2 control-label">Parent Category: <span class="required">
+														<label class="col-md-2 control-label"><spring:message code="parent"/> <spring:message code="Category"/>: <span class="required">
 														* </span>
 														</label>
 														
@@ -208,7 +207,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<!--                              </div> -->
 													</div>
 													<div class="form-group">
-														<label class="col-md-2 control-label">Category Name: <span class="required">
+														<label class="col-md-2 control-label"><spring:message code="Category"/> <spring:message code="name"/>: <span class="required">
 														* </span>
 														</label>
 														<div class="col-md-10">
@@ -220,7 +219,7 @@ License: You must have a valid license purchased only from themeforest(the above
 													</div>
 													
 													<div class="form-group">
-														<label class="col-md-2 control-label">Description: <span class="required">
+														<label class="col-md-2 control-label"><spring:message code="description"/>: <span class="required">
 														* </span>
 														</label>
 														<div class="col-md-10">
@@ -231,23 +230,22 @@ License: You must have a valid license purchased only from themeforest(the above
 													
 													
 													<div class="form-group">
-														<label class="col-md-2 control-label"> Status: <span class="required">
+														<label class="col-md-2 control-label"> <spring:message code="Status"/>: <span class="required">
 														* </span>
 														</label>
 														<div class="col-md-10">
 															<select class="table-group-action-input form-control input-medium" id="categoryStatus" name="categoryStatus">
-																<option value="0" ${productObject.prodStatus == '0' ? 'selected' : ''}>Select...</option>
-																<option value="1" ${productObject.prodStatus == '1' ? 'selected' : ''}>Available</option>
-																<option value="2" ${productObject.prodStatus == '2' ? 'selected' : ''}>UnAvailable</option>
-																<option value="3" ${productObject.prodStatus == '3' ? 'selected' : ''}>Discontinued</option>
-																<option value="4" ${productObject.prodStatus == '4' ? 'selected' : ''}>UpComing</option>
-																<option value="5" ${productObject.prodStatus == '5' ? 'selected' : ''}>Deleted</option>
+																<option value="0" ${productObject.prodStatus == '0' ? 'selected' : ''}><spring:message code="Select"/></option>
+																<option value="1" ${productObject.prodStatus == '1' ? 'selected' : ''}><spring:message code="available"/></option>
+																<option value="2" ${productObject.prodStatus == '2' ? 'selected' : ''}><spring:message code="unavailable"/></option>
+																<option value="5" ${productObject.prodStatus == '5' ? 'selected' : ''}><spring:message code="Delete"/></option>
 															</select>
 														</div>
 													</div>
 												
 													
 												</div>
+												
                                                 </div>
                                              
                                                     </div>
@@ -290,6 +288,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="${webapp_name}/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
+
 <script src="${webapp_name}/assets/global/scripts/datatable.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
@@ -312,6 +311,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <script src="${webapp_name}/assets/pages/scripts-local/jstree.js" type="text/javascript"></script>            
             <!-- END PAGE LEVEL PLUGINS -->
             <!-- BEGIN THEME GLOBAL SCRIPTS -->
+            <script src="${webapp_name}/assets/global/scripts/app.js" type="text/javascript"></script>
             <script src="${webapp_name}/assets/global/scripts/app.min.js" type="text/javascript"></script>
             <!-- END THEME GLOBAL SCRIPTS -->
             <!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -330,7 +330,8 @@ License: You must have a valid license purchased only from themeforest(the above
  
 <!-- END THEME LAYOUT SCRIPTS -->
 <script>
-
+var initLoc = "${loc}";
+$("#selectLang").val(initLoc);
 </script>
 </body>
 

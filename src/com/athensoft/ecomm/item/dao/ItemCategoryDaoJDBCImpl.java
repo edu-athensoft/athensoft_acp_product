@@ -40,19 +40,19 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 	}
 
 	@Override
-	public List<ItemCategory> findAll() {
+	public List<ItemCategory> findAll(String langNo) {
 		StringBuffer sbf = new StringBuffer();
 		sbf.append( "select item_category.category_id ,item_category.parent_id,item_category.category_code,");
 	    sbf.append("item_category.category_level,item_category.category_status,");
 	    sbf.append("item_category_i18n.category_name,item_category_i18n.category_desc ");
 	    sbf.append( " from item_category, item_category_i18n where category_level > 0 ");
 		sbf.append(" and item_category.category_id = item_category_i18n.category_id ");
-		sbf.append(" and item_category_i18n.lang_no='1033' ");
+		sbf.append(" and item_category_i18n.lang_no=:lang_no ");
 		sbf.append( " order by category_level, category_code");
 		 
 		String sql= sbf.toString();
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-		// paramSource.addValue("global_id", globalId);
+		paramSource.addValue("lang_no", langNo);
 		List<ItemCategory> x = new ArrayList<ItemCategory>();
 		try {
 			x = jdbc.query(sql, paramSource, new ItemCategoryRowMapper());
@@ -91,7 +91,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 		return x;
 	}
  
-	public List<ItemCategory> findCategoryTreeByCategoryId(int categoryId) {
+	public List<ItemCategory> findCategoryTreeByCategoryId(String localeStr,int categoryId) {
 		final String TABLE1 = "item_category ,item_category_i18n ";
 		StringBuffer sbf = new StringBuffer();
 		sbf.append("SELECT distinct ");
@@ -105,7 +105,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 		sbf.append("tree_ui_id ");
 		sbf.append("FROM " + TABLE1 + " ");
 		sbf.append("WHERE 1=1 ");
-		sbf.append("AND item_category_i18n.lang_no = 1033 ");
+		sbf.append("AND item_category_i18n.lang_no = :lang_no ");
 		sbf.append("AND item_category_i18n.category_id = item_category.category_id ");
 		/*
 		 * sbf.
@@ -118,6 +118,8 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 		String sql = sbf.toString();
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("category_id", categoryId);
+		paramSource.addValue("lang_no", localeStr);
+		
 		logger.info(sql);
 		return jdbc.query(sql, paramSource, new ItemCategoryRowMapper());
 	}

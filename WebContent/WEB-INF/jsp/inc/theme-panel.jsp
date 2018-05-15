@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix = "spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page isELIgnored="false" %>
+    
 <div class="theme-panel">
                         <div class="toggler tooltips" data-container="body" data-placement="left" data-html="true" data-original-title="Click to open advance theme customizer panel">
                             <i class="icon-settings"></i>
@@ -21,7 +26,6 @@
                                <div class="theme-option">
                                 <span><spring:message code="language"/>:</span>
                                 <select class="layout-style-option form-control input-small"  id="selectLang"  onchange="changeLang(this)">
-									<option value ="#" >--- choose a language ---</option>
 									<option value ="en_US" >English</option>
 								    <option value ="fr_CA" > Français</option>  
 								    <option value ="zh_CN" >中文</option> 
@@ -92,3 +96,7 @@
                             </div>
                         </div>
                     </div>
+                    
+<script>
+
+</script>
