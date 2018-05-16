@@ -160,9 +160,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <i class="fa fa-angle-left"></i> <spring:message code="back"/></button>
                                             <button class="btn btn-secondary-outline" type="reset" >
                                                 <i class="fa fa-reply"></i> <spring:message code="reset"/></button>
-                                            <button class="btn btn-success" onclick="createProduct(); return false;">
+                                            <button class="btn btn-success" onclick="createCategory(); return false;">
                                                 <i class="fa fa-check"></i> <spring:message code="save"/></button>
-                                            <button class="btn btn-success" onclick="createProductAndContinue(); return false;" >
+                                            <button class="btn btn-success" onclick="createCategoryAndContinue(); return false;" >
                                                 <i class="fa fa-check-circle"></i> 
                                                 <spring:message code="save"/> &amp;<spring:message code="continueEdit"/></button>
                                             <div class="btn-group">
@@ -207,26 +207,61 @@ License: You must have a valid license purchased only from themeforest(the above
 						<!--                              </div> -->
 													</div>
 													<div class="form-group">
-														<label class="col-md-2 control-label"><spring:message code="Category"/> <spring:message code="name"/>: <span class="required">
+														<label class="col-md-2 control-label"><spring:message code="Category"/> <spring:message code="name"/><spring:message code="zh"/>: <span class="required">
 														* </span>
 														</label>
 														<div class="col-md-10">
 													<input type="hidden" class="form-control" name="categoryId" id="categoryId"  placeholder="" >
 														<input type="hidden" class="form-control" name="categoryCode" id="categoryCode"  placeholder="" >
 														
-															<input type="text" class="form-control" name="categoryName" id="categoryName"  placeholder="" >
+															<input type="text" class="form-control" name="categoryName" id="categoryNameZh"  placeholder="" >
 														</div>
 													</div>
-													
-													<div class="form-group">
-														<label class="col-md-2 control-label"><spring:message code="description"/>: <span class="required">
+														<div class="form-group">
+														<label class="col-md-2 control-label"><spring:message code="Category"/> <spring:message code="name"/><spring:message code="en"/>: <span class="required">
 														* </span>
 														</label>
 														<div class="col-md-10">
-															<input type="text" class="form-control" id="categoryDesc" name="categoryDesc" placeholder="" >
+													<input type="hidden" class="form-control" name="categoryId" id="categoryId"  placeholder="" >
+														<input type="hidden" class="form-control" name="categoryCode" id="categoryCode"  placeholder="" >
+														
+															<input type="text" class="form-control" name="categoryName" id="categoryNameEn"  placeholder="" >
 														</div>
 													</div>
-													
+														<div class="form-group">
+														<label class="col-md-2 control-label"><spring:message code="Category"/> <spring:message code="name"/><spring:message code="fr"/>: <span class="required">
+														* </span>
+														</label>
+														<div class="col-md-10">
+													<input type="hidden" class="form-control" name="categoryId" id="categoryId"  placeholder="" >
+														<input type="hidden" class="form-control" name="categoryCode" id="categoryCode"  placeholder="" >
+														
+															<input type="text" class="form-control" name="categoryName" id="categoryNameFr"  placeholder="" >
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-2 control-label"><spring:message code="description"/><spring:message code="zh"/>: <span class="required">
+														* </span>
+														</label>
+														<div class="col-md-10">
+															<input type="text" class="form-control" id="categoryDescZh" name="categoryDesc" placeholder="" >
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-2 control-label"><spring:message code="description"/><spring:message code="en"/>: <span class="required">
+														* </span>
+														</label>
+														<div class="col-md-10">
+															<input type="text" class="form-control" id="categoryDescEn" name="categoryDesc" placeholder="" >
+														</div>
+													</div><div class="form-group">
+														<label class="col-md-2 control-label"><spring:message code="description"/><spring:message code="fr"/>: <span class="required">
+														* </span>
+														</label>
+														<div class="col-md-10">
+															<input type="text" class="form-control" id="categoryDescFr" name="categoryDesc" placeholder="" >
+														</div> 
+													</div>
 													
 													
 													<div class="form-group">

@@ -9,13 +9,23 @@ function getBusinessObject(){
     var p1 = key
     //alert("p1 "+p1)
    
-    var p2 = $("#categoryName").val();        
-    var p3 = $("#categoryDesc").val();
+    var p2zh = $("#categoryNameZh").val();  
+    var p2en = $("#categoryNameEn").val();  
+    var p2fr = $("#categoryNameFr").val();  
+    
+    var p3zh = $("#categoryDescZh").val();
+    var p3en = $("#categoryDescEn").val();
+    var p3fr = $("#categoryDescFr").val();
+    
+    
+    
+    
     var p5 = $("#categoryStatus").val();
-    if(p2.trim()==""){
+    if(p2zh.trim()==""||p2en.trim()==""||p2fr.trim()==""){
+    	
     	alert("Category Name can not be empty");
     	return false;
-    }else if(p3.trim()==""){
+    }else if(p3zh.trim()==""||p3en.trim()==""||p3fr.trim()==""){
     	alert("Category Description can not be empty");
     	return false;
     }
@@ -29,8 +39,8 @@ function getBusinessObject(){
     {
     		
     		categoryCode    :    p1,
-    		categoryName   :    p2,
-    		categoryDesc    	:    p3,
+    		categoryName   :    p2zh+","+p2en+","+p2fr,
+    		categoryDesc    	:   p3zh+","+p3en+","+p3fr,
     	
     		categoryStatus    	:    p5,
     		categoryId			: p6

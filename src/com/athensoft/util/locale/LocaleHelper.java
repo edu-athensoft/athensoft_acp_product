@@ -12,7 +12,7 @@ public class LocaleHelper{
 	  public static String getLocaleStr() {
 		  Locale locale = LocaleContextHolder.getLocale();  
 		  String localeStr=(locale.getLanguage()+"_"+locale.getCountry());
-		  localeStr =localToLangNo(localeStr);
+		 // localeStr =localToLangNo(localeStr);
 		  return localeStr;
 		  
 	}

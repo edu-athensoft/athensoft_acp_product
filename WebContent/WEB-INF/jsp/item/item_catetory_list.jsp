@@ -158,7 +158,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="caption">
                                         <i class="fa fa-shopping-cart"></i> <spring:message code="Category"/><spring:message code="Listing"/> <span class="caption-helper"><spring:message code="Listing"/><spring:message code="Category"/></span></div>
                                     <div class="actions">
-                                        <a href="itemCategoryCreate" class="btn btn-circle btn-info">
+                                        <a href="itemCategoryCreate?lang=${loc }" class="btn btn-circle btn-info">
                                             <i class="fa fa-plus"></i><span class="hidden-xs"> <spring:message code="Create"/> <spring:message code="Category"/> </span>
                                         </a>
                                         <div class="btn-group">

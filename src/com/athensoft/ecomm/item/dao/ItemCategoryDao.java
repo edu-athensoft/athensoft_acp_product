@@ -32,7 +32,7 @@ public interface ItemCategoryDao {
 	 * @return
 	 * @author Fangze Sun
 	 */
-	public ItemCategory findByCategoryId(long categoryId);
+	public ItemCategory findByCategoryId(long categoryId,String localeStr);
 	
 	/**
 	 * @param categoryCode

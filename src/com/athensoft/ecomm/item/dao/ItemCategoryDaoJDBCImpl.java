@@ -125,7 +125,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 	}
 
 	@Override
-	public ItemCategory findByCategoryId(long categoryId) {
+	public ItemCategory findByCategoryId(long categoryId,String localeStr) {
 		final String TABLE1 = "view_item_category_i18n";
 
 		StringBuffer sbf = new StringBuffer();
@@ -148,7 +148,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 		String sql = sbf.toString();
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("category_id", categoryId);
-		paramSource.addValue("lang_no", 1033);
+		paramSource.addValue("lang_no", localeStr);
 		
 		ItemCategory x = null;
 		try {

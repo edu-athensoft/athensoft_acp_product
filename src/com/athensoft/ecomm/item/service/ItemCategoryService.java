@@ -45,8 +45,8 @@ public class ItemCategoryService {
 		return this.itemCategoryDao.findAll(localeStr);
 	}
 	
-	public ItemCategory findByCategoryId(long categoryId) {
-		return this.itemCategoryDao.findByCategoryId(categoryId);
+	public ItemCategory findByCategoryId(long categoryId,String localeStr) {
+		return this.itemCategoryDao.findByCategoryId(categoryId,localeStr);
 	}
 	
 	//findTreeByCategoryId
@@ -68,13 +68,13 @@ public class ItemCategoryService {
 		return this.itemCategoryDao.findByFilter(queryString);
 	}
 
-	public String createResultSaved(long parentId, String text, int parentLevel) {
+	public String createResultSaved(long parentId, String text, int parentLevel,String localeStr) {
 		String categoryCode=this.itemCategoryDao.getCategoryCodeByParentId(parentId);
 		ItemCategory itemCategory = new ItemCategory();
 		itemCategory.setCategoryCode(categoryCode);
 		itemCategory.setCategoryName(text);
 		itemCategory.setParentId(parentId);
-		int createCategory = this.createCategory(itemCategory);
+		int createCategory = this.createCategory(itemCategory,localeStr);
 		
 		return "";
 	}
@@ -104,14 +104,14 @@ public class ItemCategoryService {
 		return this.itemCategoryDao.findAllParentCategories();
 	}
 
-	public int createCategory(ItemCategory itemCategory) {
+	public int createCategory(ItemCategory itemCategory,String localeStr) {
 		// TODO Auto-generated method stub
 		String newStringCateCode="";
 		int categoryLevel=0;
 		int newIntCategoryCode=0;
 		String newCategoryCode="";
 
-		if(itemCategory.getParentId()==0){
+		if(itemCategory.getParentId()==null){
 			ItemCategory parentItemCatgory = this.itemCategoryDao.findByCategoryCode(itemCategory.getCategoryCode());
 			itemCategory.setParentId(parentItemCatgory.getCategoryId());
 		}
@@ -134,7 +134,7 @@ public class ItemCategoryService {
 				newCategoryCode = this.itemCategoryDao.getInsertedCateCode(childLevel);
 				newIntCategoryCode= Integer.parseInt(newCategoryCode.split("-")[0]);
 				newIntCategoryCode++;
-				
+				 
 				if(newIntCategoryCode<10){
 					newStringCateCode="00"+newIntCategoryCode;
 				}
@@ -150,7 +150,7 @@ public class ItemCategoryService {
 				if(length>1){
 					newIntCategoryCode= Integer.parseInt(newCategoryCode.split("-")[newCategoryCode.split("-").length-1]);
 				}
-				newIntCategoryCode++;
+				newIntCategoryCode++; 
 				if(newIntCategoryCode<10){
 					newCategoryCode.substring(newCategoryCode.length()-3);
 					newStringCateCode=newCategoryCode.substring(0, newCategoryCode.lastIndexOf(newCategoryCode.substring(newCategoryCode.length()-3)))+"00"+newIntCategoryCode;
@@ -170,7 +170,7 @@ public class ItemCategoryService {
 		itemCategory.setCategoryLevel(childLevel); 
 		
 		int result1 = this.itemCategoryDao.createCategory(itemCategory);
-		int result2 = this.itemCategoryI18nDao.createCategoryI18n(itemCategory,result1);
+		int result2 = this.itemCategoryI18nDao.createCategoryI18n(itemCategory,result1,localeStr);
 		
 		if(result1==1&&result2==1){
 			return 1;

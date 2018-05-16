@@ -26,11 +26,11 @@ public class ItemCategoryI18nDaoJDBCImpl implements ItemCategoryI18nDao{
 	}
 	
 	@Override
-	public int createCategoryI18n(ItemCategory itemCategory,int categoryId) {
+	public int createCategoryI18n(ItemCategory itemCategory,int categoryId,String localeStr) {
 
 		final String TABLE1 = "item_category_i18n";
 		StringBuffer sbf = new StringBuffer();
-
+		
 		sbf.append("insert into " + TABLE1 + "(category_id");
 		sbf.append(",category_name,");
 		sbf.append("category_desc,");
@@ -42,20 +42,68 @@ public class ItemCategoryI18nDaoJDBCImpl implements ItemCategoryI18nDao{
 
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("category_id",categoryId );
-		paramSource.addValue("category_name", itemCategory.getCategoryName());
-		paramSource.addValue("category_desc", itemCategory.getCategoryDesc());
+		paramSource.addValue("category_name", itemCategory.getCategoryName().split(",")[0]);
+		paramSource.addValue("category_desc", itemCategory.getCategoryDesc().split(",")[0]);
 		paramSource.addValue("lang_no", 1033);
+		
+		String sql = sbf.toString();
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 
-		String sql = sbf.toString();
-		return jdbc.update(sql, paramSource, keyHolder);
-	}
+		jdbc.update(sql, paramSource, keyHolder);
+
+		
+		StringBuffer sbf2 = new StringBuffer();
+
+		sbf2.append("insert into " + TABLE1 + "(category_id");
+		sbf2.append(",category_name,");
+		sbf2.append("category_desc,");
+		sbf2.append("lang_no) values(");
+		sbf2.append(":category_id,");
+		sbf2.append(":category_name,");
+		sbf2.append(":category_desc,");
+		sbf2.append(":lang_no)");
+
+		MapSqlParameterSource paramSource2 = new MapSqlParameterSource();
+		paramSource2.addValue("category_id",categoryId );
+		paramSource2.addValue("category_name", itemCategory.getCategoryName().split(",")[1]);
+		paramSource2.addValue("category_desc", itemCategory.getCategoryDesc().split(",")[1]);
+		paramSource2.addValue("lang_no", 2052);
+		
+		KeyHolder keyHolder2 = new GeneratedKeyHolder();
+
+		String sql2 = sbf2.toString();
+		jdbc.update(sql2, paramSource2, keyHolder2);
+		
+		
+		StringBuffer sbf3 = new StringBuffer();
+
+		sbf3.append("insert into " + TABLE1 + "(category_id");
+		sbf3.append(",category_name,");
+		sbf3.append("category_desc,");
+		sbf3.append("lang_no) values(");
+		sbf3.append(":category_id,");
+		sbf3.append(":category_name,");
+		sbf3.append(":category_desc,");
+		sbf3.append(":lang_no)");
+
+		MapSqlParameterSource paramSource3 = new MapSqlParameterSource();
+		paramSource3.addValue("category_id",categoryId );
+		paramSource3.addValue("category_name", itemCategory.getCategoryName().split(",")[2]);
+		paramSource3.addValue("category_desc", itemCategory.getCategoryDesc().split(",")[2]);
+		paramSource3.addValue("lang_no", 3084);
+		KeyHolder keyHolder3 = new GeneratedKeyHolder();
+
+		String sql3 = sbf3.toString();
+		jdbc.update(sql3, paramSource3, keyHolder3);
+		
+		return 1;
+	} 
 
 	@Override
 	public int deleteCategoryI18nByCategoryId(long categoryId) {
  
-		String sql = "delete from item_category_i18n where category_id =:category_id and lang_no=1033";
+		String sql = "delete from item_category_i18n where category_id =:category_id";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("category_id", categoryId);
 

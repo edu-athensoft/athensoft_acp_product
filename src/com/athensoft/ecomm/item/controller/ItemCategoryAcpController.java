@@ -96,7 +96,7 @@ public class ItemCategoryAcpController {
 	    for (ItemCategory ic : list) {
 	    	long parent = ic.getParentId();
 	    	logger.info("parent_id="+parent);
-	    	ItemCategory p = this.itemCategoryService.findByCategoryId(parent);
+	    	ItemCategory p = this.itemCategoryService.findByCategoryId(parent,localeStr);
 	    	String parentCode = p.getCategoryCode();
 	    	logger.info("parent_code="+parentCode);
 	    	Node parentNode = Node.getNodeByKey(treeRootNode, parentCode);
@@ -157,7 +157,7 @@ public class ItemCategoryAcpController {
 	    for (ItemCategory ic : list) {
 	    	long parent = ic.getParentId();
 	    	logger.info("parent_id="+parent);
-	    	ItemCategory p = this.itemCategoryService.findByCategoryId(parent);
+	    	ItemCategory p = this.itemCategoryService.findByCategoryId(parent,localeStr);
 	    	//System.out.println(p.toString());
 	    	String parentCode = p.getCategoryCode();
 	    	logger.info("parent_code="+parentCode);
@@ -186,6 +186,9 @@ public class ItemCategoryAcpController {
 		
 		ModelAndView mav = new ModelAndView();
 		
+	    String localeStr = LocaleHelper.getLocaleStr();
+	    localeStr=LocaleHelper.localToLangNo(localeStr);
+	    
 		//view
 		String viewName = "item/item_category_list_tree";
 		mav.setViewName(viewName);
@@ -197,8 +200,7 @@ public class ItemCategoryAcpController {
 		Node treeRootNode = new Node(null);
 	    treeRootNode.setText("Category Classification");
 	    treeRootNode.setState(Node.buildList(new AbstractMap.SimpleEntry<String, String>("key", "ROOT")));		//here ROOT is derived from table:item_category
-	    String localeStr = LocaleHelper.getLocaleStr();
-	    localeStr=LocaleHelper.localToLangNo(localeStr);
+	 
 	    
 	    List<ItemCategory> list = new ArrayList<ItemCategory>();
 	    list = this.itemCategoryService.findAll(localeStr);
@@ -208,7 +210,7 @@ public class ItemCategoryAcpController {
 	    for (ItemCategory ic : list) {
 	    	long parent = ic.getParentId();
 	    	logger.info("parent_id="+parent);
-	    	ItemCategory p = this.itemCategoryService.findByCategoryId(parent);
+	    	ItemCategory p = this.itemCategoryService.findByCategoryId(parent,localeStr);
 	    	String parentCode = p.getCategoryCode();
 	    	logger.info("parent_code="+parentCode);
 	    	Node parentNode = Node.getNodeByKey(treeRootNode, parentCode);
@@ -244,7 +246,7 @@ public class ItemCategoryAcpController {
 	public Map<String,Object> getDataItemCategoryList(){
 		logger.info("entering /item/categoryListData");	
 		ModelAndView mav = new ModelAndView();
-	//data
+		//data
 		String localeStr = LocaleHelper.getLocaleStr();
 	    localeStr=LocaleHelper.localToLangNo(localeStr);
 	    
@@ -290,12 +292,14 @@ public class ItemCategoryAcpController {
 	public Map<String, Object>  createCategory(@RequestBody ItemCategory itemCategory){
 	
 		logger.info("entering  /item/newCreateCategory");
-		
+		String localeStr = LocaleHelper.getLocaleStr();
+	    localeStr=LocaleHelper.localToLangNo(localeStr);
+	    
 		ModelAndView mav = new ModelAndView();
 		//System.out.println(" name "+itemCategory.getCategoryName());
 		Map<String, Object> model=mav.getModel();
 
-		int result = itemCategoryService.createCategory(itemCategory);
+		int result = itemCategoryService.createCategory(itemCategory,localeStr);
 		
 		if(result==1){
 			model.put("success", true);
@@ -458,7 +462,8 @@ public class ItemCategoryAcpController {
 		
 		//data
 		Map<String, Object> model = mav.getModel();
-		
+		 String localeStr = LocaleHelper.getLocaleStr();
+		  localeStr=LocaleHelper.localToLangNo(localeStr);
 
 		// Save data to DB
 		List<ItemCategory> list = new ArrayList<ItemCategory>();
@@ -472,7 +477,7 @@ public class ItemCategoryAcpController {
 		old.setCategoryCode(p.getCategoryCode());
 		old.setCategoryLevel(0);
 		old.setParentId(p.getCategoryId());
-		this.itemCategoryService.createCategory(old); 
+		this.itemCategoryService.createCategory(old,localeStr); 
 		this.itemCategoryService.deleteItemCategoryByCategoryId(old.getCategoryId());
 		
 		model.put("orig",orig);
@@ -496,12 +501,14 @@ public class ItemCategoryAcpController {
 		//view
 		String viewName = "item/testcategory";
 		mav.setViewName(viewName);
-		
+		 String localeStr = LocaleHelper.getLocaleStr();
+		  localeStr=LocaleHelper.localToLangNo(localeStr);
+
 		//service
 		ItemCategory p = this.itemCategoryService.findByCategoryCode(parent);
     	long parentId = p.getCategoryId();
     	int parentLevel = p.getCategoryLevel();
-		String newCategoryCode = this.itemCategoryService.createResultSaved(parentId, text, parentLevel);
+		String newCategoryCode = this.itemCategoryService.createResultSaved(parentId, text, parentLevel,localeStr);
 		
 		//data
 		Map<String, Object> model = mav.getModel();
@@ -615,7 +622,8 @@ public class ItemCategoryAcpController {
 		
 		//data
 		Map<String, Object> model = mav.getModel();
-		
+		 String localeStr = LocaleHelper.getLocaleStr();
+		  localeStr=LocaleHelper.localToLangNo(localeStr);
 		HashMap<String, String> newKeys = new HashMap<String, String>();
 		
 		ObjectMapper mapper = new ObjectMapper();	//JSON to java object mapper
@@ -639,7 +647,7 @@ public class ItemCategoryAcpController {
 			ItemCategory p = this.itemCategoryService.findByCategoryCode(pkey);
 	    	long parentId = p.getCategoryId();
 	    	int parentLevel = p.getCategoryLevel();
-			String newKey = this.itemCategoryService.createResultSaved(parentId, text, parentLevel);	//category code
+			String newKey = this.itemCategoryService.createResultSaved(parentId, text, parentLevel,localeStr);	//category code
 			newKeys.put(id, newKey);
 		}
        
@@ -682,7 +690,10 @@ public class ItemCategoryAcpController {
 		logger.info("entering /item/categoryEdit");
 		
 		ModelAndView mav = new ModelAndView(); 
-		
+		String localeStr = LocaleHelper.getLocaleStr();
+	    localeStr=LocaleHelper.localToLangNo(localeStr);
+	    
+	    
 		//view	
 		String viewName = "item/item_category_edit";
 		mav.setViewName(viewName);
@@ -691,7 +702,7 @@ public class ItemCategoryAcpController {
 		Map<String, Object> model = mav.getModel();
 		
 		//data - news
-		ItemCategory itemCategory = this.itemCategoryService.findByCategoryId(Long.parseLong(categoryId));	 
+		ItemCategory itemCategory = this.itemCategoryService.findByCategoryId(Long.parseLong(categoryId),localeStr);	 
 		System.out.println("categoryObject :"+itemCategory.toString());
 		model.put("categoryObject", itemCategory);
 		logger.info("leaving /item/categoryEdit");
@@ -725,19 +736,22 @@ public class ItemCategoryAcpController {
 	 */
 	private String[][] getData(List<ItemCategory> listCategory){
 		int entryLength = listCategory.size();
-		
+		String localeStr = LocaleHelper.getLocaleStr();
+	   // localeStr=LocaleHelper.localToLangNo(localeStr);
+		logger.info("localeStr: = "+localeStr);
+
 		logger.info("entryLength: = "+entryLength);
 		
 		final int COLUMN_NUM = 9;
 		String[][] data = new String[entryLength][COLUMN_NUM];
-		
-		String field0 = "";	//check box
+		  
+		String field0 = "";	//check box 
 		String field1 = "";	//category id
 		String field2 = "";	//parent id
 		String field3 = "";	//category code
 		String field4 = "";	//category name
 		String field5 = "";	//category desc
-		String field6 = "";	//category level
+		String field6 = "";	//category level 
 		String field7 = "";	//event status
 		String field8 = "";	//action
 		
@@ -752,11 +766,11 @@ public class ItemCategoryAcpController {
 			
 			int intCategoryStatus = listCategory.get(i).getCategoryStatus();
 			String[] categoryStatusPair = getCategoryStatusPair(intCategoryStatus);
-			String categoryStatusKey = categoryStatusPair[0];
+			String categoryStatusKey = categoryStatusPair[0];  
 			String categoryStatus = categoryStatusPair[1];
 			field7 = "<span class='label label-sm label-"+categoryStatusKey+"'>"+categoryStatus+"</span>";
 //			field8 = "<a href='/acp/item/"+getAction(actionName)+"?eventUUID="+field1+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+actionName+"</a>";
-			field8 = "<a href='/acp/item/gotoCategoryEdit?categoryId="+listCategory.get(i).getCategoryId()+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i>Update</a><button onclick='deleteCategory("+listCategory.get(i).getCategoryId()+")' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+"Delete"+"</button>";
+			field8 = "<a href='/acp/item/gotoCategoryEdit?categoryId="+listCategory.get(i).getCategoryId()+"&lang="+localeStr+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i>Update</a><button onclick='deleteCategory("+listCategory.get(i).getCategoryId()+","+localeStr+")' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+"Delete"+"</button>";
 
 			
 			//logger.info("field8="+field8);
@@ -826,7 +840,7 @@ public class ItemCategoryAcpController {
 			//logger.info("field8="+field8);
 			 
 			data[i][0] = field0;
-			data[i][1] = field1;
+			data[i][1] = field1; 
 			data[i][2] = field2;
 			data[i][3] = field3;
 			data[i][4] = field4;
