@@ -387,6 +387,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-list-edit.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
+<script src="${webapp_name}/assets/global/scripts/app.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/global/scripts/app.min.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/pages/scripts-local/jstree.js" type="text/javascript"></script>            
 <script src="${webapp_name}/assets/pages/scripts-local/ui-tree-no-edit.js" type="text/javascript"></script>       
@@ -418,7 +419,7 @@ jQuery(document).ready(function() {
 	$("#prodStatus").val(productStatus);
 	
 });
-var categoryName ="${productObject.categoryName}";
+var categoryCode ="${productObject.categoryCode}";
 </script>
 </body>
 

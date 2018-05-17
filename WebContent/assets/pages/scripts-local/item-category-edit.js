@@ -2,7 +2,7 @@
 
 /* edit product - button:save change,update */
 function editCategory() {
-    var businessObject = getBusinessObject();
+    var businessObject = getBusinessObjectCateEdit();
     alert(businessObject);
     //execute saving
     $.ajax({      

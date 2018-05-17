@@ -1023,10 +1023,20 @@ jQuery(document).ready(function() {
 });
 
 function changeLang(selectElement){
-	var paramPrefix="?lang=";
+	var url=window.location.href;
+	var param=url.split("?")[1].split("&")[0];//....?caId=xx or lang_no =xxx
+	//alert(param+" ; "+param.length);
+	
+	
 	var langValue = selectElement.value;
 	alert(langValue);
-	window.location = paramPrefix+langValue; 
+	if(param.indexOf("lang_no")!=-1){
+		var paramPrefix="?lang=";
+		window.location = paramPrefix+langValue; 
+	}else{
+		var paramPrefix="?"+param+"&lang=";
+		window.location = paramPrefix+langValue; 
+	}
 	
 	//$("#selectLang").val(langValue);
 }

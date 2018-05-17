@@ -225,6 +225,7 @@ public class ItemProductAcpController {
 	public Map<String,Object> getDataProductList(HttpServletRequest request){
 		logger.info("entering /item/productListData");
 		String localeStr = LocaleHelper.getLocaleStr();
+		localeStr=LocaleHelper.localToLangNo(localeStr);
 		System.out.println("localeStr = "+localeStr);
 		HttpSession session = request.getSession();
 		session.invalidate();

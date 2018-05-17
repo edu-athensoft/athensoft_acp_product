@@ -43,8 +43,9 @@ var UITree = function () {
         	var datas= data.instance._model.data;
         	$.each(datas,function(i,val){
         		if(flag!=undefined)  disable( val.id );    
-        		  
-        			if(val.text==categoryName){
+        		//console.log(val.state.key); 	
+        		if(val.state.key==categoryCode){
+        				
             			$('#tree_3').jstree('select_node', val.id);
         		}
         	})
