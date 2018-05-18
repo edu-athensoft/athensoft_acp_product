@@ -242,7 +242,7 @@ function backToNewsList(){
 /* edit product - button:save change,update */
 function updateProduct() {
     var productObject = getProductObject();
-    alert(productObject);
+    //alert(productObject);
     //execute saving
     $.ajax({      
     	
@@ -252,7 +252,7 @@ function updateProduct() {
         //timeout :     30000,
         
         success:function(msg){
-            location.href="productList";
+            location.href="productList?lang="+$("#selectLang").val();;
         },
         error:function(){
             alert("ERROR:Product updating failed.");     

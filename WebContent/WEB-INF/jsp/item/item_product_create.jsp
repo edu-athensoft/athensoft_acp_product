@@ -150,7 +150,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- END PAGE HEADER-->
                     <div class="row">
                         <div class="col-md-12">
-                            <form class="form-horizontal form-row-seperated" action="#">
+                            <form class="form-horizontal form-row-seperated" action="#" enctype="multipart/form-data" method="post">
                                 <div class="portlet">
                                     <div class="portlet-title">
                                         <div class="caption">
@@ -235,6 +235,16 @@ License: You must have a valid license purchased only from themeforest(the above
 															<input type="text" class="form-control" id="prodName" name="prodName" placeholder="" >
 														</div>
 													</div>
+													<div class="form-group">
+													     <label for="name"  class="col-md-2 control-label">上传</label>
+													           <div class="col-sm-8">
+													                <img id="productImg" class="cover-radius"  src="${webapp_name}/assets/pages/img/upload_img.png"
+													                           width="500px" style="cursor: pointer; float:left" />
+													                <input id="picture_upload" name="file" type="file" onchange="upload_cover(this)"
+													                           style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; opacity: 0; cursor: pointer;"/>
+													                <small class="help-block cover-tips" style="color: #dd4b39;display: none;">请上传图片</small>
+													           </div>
+													 </div>
 														<div class="form-group">
 														<label class="col-md-2 control-label"><spring:message code="ProductNameAlias"/>: <span class="required">
 														* </span>
@@ -391,6 +401,7 @@ License: You must have a valid license purchased only from themeforest(the above
 var initLoc = "${loc}";
 //alert(initLoc);
 </script>  
+<script type="text/javascript" src="${webapp_name}/assets/pages/scripts/ajaxfileupload.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-create.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/global-validate.js"></script>

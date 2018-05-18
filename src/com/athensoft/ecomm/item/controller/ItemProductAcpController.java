@@ -4,9 +4,11 @@ package com.athensoft.ecomm.item.controller;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -188,13 +192,37 @@ public class ItemProductAcpController {
 	    
 	}
 	    
+	    @RequestMapping(value = "item/uploadProductImg", method = RequestMethod.POST)
+	    @ResponseBody
+	    public Map<String, String> upload(HttpServletRequest request) throws Exception {
+	        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+	        CommonsMultipartFile file = (CommonsMultipartFile) multipartRequest.getFile("file");
+	        ///assets/pages/
+	        String rootDir = request.getRealPath("/");
+	        String relatDir = File.separator+"assets"+File.separator+"pages"
+	                +File.separator+"img"+File.separator+"uploadImg";  
+
+	        File fdir = new File(rootDir+relatDir);
+	        if (!fdir.exists()) { fdir.mkdirs(); }
+
+	        String oriName = file.getOriginalFilename();
+	        String newName = new Date().getTime()+"_"+oriName;
+	        File tempFile = new File(fdir.getPath()+File.separator+newName);
+	        file.transferTo(tempFile);
+
+	        Map<String, String> model = new HashMap<>();
+	        model.put("oriName", oriName);
+	        model.put("realName", tempFile.getName());
+	        model.put("relatPath", relatDir+File.separator+newName); 
+	        return model;
+	    }
 	
 	@RequestMapping(value="/item/newCreateProduct")
 	@ResponseBody
 	public Map<String, Object>  createProduct(@RequestBody ItemProduct itemProduct){
 	
 		logger.info("entering  /item/newCreateProduct");
-		System.out.println(LocaleHelper.localToLangNo(itemProduct.getLangNo()));
+		itemProduct.setLang_no(LocaleHelper.localToLangNo(itemProduct.getLangNo()));
 		ModelAndView mav = new ModelAndView();
 		System.out.println("biz id : "+itemProduct.getProdBizId());
 

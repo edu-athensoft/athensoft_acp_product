@@ -180,9 +180,9 @@ public int createProduct(ItemProduct itemProduct) {
 		final String TABLE1 = "item_product";
 		System.out.println("ID = "+itemProduct.getProdType());
 		StringBuffer sbf = new StringBuffer();
-		sbf.append("insert into "+TABLE1+" (prod_biz_id, prod_seqno, prod_type, prod_status,prod_category_code,prod_category_name,");
+		sbf.append("insert into "+TABLE1+" (prod_biz_id, prod_seqno, prod_type,prod_img_url, prod_status,prod_category_code,prod_category_name,");
 		sbf.append("prod_sale_type , prod_creater_id, prod_create_datetime) ");
-		sbf.append(" values( :prod_biz_id, :prod_seqno, :prod_type, :prod_status,:prod_category_code,:prod_category_name, :prod_sale_type, :prod_creater_id,sysdate()) ;");
+		sbf.append(" values( :prod_biz_id, :prod_seqno, :prod_type, :prod_img_url,:prod_status,:prod_category_code,:prod_category_name, :prod_sale_type, :prod_creater_id,sysdate()) ;");
 		
 		
 		// prod_desc, prod_desc_long, prod_name, prod_name_alias, 
@@ -202,6 +202,7 @@ public int createProduct(ItemProduct itemProduct) {
 		paramSource.addValue("prod_biz_id", itemProduct.getProdBizId());
 		paramSource.addValue("prod_seqno", itemProduct.getProdSeqNo());
 		paramSource.addValue("prod_type", itemProduct.getProdType());
+		paramSource.addValue("prod_img_url", itemProduct.getProdImgUrl());
 		paramSource.addValue("prod_status",itemProduct.getProdStatus());
 		paramSource.addValue("prod_category_code",itemProduct.getCategoryCode());
 		paramSource.addValue("prod_category_name",itemProduct.getCategoryName());

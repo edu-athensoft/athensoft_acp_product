@@ -31,7 +31,7 @@ var Datatable = function() {
                 return;
             }
             
-            alert(initLoc);
+           // alert(initLoc);
             
             switch (initLoc){
             	case"en_US":
@@ -64,7 +64,7 @@ var Datatable = function() {
             		var page = "pages";
             		var pageOf = "in";
             		break;
-            	case"zh_CN":
+            	case"zh_CN": 
             		var	metronicGroupActions="_TOTAL_ : 已选择";
                 	var	metronicAjaxRequestGeneralError=" 请求错误. 请检查网络";
                 	var	lengthMenu="查看 _MENU_ 记录";
@@ -76,8 +76,8 @@ var Datatable = function() {
                 	var   next= 	"后";
                 	var  last= 	"最后";
                 	var   first= "最前";
-                	var  page=	"页";
-                	var  pageOf= "in";
+                	var  page=	"第";
+                	var  pageOf= "页";
             		break;
             }
             

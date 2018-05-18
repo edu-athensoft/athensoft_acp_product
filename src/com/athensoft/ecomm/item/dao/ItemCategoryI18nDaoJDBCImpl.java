@@ -42,8 +42,38 @@ public class ItemCategoryI18nDaoJDBCImpl implements ItemCategoryI18nDao{
 
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("category_id",categoryId );
-		paramSource.addValue("category_name", itemCategory.getCategoryName().split(",")[0]);
-		paramSource.addValue("category_desc", itemCategory.getCategoryDesc().split(",")[0]);
+		paramSource.addValue("category_name", itemCategory.getCategoryName());
+		paramSource.addValue("category_desc", itemCategory.getCategoryDesc());
+		paramSource.addValue("lang_no", localeStr);
+		
+		String sql = sbf.toString();
+
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+
+		jdbc.update(sql, paramSource, keyHolder);
+
+		return 1;
+	} 
+
+	@Override
+	public int createCategoryI18n(ItemCategory itemCategory,int categoryId) {
+
+		final String TABLE1 = "item_category_i18n";
+		StringBuffer sbf = new StringBuffer();
+		
+		sbf.append("insert into " + TABLE1 + "(category_id");
+		sbf.append(",category_name,");
+		sbf.append("category_desc,");
+		sbf.append("lang_no) values(");
+		sbf.append(":category_id,");
+		sbf.append(":category_name,");
+		sbf.append(":category_desc,");
+		sbf.append(":lang_no)");
+
+		MapSqlParameterSource paramSource = new MapSqlParameterSource();
+		paramSource.addValue("category_id",categoryId );
+		paramSource.addValue("category_name", itemCategory.getCategoryName().split(",")[1]);
+		paramSource.addValue("category_desc", itemCategory.getCategoryDesc().split(",")[1]);
 		paramSource.addValue("lang_no", 1033);
 		
 		String sql = sbf.toString();
@@ -66,8 +96,8 @@ public class ItemCategoryI18nDaoJDBCImpl implements ItemCategoryI18nDao{
 
 		MapSqlParameterSource paramSource2 = new MapSqlParameterSource();
 		paramSource2.addValue("category_id",categoryId );
-		paramSource2.addValue("category_name", itemCategory.getCategoryName().split(",")[1]);
-		paramSource2.addValue("category_desc", itemCategory.getCategoryDesc().split(",")[1]);
+		paramSource2.addValue("category_name", itemCategory.getCategoryName().split(",")[0]);
+		paramSource2.addValue("category_desc", itemCategory.getCategoryDesc().split(",")[0]);
 		paramSource2.addValue("lang_no", 2052);
 		
 		KeyHolder keyHolder2 = new GeneratedKeyHolder();
@@ -99,7 +129,6 @@ public class ItemCategoryI18nDaoJDBCImpl implements ItemCategoryI18nDao{
 		
 		return 1;
 	} 
-
 	@Override
 	public int deleteCategoryI18nByCategoryId(long categoryId) {
  

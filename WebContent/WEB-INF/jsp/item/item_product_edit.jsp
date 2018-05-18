@@ -1,12 +1,22 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page pageEncoding="utf-8"%>
+<%@ taglib prefix = "spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page isELIgnored="false" %>
 
 <!-- global variables settings -->
 <c:set var="webapp_name" value="/acp"/>
 
 <!-- page variables  -->
 <c:set var="inc_dir" value="../inc"/>
+Z
+<c:set var="loc" value="en_US"/>
+<c:if test="${!(empty param.lang)}" >
+  <c:set var="loc" value="${param.lang}"/>
+</c:if>
+<fmt:setLocale value="${loc}" />
+
 <!-- ENDS page variables -->
 
 <!DOCTYPE html>
@@ -380,7 +390,10 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="${webapp_name}/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/global/plugins/plupload/js/plupload.full.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
-
+<script>
+var initLoc = "${loc}";
+alert(initLoc);
+</script>
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-list.js"></script>
@@ -401,25 +414,14 @@ License: You must have a valid license purchased only from themeforest(the above
  -->
 <!-- END THEME LAYOUT SCRIPTS -->
 <script>
-jQuery(document).ready(function() {    
-	//Metronic.init(); // init metronic core components
-	//Layout.init(); // init current layout
-	//Demo.init(); // init demo features
-	//EventNewsEdit.init();
 	var prodBizId = $("#bizId").val();
 	productEdit.init(prodBizId);
-
-//local
-/* //select object for event class
-	var eventClassValue = ${eventClass};
-	$("#eventClass").val(eventClassValue); */
-
-//select object for event status
 	var productStatus = ${productObject.prodStatus};
 	$("#prodStatus").val(productStatus);
 	
-});
 var categoryCode ="${productObject.categoryCode}";
+$("#selectLang").val(initLoc);
+
 </script>
 </body>
 

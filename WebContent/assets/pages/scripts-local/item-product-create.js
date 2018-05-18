@@ -43,7 +43,7 @@ function createProduct() {
   
     
     var dd=JSON.stringify(itemProductObject);
-	  // alert(dd);
+	  alert(dd);
 
     //execute saving
     $.ajax({
@@ -56,7 +56,7 @@ function createProduct() {
 //        timeout :     30000,
         
         success:function(msg){
-        	location.href="productList";
+        	location.href="productList?lang="+$("#selectLang").val();
         },
         error:function(){
             alert("ERROR: Product creating failed.");     

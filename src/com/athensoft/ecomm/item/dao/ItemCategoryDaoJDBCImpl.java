@@ -63,7 +63,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 	}
 
 	@Override
-	public List<ItemCategory> findByFilter(String queryString) {
+	public List<ItemCategory> findByFilter(String queryString,String localeStr) {
 		final String TABLE1 = "item_category ic, item_category_i18n ici";
 
 		StringBuffer sbf = new StringBuffer();
@@ -76,12 +76,13 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 		sbf.append("category_level,");
 		sbf.append("category_status");
 		sbf.append(" FROM " + TABLE1);
-		sbf.append(" where lang_no=1033 ");
+		sbf.append(" where lang_no=:lang_no ");
 		sbf.append(" AND ic.category_id = ici.category_id ");
 		sbf.append(queryString);   
 		String sql = sbf.toString();
 
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
+		paramSource.addValue("lang_no", localeStr); 
 		List<ItemCategory> x = new ArrayList<ItemCategory>();
 		try {
 			x = jdbc.query(sql, paramSource, new ItemCategoryRowMapper());
@@ -104,8 +105,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 		sbf.append("category_status,");
 		sbf.append("tree_ui_id ");
 		sbf.append("FROM " + TABLE1 + " ");
-		sbf.append("WHERE 1=1 ");
-		sbf.append("AND item_category_i18n.lang_no = :lang_no ");
+		sbf.append("Where item_category_i18n.lang_no = :lang_no ");
 		sbf.append("AND item_category_i18n.category_id = item_category.category_id ");
 		/*
 		 * sbf.
@@ -195,14 +195,15 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 	}
 
 	@Override
-	public void renameResultSaved(String key, String newText) {
+	public void renameResultSaved(String key, String newText,String localeStr) {
 		String sql = "update item_category_i18n set category_name =:newText "
 				+ " where category_id = (select category_id from item_category "
-				+ " where category_code=:key)";
+				+ " where category_code=:key)"
+				+ " and lang_no = :lang_no";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("newText", newText);
 		paramSource.addValue("key", key);
-
+		paramSource.addValue("lang_no", localeStr);
 		KeyHolder keyholder = new GeneratedKeyHolder();
 		jdbc.update(sql, paramSource, keyholder);
 		return;
@@ -408,7 +409,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 	}
 
 	@Override
-	public void updateCategory(ItemCategory itemCategory) {
+	public void updateCategory(ItemCategory itemCategory,String localeStr) {
 	final String TABLE1 = "item_category ic, item_category_i18n ici";
 	System.out.println("ID = "+itemCategory.getCategoryName());
 	StringBuffer sbf = new StringBuffer();
@@ -439,7 +440,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 	paramSource.addValue("category_desc", itemCategory.getCategoryDesc());
 	paramSource.addValue("category_id", itemCategory.getCategoryId());
 	
-	paramSource.addValue("lang_no", 1033);
+	paramSource.addValue("lang_no", localeStr);
 	
 	KeyHolder keyholder = new GeneratedKeyHolder();
 	int update = jdbc.update(sql, paramSource, keyholder);

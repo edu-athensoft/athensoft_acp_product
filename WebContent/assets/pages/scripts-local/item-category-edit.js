@@ -3,7 +3,7 @@
 /* edit product - button:save change,update */
 function editCategory() {
     var businessObject = getBusinessObjectCateEdit();
-    alert(businessObject);
+    //alert(businessObject);
     //execute saving
     $.ajax({      
     	
@@ -13,7 +13,7 @@ function editCategory() {
         //timeout :     30000,
         
         success:function(msg){
-            location.href="categoryList";
+            location.href="categoryList?lang="+$("#selectLang").val();
         },
         error:function(){
             alert("ERROR:Category updating failed.");     
@@ -28,9 +28,7 @@ function editCategory() {
 
 /*edit product - button:save and continue */
 function updateCategoryAndContinue() {
-	/*alert("123123");*/
 	var productObject = getProductObject();
-   alert(JSON.stringify(productObject));
     //execute saving
     $.ajax({
     	type    :    "post",

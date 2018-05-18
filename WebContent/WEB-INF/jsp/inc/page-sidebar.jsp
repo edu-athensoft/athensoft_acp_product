@@ -1,3 +1,23 @@
+<%@ page contentType="text/html; charset=utf-8" %>
+<%@ page pageEncoding="utf-8"%>
+<%@ taglib prefix = "spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false"%>  
+<%@page import="java.util.Date" %>
+
+<!-- global variables settings -->
+<c:set var="webapp_name" value="/acp"/>
+
+<!-- page variables  -->
+<c:set var="inc_dir" value="../inc"/>
+<c:set var="loc" value="en_US"/>
+<c:if test="${!(empty param.lang)}" >
+  <c:set var="loc" value="${param.lang}"/>
+</c:if>
+<fmt:setLocale value="${loc}" />
+<!-- ENDS page variables -->
+
 <div class="page-sidebar-wrapper">
 	<!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
 	<!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
@@ -123,27 +143,27 @@
 						Product Category</a>
 						<ul class="sub-menu">
 							<li>
-								<a href="/acp/item/testcategory">
+								<a href="/acp/item/testcategory?lang=${loc }">
 								<i class="icon-paper-plane"></i>
 								Category Test</a>
 							</li>
 							<li>
-								<a href="/acp/item/samplecategory">
+								<a href="/acp/item/samplecategory?lang=${loc }">
 								<i class="icon-paper-plane"></i>
 								Category Sample</a>
 							</li>
 							<li>
-								<a href="/acp/item/categoryList">
+								<a href="/acp/item/categoryList?lang=${loc }">
 								<i class="icon-eye"></i>
 								Category List</a>
 							</li>
 							<li>
-								<a href="/acp/item/categoryListTree">
+								<a href="/acp/item/categoryListTree?lang=${loc }">
 								<i class="icon-eye"></i>
 								Category List Tree</a>
 							</li>
 							<li>
-								<a href="/acp/item/categoryEdit">
+								<a href="/acp/item/categoryEdit?lang=${loc }">
 								<i class="icon-pencil"></i>
 								Category Edit</a>
 							</li>
@@ -155,17 +175,17 @@
 						Product</a>
 						<ul class="sub-menu">
 							<li>
-								<a href="/acp/item/productList">
+								<a href="/acp/item/productList?lang=${loc }">
 								<i class="icon-eye"></i>
 								Product List</a>
 							</li>
 							<li>
-								<a href="/acp/item/productEdit">
+								<a href="/acp/item/productEdit?lang=${loc }">
 								<i class="icon-pencil"></i>
 								Product Edit</a>
 							</li>
 							<li>
-								<a href="/acp/item/productEdit">
+								<a href="/acp/item/productEdit?lang=${loc }	">
 								<i class="icon-grid"></i>
 								Product Mix</a>
 							</li>

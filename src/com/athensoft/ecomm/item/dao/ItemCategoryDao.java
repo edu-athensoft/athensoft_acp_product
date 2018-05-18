@@ -18,7 +18,7 @@ public interface ItemCategoryDao {
 	 * @return
 	 * @author Athens
 	 */
-	public List<ItemCategory> findByFilter(String queryString);
+	public List<ItemCategory> findByFilter(String queryString,String localeStr);
 	
 	/** 
 	 * @param categoryId
@@ -53,7 +53,7 @@ public interface ItemCategoryDao {
 	 * @param newText
 	 * @author Fangze Sun
 	 */
-	void renameResultSaved(String key, String newText);
+	void renameResultSaved(String key, String newText,String localeStrd);
 
 	/**
 	 * @param parentId
@@ -98,7 +98,7 @@ public interface ItemCategoryDao {
 
 	public String getInsertedCateCode(int childLevel);
 
-	public void updateCategory(ItemCategory itemCategory);
+	public void updateCategory(ItemCategory itemCategory,String localeStr);
 
 	public String getCategoryCodeByParentId(long parentId);
 

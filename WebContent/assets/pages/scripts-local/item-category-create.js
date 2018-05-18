@@ -40,7 +40,8 @@ function createCategory(){
 //	        timeout :     30000,
 	        
 	        success:function(msg){
-	        	location.href="categoryList";
+	        	debugger;
+	        	  location.href="categoryList?lang="+$("#selectLang").val();
 	        },
 	        error:function(){
 	            alert("ERROR: Category creating failed.");     

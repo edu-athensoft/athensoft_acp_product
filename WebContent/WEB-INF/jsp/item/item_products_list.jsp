@@ -11,7 +11,6 @@
 <!-- page variables  -->
 <c:set var="inc_dir" value="../inc"/>
 
-
 <c:set var="loc" value="en_US"/>
 <c:if test="${!(empty param.lang)}" >
   <c:set var="loc" value="${param.lang}"/>
@@ -321,6 +320,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script>
 var initLoc = "${loc}";
+alert(initLoc);
 </script>
 <script src="${webapp_name}/assets/global/scripts/datatable.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>

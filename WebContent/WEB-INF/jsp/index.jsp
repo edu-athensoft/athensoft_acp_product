@@ -1,13 +1,23 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false"%>  
 
+<%@page import="java.util.Date" %>
+<!-- global variables settings -->
+ 
+<!-- page variables  -->
+<c:set var="inc_dir" value="inc"/>
+<c:set var="loc" value="en_US"/>
+<c:if test="${!(empty param.lang)}" >
+  <c:set var="loc" value="${param.lang}"/>
+</c:if>
+<fmt:setLocale value="${loc}" />
 <!-- global variables settings -->
 <c:set var="webapp_name" value="/acp"/>
 
-
-<!-- page variables  -->
-<c:set var="inc_dir" value="inc"/>
 <!-- ENDS page variables -->
 
 <!DOCTYPE html>

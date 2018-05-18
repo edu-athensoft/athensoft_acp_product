@@ -188,7 +188,7 @@ function deleteCategory(categoryId){
 	        
 	        success:function(msg){
 	        	alert("Category deleted!")
-	        	location.href="categoryList";
+	        	location.href="categoryList?lang="+$("#selectLang").val();
 	        },
 	        error:function(){
 	            alert("ERROR: Category delete failed.");     

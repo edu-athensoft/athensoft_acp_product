@@ -37,8 +37,8 @@ public class ItemCategoryService {
 		this.itemCategoryDao.dragAndDropResultSaved(orig, dest);
 	}
 
-	public void renameResultSaved(String key, String newText) {
-		this.itemCategoryDao.renameResultSaved(key, newText);
+	public void renameResultSaved(String key, String newText,String localeStr) {
+		this.itemCategoryDao.renameResultSaved(key, newText,localeStr);
 	}
 
 	public List<ItemCategory> findAll(String localeStr) {
@@ -64,8 +64,8 @@ public class ItemCategoryService {
 	 * @return
 	 * @author Athens
 	 */
-	public List<ItemCategory> getCategoryByFilter(String queryString){
-		return this.itemCategoryDao.findByFilter(queryString);
+	public List<ItemCategory> getCategoryByFilter(String queryString,String localeStr){
+		return this.itemCategoryDao.findByFilter(queryString,localeStr);
 	}
 
 	public String createResultSaved(long parentId, String text, int parentLevel,String localeStr) {
@@ -170,7 +170,13 @@ public class ItemCategoryService {
 		itemCategory.setCategoryLevel(childLevel); 
 		
 		int result1 = this.itemCategoryDao.createCategory(itemCategory);
-		int result2 = this.itemCategoryI18nDao.createCategoryI18n(itemCategory,result1,localeStr);
+		int result2 =0;
+		if(localeStr!=null){
+			result2= this.itemCategoryI18nDao.createCategoryI18n(itemCategory,result1,localeStr);
+		}else{
+			 result2 = this.itemCategoryI18nDao.createCategoryI18n(itemCategory,result1);
+			
+		}
 		
 		if(result1==1&&result2==1){
 			return 1;
@@ -181,7 +187,7 @@ public class ItemCategoryService {
 		
 	}
 
-	public void updateCategory(ItemCategory itemCategory) {
+	public void updateCategory(ItemCategory itemCategory,String localeStr) {
 		if(itemCategory.getCategoryCode().split("-").length!=1){ 
 			String parentCode= itemCategory.getCategoryCode().substring(0,itemCategory.getCategoryCode().length()-4);
 			System.out.println("parentCode"+ parentCode);
@@ -197,7 +203,7 @@ public class ItemCategoryService {
 		
 		  
 		
-		this.itemCategoryDao.updateCategory(itemCategory);
+		this.itemCategoryDao.updateCategory(itemCategory,localeStr);
 	}
 
 }
