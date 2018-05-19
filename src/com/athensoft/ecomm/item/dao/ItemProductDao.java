@@ -19,7 +19,7 @@ public interface ItemProductDao {
 	 * @return ItemProduct
 	 * @author Yang Liu
 	 */
-	public ItemProduct getProductByProdBizId(String proBizId);
+	public ItemProduct getProductByProdBizId(String proBizId,String localeStr);
 
 
 	public void updateProduct(ItemProduct itemProduct);

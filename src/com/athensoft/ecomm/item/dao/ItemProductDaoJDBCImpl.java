@@ -27,6 +27,7 @@ import com.athensoft.ecomm.item.entity.ItemCategoryStatus;
 import com.athensoft.ecomm.item.entity.ItemProduct;
 import com.athensoft.ecomm.item.entity.ItemProductI18n;
 import com.athensoft.util.id.UUIDHelper;
+import com.athensoft.util.locale.LocaleHelper;
 
 @Component
 @Qualifier("itemProductDaoJDBCImpl")
@@ -65,7 +66,7 @@ public class ItemProductDaoJDBCImpl implements ItemProductDao{
 	}
 
 	@Override
-	public ItemProduct getProductByProdBizId(String prodId) {
+	public ItemProduct getProductByProdBizId(String prodId,String localeStr) {
 		String sql = "select * from"
 				+ " item_product i ,"
 				+ "item_product_i18n ip, "
@@ -76,7 +77,7 @@ public class ItemProductDaoJDBCImpl implements ItemProductDao{
 				+ "and ip.lang_no=:lang_no";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("prod_id", prodId);
-		paramSource.addValue("lang_no",1033 );
+		paramSource.addValue("lang_no",localeStr );
 
 		ItemProduct x = null;
 		try{
@@ -90,10 +91,12 @@ public class ItemProductDaoJDBCImpl implements ItemProductDao{
 }
 
 class ItemProductRowMapper implements RowMapper<ItemProduct>{
-
+		
 	@Override
 	public ItemProduct mapRow(ResultSet rs, int rowNumber) throws SQLException {
 		// TODO Auto-generated method stub
+		String localeStr=LocaleHelper.getLocaleStr();
+		localeStr=LocaleHelper.localToLangNo(localeStr);
 		ItemProduct x= new ItemProduct();
 		ItemProductI18n i18n= new ItemProductI18n();
 		x.setProdId(rs.getLong("prod_id"));
@@ -107,13 +110,14 @@ class ItemProductRowMapper implements RowMapper<ItemProduct>{
 		x.setCategoryCode(rs.getString("prod_category_code"));
 		x.setProdCreaterId(rs.getInt("prod_creater_id"));
 		x.setProdCreaterDatetime(rs.getString("prod_create_datetime"));
+		x.setProdImgUrl(rs.getString("prod_img_url"));
 		x.setProdModifierId(rs.getInt("prod_modifier_id"));
 		x.setProdModifierDatetime(rs.getDate("prod_modify_datetime"));
 		x.setProdPublisherId(rs.getInt("prod_publisher_id"));
 		x.setProdPublisherDatetime(rs.getDate("prod_publish_datetime"));
 		x.setProdUnPublisherId(rs.getInt("prod_unpublisher_id"));
 		x.setProdUnPublisherDatetime(rs.getDate("prod_unpublish_datetime"));
-		i18n.setLangNo(1033);
+		i18n.setLangNo(Integer.parseInt(localeStr));
 		i18n.setProdDesc(rs.getString("prod_desc"));
 		i18n.setProdId(x.getProdId());
 		i18n.setProdDescLong(rs.getString("prod_desc_long"));
@@ -141,6 +145,7 @@ public void updateProduct(ItemProduct itemProduct) {
 	sbf.append("prod_desc = :prod_desc, ");
 	sbf.append("prod_desc_long = :prod_desc_long ,");
 	sbf.append("prod_name = :prod_name, ");
+	sbf.append("prod_img_url = :prod_img_url, ");
 	sbf.append("prod_name_alias = :prod_name_alias ");
 	sbf.append("where ip.prod_id = ipi.prod_id  ");
 	sbf.append("and ip.prod_id = :prod_id ");
@@ -156,6 +161,7 @@ public void updateProduct(ItemProduct itemProduct) {
 //	paramSource.addValue("global_id", news.getGlobalId());
 	paramSource.addValue("prod_id", itemProduct.getProdId());
 	paramSource.addValue("prod_type", itemProduct.getProdType());
+	paramSource.addValue("prod_img_url", itemProduct.getProdImgUrl());
 	paramSource.addValue("prod_status",itemProduct.getProdStatus());
 	paramSource.addValue("prod_sale_type",itemProduct.getProdSaleType());
 	paramSource.addValue("prod_desc",itemProduct.getItemProductI18n().getProdDesc());

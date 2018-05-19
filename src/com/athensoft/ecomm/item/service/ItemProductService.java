@@ -31,9 +31,9 @@ public class ItemProductService {
 	}
 
  
-	public ItemProduct getProductByProdBizId(String prodId) {
+	public ItemProduct getProductByProdBizId(String prodId,String localeStr) {
 		// TODO Auto-generated method stub
-		ItemProduct product= itemProductDao.getProductByProdBizId(prodId);
+		ItemProduct product= itemProductDao.getProductByProdBizId(prodId,localeStr);
 		return product;
 	}
 

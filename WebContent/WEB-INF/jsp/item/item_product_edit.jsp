@@ -42,7 +42,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <head>
         <meta charset="utf-8" />
-        <title>Athensoft | Event - News Edit</title>
+        <title>Athensoft |</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Preview page of Metronic Admin Theme #2 for edit product" name="description" />
@@ -114,20 +114,20 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- BEGIN THEME PANEL -->
                     <jsp:include page="${inc_dir}/theme-panel.jsp"></jsp:include>
                     <!-- END THEME PANEL -->
-                    <h1 class="page-title">Item System <small> manage product</small></h1>
+                    <h1 class="page-title"><spring:message code="itemSystem"/> <small><spring:message code="manage"/><spring:message code="products"/></small></h1>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
 						<li>
 							<i class="fa fa-home"></i>
-							<a href="#">Home</a>
+							<a href="#"><spring:message code="home"/></a>
 							<i class="fa fa-angle-right"></i>
 						</li>
 						<li>
-							<a href="itemDashboard">Item</a>
+							<a href="itemDashboard"><spring:message code="item"/></a>
 							<i class="fa fa-angle-right"></i>
 						</li>
 						<li>
-							<a href="#">Product</a>
+							<a href="#"><spring:message code="Product"/></a>
 						</li>
 					</ul>
                         <div class="page-toolbar">
@@ -135,24 +135,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> Actions
                                     <i class="fa fa-angle-down"></i>
                                 </button>
-                                <ul class="dropdown-menu pull-right" role="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-bell"></i> Action</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-shield"></i> Another action</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-user"></i> Something else here</a>
-                                    </li>
+                               <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="#"><i class="icon-bell"></i> <spring:message code="manage"/></a></li>
+                                    <li><a href="#"><i class="icon-shield"></i> <spring:message code="manage"/></a></li>
+                                    <li><a href="#"><i class="icon-user"></i> <spring:message code="manage"/></a></li>
                                     <li class="divider"> </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-bag"></i> Separated link</a>
-                                    </li>
+                                    <li><a href="#"><i class="icon-bag"></i> <spring:message code="manage"/></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -164,25 +152,26 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="portlet">
                                     <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-shopping-cart"></i>Edit Product<span class="caption-helper"> editing Product description, status, type etc.</span> </div>
+                                            <i class="fa fa-shopping-cart"></i><spring:message code="edit"/><spring:message code="Product"/><span class="caption-helper"> editing Product description, status, type etc.</span> </div>
                                         <div class="actions btn-set">
                                             <button type="button" name="back" class="btn btn-secondary-outline" onclick="backToProductList(); return false;">
-                                                <i class="fa fa-angle-left"></i> Back</button>
+                                                <i class="fa fa-angle-left"></i> <spring:message code="back"/></button>
                                             <button class="btn btn-secondary-outline"  type="reset" >
-                                                <i class="fa fa-reply"></i> Reset</button>
+                                                <i class="fa fa-reply"></i> <spring:message code="reset"/></button>
                                             <button class="btn btn-success" type="button" onclick="updateProduct(); return false;">
-                                                <i class="fa fa-check"></i> Save</button>
+                                                <i class="fa fa-check"></i> <spring:message code="save"/></button>
                                             <button class="btn btn-success" onclick="updateProductAndContinue(); return false;" >
-                                                <i class="fa fa-check-circle"></i> Save &amp; Continue Edit</button>
+                                                <i class="fa fa-check-circle"></i> <spring:message code="save"/> &amp;<spring:message code="continueEdit"/></button>
                                             <div class="btn-group">
                                                 <a class="btn btn-success dropdown-toggle" href="javascript:;" data-toggle="dropdown">
-                                                    <i class="fa fa-share"></i> More
+                                                    <i class="fa fa-share"></i><spring:message code="more"/>
+
                                                     <i class="fa fa-angle-down"></i>
                                                 </a>
                                                 <div class="dropdown-menu pull-right">
                                                 	<ul>
                                                     <li>
-                                                        <a href="javascript:;"> Duplicate </a>
+                                                        <a href="javascript:;"> <spring:message code="duplicate"/> </a>
                                                     </li>
                                                    	<li>
 														<a href="javascript:;"  onclick="markNewsStatusDeleted('${newsObject.eventUUID}'); return false;">
@@ -190,7 +179,7 @@ License: You must have a valid license purchased only from themeforest(the above
 													</li>
                                                     <li class="dropdown-divider"> </li>
                                                     <li>
-                                                        <a href="javascript:;"> Print </a>
+                                                        <a href="javascript:;">  <spring:message code="print"/>  </a>
                                                     </li>
                                                     </ul>
                                                 </div>
@@ -199,17 +188,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                     <div class="portlet-body">
                                         <div class="tabbable-bordered" id="tabs_event">
-                                            <ul class="nav nav-tabs">
-                                                <li class="active">
-                                                    <a href="#tab_general" data-toggle="tab"> General </a>
-                                                </li>
-                                               
-                                            </ul>
+                                           
                                             <div class="tab-content" >
                                                 <div class="tab-pane active" id="tab_general">
                                                     <div class="form-body">
                                                      <div class="form-group">
-														<label class="col-md-2 control-label"> Category: <span class="required">
+														<label class="col-md-2 control-label">  <spring:message code="Category"/>: <span class="required">
 														* </span>
 														</label>
 														
@@ -223,7 +207,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     
                                                     
 													<div class="form-group">
-														<label class="col-md-2 control-label">Business ID: <span class="required">
+														<label class="col-md-2 control-label"><spring:message code="BusinessID"/>: <span class="required">
 														* </span>
 														</label>
 														<div class="col-md-10">
@@ -232,7 +216,7 @@ License: You must have a valid license purchased only from themeforest(the above
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-2 control-label">Sequence Number: <span class="required">
+														<label class="col-md-2 control-label"><spring:message code="SequenceNumber"/>: <span class="required">
 														* </span>
 														</label>
 														<div class="col-md-10">
@@ -241,15 +225,26 @@ License: You must have a valid license purchased only from themeforest(the above
 													</div>
 													
 													<div class="form-group">
-														<label class="col-md-2 control-label">Product Name: <span class="required">
+														<label class="col-md-2 control-label"><spring:message code="ProductName"/>: <span class="required">
 														* </span>
 														</label>
 														<div class="col-md-10">
 															<input type="text" class="form-control" id="prodName" name="prodName" placeholder=""  value="${productObject.itemProductI18n.prodName}">
 														</div>
 													</div>
+													<div class="form-group">
+													     <label for="name"  class="col-md-2 control-label"><spring:message code="image"/></label>
+													           <div class="col-sm-8">
+													       <%--     ${productObject.prodImgUrl == '' ? '${webapp_name}/assets/pages/img/upload_img.png' :'"${productObject.productImg}"' } --%>
+													                <img id="productImg" class="cover-radius"  src="${productObject.prodImgUrl }"
+													                           width="500px" style="cursor: pointer; float:left" />
+													                <input id="picture_upload" name="file" type="file" onchange="upload_cover(this)"
+													                           style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; opacity: 0; cursor: pointer;"/>
+													                <small class="help-block cover-tips" style="color: #dd4b39;display: none;">请上传图片</small>
+													           </div>
+													 </div>
 														<div class="form-group">
-														<label class="col-md-2 control-label">Product Name Alias: <span class="required">
+														<label class="col-md-2 control-label"><spring:message code="ProductNameAlias"/>: <span class="required">
 														* </span>
 														</label>
 														<div class="col-md-10">
@@ -257,15 +252,15 @@ License: You must have a valid license purchased only from themeforest(the above
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-2 control-label">Product Type: <span class="required">
+														<label class="col-md-2 control-label"><spring:message code="ProductType"/>: <span class="required">
 														* </span>
 														</label>
 														<div class="col-md-10">
 															<select class="table-group-action-input form-control input-medium" id="prodType" name="prod_type">
-																<option value="0" ${productObject.prodType == '0' ? 'selected' : ''}>Select...</option>
-																<option value="1" ${productObject.prodType == '1' ? 'selected' : ''}>Product</option>
-																<option value="2" ${productObject.prodType == '2' ? 'selected' : ''}>Digital</option>
-																<option value="3" ${productObject.prodType == '3' ? 'selected' : ''}>Service</option>
+																<option value="0" ${productObject.prodType == '0' ? 'selected' : ''}><spring:message code="Select"/></option>
+																<option value="1" ${productObject.prodType == '1' ? 'selected' : ''}><spring:message code="Product"/></option>
+																<option value="2" ${productObject.prodType == '2' ? 'selected' : ''}><spring:message code="Digital"/></option>
+																<option value="3" ${productObject.prodType == '3' ? 'selected' : ''}><spring:message code="Service"/></option>
 															</select>
 														</div>
 													</div>
@@ -276,11 +271,11 @@ License: You must have a valid license purchased only from themeforest(the above
 														</label>
 														<div class="col-md-10">
 															<select class="table-group-action-input form-control input-medium" id="prodStatus" name="prod_status">
-																<option value="0" ${productObject.prodStatus == '0' ? 'selected' : ''}>Select...</option>
-																<option value="1" ${productObject.prodStatus == '1' ? 'selected' : ''}>New</option>
-																<option value="2" ${productObject.prodStatus == '2' ? 'selected' : ''}>Published</option>
-																<option value="3" ${productObject.prodStatus == '3' ? 'selected' : ''}>Unpublished</option>
-																<option value="4" ${productObject.prodStatus == '4' ? 'selected' : ''}>Deleted</option>
+																<option value="0" ${productObject.prodStatus == '0' ? 'selected' : ''}><spring:message code="Select"/></option>
+																<option value="1" ${productObject.prodStatus == '1' ? 'selected' : ''}><spring:message code="newCreated"/></option>
+																<option value="2" ${productObject.prodStatus == '2' ? 'selected' : ''}><spring:message code="Published"/></option>
+																<option value="3" ${productObject.prodStatus == '3' ? 'selected' : ''}><spring:message code="Unpublished"/></option>
+																<option value="4" ${productObject.prodStatus == '4' ? 'selected' : ''}><spring:message code="Deleted"/></option>
 															</select>
 														</div>
 													</div>
@@ -290,29 +285,29 @@ License: You must have a valid license purchased only from themeforest(the above
 														</label>
 														<div class="col-md-10">
 															<select class="table-group-action-input form-control input-medium" id="prodSaleType" name="prod_sale_type">
-																<option value="0" ${productObject.prodSaleType == '0' ? 'selected' : ''}>Select...</option>
-																<option value="1" ${productObject.prodSaleType == '1' ? 'selected' : ''}>Online</option>
-																<option value="2" ${productObject.prodSaleType == '2' ? 'selected' : ''}>Outlet</option>
-																<option value="3" ${productObject.prodSaleType == '3' ? 'selected' : ''}>Both</option>
+																<option value="0" ${productObject.prodSaleType == '0' ? 'selected' : ''}><spring:message code="Select"/></option>
+																<option value="1" ${productObject.prodSaleType == '1' ? 'selected' : ''}><spring:message code="online"/></option>
+																<option value="2" ${productObject.prodSaleType == '2' ? 'selected' : ''}><spring:message code="outlet"/></option>
+																<option value="3" ${productObject.prodSaleType == '3' ? 'selected' : ''}><spring:message code="both"/></option>
 															</select>
 														</div>
 													</div>
 													
 													
 													<div class="form-group">
-														<label class="col-md-2 control-label">Short Description: <span class="required">
+														<label class="col-md-2 control-label"><spring:message code="ShortDescription"/>: <span class="required">
 														* </span>
 														</label>
 														<div class="col-md-10">
 															<textarea class="form-control" id="prodDesc" name="prodDesc">${productObject.itemProductI18n.prodDesc}</textarea>
 															<span class="help-block">
-															shown in product listing </span>
+														<!--	shown in product listing --></span>
 														</div>
 														
 													</div>
 													
 															<div class="form-group">
-														<label class="col-md-2 control-label">Long Description: <span class="required">
+														<label class="col-md-2 control-label"><spring:message code="LongDescription"/>: <span class="required">
 														* </span>
 														</label>
 														<div class="col-md-10">
@@ -325,7 +320,7 @@ License: You must have a valid license purchased only from themeforest(the above
 													
 												
 													<div class="form-group">
-														<label class="col-md-2 control-label">Create Datetime: <span class="required">
+														<label class="col-md-2 control-label"><spring:message code="LongDescription"/>: <span class="required">
 														* </span>
 														</label>
 														<div class="col-md-10">
@@ -395,6 +390,7 @@ var initLoc = "${loc}";
 alert(initLoc);
 </script>
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script type="text/javascript" src="${webapp_name}/assets/pages/scripts/ajaxfileupload.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-list.js"></script>
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts-local/item-product-list-edit.js"></script>
@@ -414,6 +410,7 @@ alert(initLoc);
  -->
 <!-- END THEME LAYOUT SCRIPTS -->
 <script>
+
 	var prodBizId = $("#bizId").val();
 	productEdit.init(prodBizId);
 	var productStatus = ${productObject.prodStatus};

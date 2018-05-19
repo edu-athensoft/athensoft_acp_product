@@ -320,7 +320,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script>
 var initLoc = "${loc}";
-alert(initLoc);
+//alert(initLoc);
 </script>
 <script src="${webapp_name}/assets/global/scripts/datatable.js" type="text/javascript"></script>
 <script src="${webapp_name}/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
@@ -351,7 +351,6 @@ alert(initLoc);
 productList.init();
 //$("#menu-myevents").addClass("selected");
 //alert("page just loaded in "+initLoc);
-
 $("#selectLang").val(initLoc);
 
 </script>

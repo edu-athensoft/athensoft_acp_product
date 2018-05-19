@@ -22,6 +22,7 @@ import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.log4j.Logger;
 /*import org.json.JSONObject;*/
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -256,8 +257,8 @@ public class ItemProductAcpController {
 		localeStr=LocaleHelper.localToLangNo(localeStr);
 		System.out.println("localeStr = "+localeStr);
 		HttpSession session = request.getSession();
-		session.invalidate();
-		//session.setAttribute("localeStr", localeStr);
+		//session.invalidate();
+		
 		ModelAndView mav = new ModelAndView();
 		
 		//data
@@ -265,7 +266,7 @@ public class ItemProductAcpController {
 		logger.info("Length of product entries: "+ listProduct.size());
 		
 		String[][] data = getData(listProduct, ACTION_EDIT);
-		
+		session.setAttribute("listProductByFilter", listProduct);
 		Map<String, Object> model = mav.getModel();
 		
 		model.put("draw", new Integer(1));
@@ -294,8 +295,9 @@ public class ItemProductAcpController {
 		String field7 = "";	//event status
 		String field8 = "";	//action
 		String field9 = "";
-		 
-		for(int i=0; i<entryLength ; i++){			
+		String localeStr = LocaleHelper.getLocaleStr();
+		
+		for(int i=0; i<entryLength ; i++){			 
 			field0 = "<input type='checkbox' name='id[]' value="+listProduct.get(i).getProdId()+">";
 			field1 = listProduct.get(i).getProdBizId()+"";
 			field2 = listProduct.get(i).getProdSeqNo()+"";
@@ -318,7 +320,7 @@ public class ItemProductAcpController {
 			field8 = "<span class='label label-sm label-"+productStatusKey+"'>"+productStatu+"</span>";
 			
 			
-			field9 = "<a href='/acp/item/"+getAction(actionName)+"?prodId="+listProduct.get(i).getProdId()+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+actionName+"</a><button onclick='deleteProduct("+listProduct.get(i).getProdId()+")' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+"Delete"+"</button>";
+			field9 = "<a href='/acp/item/"+getAction(actionName)+"?prodId="+listProduct.get(i).getProdId()+"&lang="+localeStr+"' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+actionName+"</a><button onclick='deleteProduct("+listProduct.get(i).getProdId()+")' class='btn btn-xs default btn-editable'><i class='fa fa-pencil'></i> "+"Delete"+"</button>";
 			//field9 = "<a href='/acp/item/"+getAction(actionName)+"?prodBizId="+field1+"' '><i class='fa fa-pencil'></i> "+"test"+"</a>";
 			
 			//logger.info("field8="+field8);
@@ -350,6 +352,8 @@ public class ItemProductAcpController {
 		
 		ModelAndView mav = new ModelAndView();
 		
+		String localeStr= LocaleHelper.getLocaleStr();
+		localeStr=LocaleHelper.localToLangNo(localeStr);
 		//view	
 		String viewName = "item/item_product_edit";
 		mav.setViewName(viewName);
@@ -358,7 +362,7 @@ public class ItemProductAcpController {
 		Map<String, Object> model = mav.getModel();
 		
 		//data - news
-		ItemProduct product = itemProductService.getProductByProdBizId(prodId);	
+		ItemProduct product = itemProductService.getProductByProdBizId(prodId,localeStr);	
 		model.put("productObject", product);
 		
 		

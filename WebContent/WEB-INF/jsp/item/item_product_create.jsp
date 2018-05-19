@@ -236,7 +236,7 @@ License: You must have a valid license purchased only from themeforest(the above
 														</div>
 													</div>
 													<div class="form-group">
-													     <label for="name"  class="col-md-2 control-label">上传</label>
+													     <label for="name"  class="col-md-2 control-label"><spring:message code="image"/></label>
 													           <div class="col-sm-8">
 													                <img id="productImg" class="cover-radius"  src="${webapp_name}/assets/pages/img/upload_img.png"
 													                           width="500px" style="cursor: pointer; float:left" />
@@ -260,8 +260,8 @@ License: You must have a valid license purchased only from themeforest(the above
 														<div class="col-md-10">
 															<select class="table-group-action-input form-control input-medium" id="prodType" name="prod_type">
 																<option value="0" ${productObject.prodType == '0' ? 'selected' : ''}><spring:message code="Select"/></option>
-																<option value="1" ${productObject.prodType == '1' ? 'selected' : ''}><spring:message code="Digital"/></option>
-																<option value="2" ${productObject.prodType == '2' ? 'selected' : ''}><spring:message code="Product"/></option>
+																<option value="1" ${productObject.prodType == '1' ? 'selected' : ''}><spring:message code="Product"/></option>
+																<option value="2" ${productObject.prodType == '2' ? 'selected' : ''}><spring:message code="Digital"/></option>
 																<option value="3" ${productObject.prodType == '3' ? 'selected' : ''}><spring:message code="Service"/></option>
 															</select>
 														</div>
@@ -399,6 +399,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script>
 
 var initLoc = "${loc}";
+$("#selectLang").val(initLoc); 
 //alert(initLoc);
 </script>  
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts/ajaxfileupload.js"></script>
@@ -418,12 +419,11 @@ var initLoc = "${loc}";
  -->
 <!-- END THEME LAYOUT SCRIPTS -->
 <script>
-jQuery(document).ready(function() {    
-	var prodBizId = $("#bizId").val();
-	productEdit.init(prodBizId);
-	var productStatus = ${productObject.prodStatus};
-	$("#prodStatus").val(productStatus);
-	
+jQuery(document).ready(function() { 
+		var prodBizId = $("#bizId").val();
+		productEdit.init(prodBizId);
+		var productStatus = ${productObject.prodStatus};
+		$("#prodStatus").val(productStatus);
 });
 
 </script>

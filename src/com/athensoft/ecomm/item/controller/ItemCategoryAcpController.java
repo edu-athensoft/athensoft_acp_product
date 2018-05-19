@@ -243,20 +243,21 @@ public class ItemCategoryAcpController {
 	 */
 	@RequestMapping(value="/item/categoryListData",produces="application/json")
 	@ResponseBody
-	public Map<String,Object> getDataItemCategoryList(){
+	public Map<String,Object> getDataItemCategoryList(HttpServletRequest request){
 		logger.info("entering /item/categoryListData");	
 		ModelAndView mav = new ModelAndView();
 		//data
 		String localeStr = LocaleHelper.getLocaleStr();
 	    localeStr=LocaleHelper.localToLangNo(localeStr);
-	    
 		List<ItemCategory> listCategory = new ArrayList<ItemCategory>();
 		listCategory = itemCategoryService.findCategoryTreeByCategoryId(localeStr,1);
 		logger.info("Length of news entries: "+ listCategory.size());
+		HttpSession session = request.getSession();
+	    session.setAttribute("listCategoryByFilter", listCategory);
 		
 		String[][] data = getData(listCategory);
 		
-		Map<String, Object> model = mav.getModel();
+		Map<String, Object> model = mav.getModel();  
 		
 		model.put("draw", new Integer(1));
 		model.put("recordsTotal", new Integer(5));
