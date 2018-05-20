@@ -38,9 +38,9 @@ public class ItemProductService {
 	}
 
 
-	public void updateProduct(ItemProduct itemProduct) {
+	public void updateProduct(ItemProduct itemProduct,String localeStr) {
 		// TODO Auto-generated method stub
-		itemProductDao.updateProduct(itemProduct);
+		itemProductDao.updateProduct(itemProduct,localeStr);
 	}
 
 

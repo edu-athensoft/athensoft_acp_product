@@ -22,7 +22,7 @@ public interface ItemProductDao {
 	public ItemProduct getProductByProdBizId(String proBizId,String localeStr);
 
 
-	public void updateProduct(ItemProduct itemProduct);
+	public void updateProduct(ItemProduct itemProduct,String localeStr);
 
 
 	public int createProduct(ItemProduct itemProduct);

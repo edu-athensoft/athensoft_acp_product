@@ -132,7 +132,7 @@ class ItemProductRowMapper implements RowMapper<ItemProduct>{
 }
 
 @Override
-public void updateProduct(ItemProduct itemProduct) {
+public void updateProduct(ItemProduct itemProduct,String localeStr) {
 	// TODO Auto-generated method stub
 	final String TABLE1 = "item_product ip, item_product_i18n ipi";
 	System.out.println("ID = "+itemProduct.getProdType());
@@ -146,6 +146,8 @@ public void updateProduct(ItemProduct itemProduct) {
 	sbf.append("prod_desc_long = :prod_desc_long ,");
 	sbf.append("prod_name = :prod_name, ");
 	sbf.append("prod_img_url = :prod_img_url, ");
+	sbf.append("prod_category_name = :prod_category_name, ");
+	sbf.append("prod_category_code = :prod_category_code, ");
 	sbf.append("prod_name_alias = :prod_name_alias ");
 	sbf.append("where ip.prod_id = ipi.prod_id  ");
 	sbf.append("and ip.prod_id = :prod_id ");
@@ -164,11 +166,13 @@ public void updateProduct(ItemProduct itemProduct) {
 	paramSource.addValue("prod_img_url", itemProduct.getProdImgUrl());
 	paramSource.addValue("prod_status",itemProduct.getProdStatus());
 	paramSource.addValue("prod_sale_type",itemProduct.getProdSaleType());
+	paramSource.addValue("prod_category_name",itemProduct.getCategoryName());
+	paramSource.addValue("prod_category_code",itemProduct.getCategoryCode());
 	paramSource.addValue("prod_desc",itemProduct.getItemProductI18n().getProdDesc());
 	paramSource.addValue("prod_desc_long", itemProduct.getItemProductI18n().getProdDescLong());
 	paramSource.addValue("prod_name", itemProduct.getItemProductI18n().getProdName());
 	paramSource.addValue("prod_name_alias", itemProduct.getItemProductI18n().getProdNameAlias());
-	paramSource.addValue("lang_no", 1033);
+	paramSource.addValue("lang_no", localeStr);
 	
 	KeyHolder keyholder = new GeneratedKeyHolder();
 	jdbc.update(sql, paramSource, keyholder);
@@ -304,7 +308,7 @@ public List<ItemProduct> findProductsByFilter(ItemProduct itemProduct) {
 	sbf.append("and il.lang_no = ipi.lang_no");
 	
 	MapSqlParameterSource paramSource = new MapSqlParameterSource();
-	paramSource.addValue("lang_no", 1033);
+	paramSource.addValue("lang_no", itemProduct.getLangNo());
 	
 	System.out.println(sbf.toString());
 	

@@ -139,7 +139,7 @@ public class ItemProductAcpController {
 			
 			JSONObject jsonObject= new JSONObject();
 			ItemProduct itemProduct = jsonObject.parseObject(itemJSONString, ItemProduct.class);
-			
+			itemProduct.setLang_no(LocaleHelper.localToLangNo(LocaleHelper.getLocaleStr()));
 			System.out.println(itemProduct.toString());
 			
 			List<ItemProduct> listProduct=itemProductService.getDataProductByFilter(itemProduct);
@@ -393,12 +393,13 @@ public class ItemProductAcpController {
 	public Map<String,Object> updateProduct(@RequestParam String itemJSONString){
 		logger.info("entering /item/productUpdate");
 		System.out.println(itemJSONString);
-		
+		String localeStr = LocaleHelper.getLocaleStr();
+		localeStr = LocaleHelper.localToLangNo(localeStr);
 		ModelAndView mav = new ModelAndView();
 		JSONObject ic_job= new JSONObject();
 		ItemProduct itemProduct = ic_job.parseObject(itemJSONString, ItemProduct.class);
 		 
-		itemProductService.updateProduct(itemProduct);
+		itemProductService.updateProduct(itemProduct,localeStr);
 		
 		logger.info("leaving /item/product_edit");
 		Map<String,Object> map=new HashMap<String, Object>();

@@ -387,7 +387,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END PAGE LEVEL PLUGINS -->
 <script>
 var initLoc = "${loc}";
-alert(initLoc);
+//alert(initLoc);
 </script>
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script type="text/javascript" src="${webapp_name}/assets/pages/scripts/ajaxfileupload.js"></script>

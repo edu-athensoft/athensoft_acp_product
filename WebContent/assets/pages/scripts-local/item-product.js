@@ -60,7 +60,7 @@ function getProductObject(){
         	prodImgUrl			: p14
     		
     };
-   // alert(businessObject);
+   alert(businessObject);
     return businessObject;
 }
 
