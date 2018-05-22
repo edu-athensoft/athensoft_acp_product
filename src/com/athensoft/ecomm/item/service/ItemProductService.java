@@ -1,5 +1,6 @@
 package com.athensoft.ecomm.item.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,12 @@ public class ItemProductService {
 			return 0;
 		}
 		
+	}
+
+
+	public void batchUpdateProduct(ArrayList<ItemProduct> prodList) {
+
+			itemProductDao.batchUpdateProduct(prodList);
 	}
 	
 }

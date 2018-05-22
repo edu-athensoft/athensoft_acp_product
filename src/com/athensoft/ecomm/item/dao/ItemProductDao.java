@@ -1,5 +1,6 @@
 package com.athensoft.ecomm.item.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.athensoft.ecomm.item.entity.ItemProduct;
@@ -32,6 +33,9 @@ public interface ItemProductDao {
 
 
 	public int deleteProductByProdBizId(String prodId);
+
+
+	public void batchUpdateProduct(ArrayList<ItemProduct> prodList);
 
 
 	

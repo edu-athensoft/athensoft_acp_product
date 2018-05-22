@@ -34,6 +34,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.athensoft.content.event.entity.News;
 import com.athensoft.ecomm.item.entity.ItemProduct;
 import com.athensoft.ecomm.item.entity.ItemProductStatus;
 import com.athensoft.ecomm.item.service.ItemProductService;
@@ -386,6 +387,51 @@ public class ItemProductAcpController {
 		
 		logger.info("leaving /item/deleteProduct");
 		return model;
+	}
+	/**
+	 * updateProductGroup
+	 * */
+	@RequestMapping(value="/item/updateProductGroup",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> updateProductGroup(
+				@RequestParam String productIDArray,
+				@RequestParam int prodStatus
+				) {
+			
+			logger.info("entering /item/updateProductGroup");
+			
+			/* initial settings */
+			ModelAndView mav = new ModelAndView();
+			
+			//set model
+	        Map<String, Object> model = mav.getModel();
+	   
+	        ArrayList<ItemProduct> prodList = new ArrayList<ItemProduct>();
+	        String[] productIDs = productIDArray.split(",");
+	        int productIDLength = productIDs.length;
+	        
+	        String localeStr= LocaleHelper.getLocaleStr();
+	        localeStr=  LocaleHelper.localToLangNo(localeStr);
+	        
+	        for(int i=0; i<productIDLength; i++){
+	        	 ItemProduct product = new ItemProduct();
+	        	 product.setProdId(Long.parseLong(productIDs[i]));
+	        	 product.setProdStatus(prodStatus);
+	        	 product.setLang_no(localeStr);
+	        	 prodList.add(product);
+	        	 
+	        }
+	        
+	        logger.info("prodList size="+prodList.size());
+	        logger.info("prodList ="+prodList.toString());
+	        
+			/* business logic*/
+	         itemProductService.batchUpdateProduct(prodList);
+	        
+			
+			/* assemble model and view */
+			logger.info("leaving /events/updateNewsGroup");
+			return model;		
 	}
 	
 	@RequestMapping(value="/item/productUpdate",method=RequestMethod.POST)

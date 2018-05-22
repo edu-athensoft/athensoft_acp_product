@@ -105,15 +105,15 @@ var productList = function () {
 }();
 
 
-/* list news - button:group update status */
-function groupUpdateStatus(eventUUIDArray,newsStatus){
-	//alert("groupUpdateStatus()");
-    //alert(eventUUIDArray+":"+newsStatus);
+/* list product - button:group update status */
+function groupUpdateStatus(productIDArray,prodStatus){
+	alert("groupUpdateStatus()");
+    alert(productIDArray+":"+prodStatus);
 	
     //execute saving
     $.ajax({
         type    :    "post",
-        url        : "updateNewsGroup?eventUUIDArray="+eventUUIDArray+"&newsStatus="+newsStatus,
+        url        : "updateProductGroup?productIDArray="+productIDArray+"&prodStatus="+prodStatus,
         dataType:    "json",
         timeout :     30000,
         
