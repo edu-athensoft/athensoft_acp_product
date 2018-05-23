@@ -1,5 +1,6 @@
 package com.athensoft.ecomm.item.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -204,6 +205,12 @@ public class ItemCategoryService {
 		  
 		
 		this.itemCategoryDao.updateCategory(itemCategory,localeStr);
+	}
+
+	public void batchUpdateCategory(ArrayList<ItemCategory> cateList) {
+		// TODO Auto-generated method stub
+		itemCategoryDao.batchUpdateCategory(cateList);
+		
 	}
 
 }

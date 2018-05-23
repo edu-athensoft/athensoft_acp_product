@@ -128,6 +128,51 @@ public class ItemCategoryAcpController {
 		
 		return mav;
 	}
+	/**
+	 * updateProductGroup
+	 * */
+	@RequestMapping(value="/item/updateCategoryGroup",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> updateProductGroup(
+				@RequestParam String categoryIDArray,
+				@RequestParam int categoryStatus
+				) {
+			
+			logger.info("entering /item/updateCategoryGroup");
+			
+			/* initial settings */
+			ModelAndView mav = new ModelAndView();
+			
+			//set model
+	        Map<String, Object> model = mav.getModel();
+	   
+	        ArrayList<ItemCategory> cateList = new ArrayList<ItemCategory>();
+	        String[] categoryIDs = categoryIDArray.split(",");
+	        int categoryIDLength = categoryIDs.length;
+	        
+	        String localeStr= LocaleHelper.getLocaleStr();
+	        localeStr=  LocaleHelper.localToLangNo(localeStr);
+	        
+	        for(int i=0; i<categoryIDLength; i++){
+	        	ItemCategory category = new ItemCategory();
+	        	category.setCategoryId(Long.parseLong(categoryIDs[i]));
+	        	category.setCategoryStatus(categoryStatus);
+	        	category.setCategoryLangNo(localeStr);
+	        	cateList.add(category);
+	        	 
+	        }
+	        
+	        logger.info("prodList size="+cateList.size());
+	        logger.info("prodList ="+cateList.toString());
+	        
+			/* business logic*/
+	         itemCategoryService.batchUpdateCategory(cateList);
+	        
+			
+			/* assemble model and view */
+			logger.info("leaving /item/updateCategoryGroup");
+			return model;		
+	}
 	
 	/**
 	 * get all the parent category 

@@ -430,7 +430,7 @@ public class ItemProductAcpController {
 	        
 			
 			/* assemble model and view */
-			logger.info("leaving /events/updateNewsGroup");
+			logger.info("leaving /item/updateNewsGroup");
 			return model;		
 	}
 	

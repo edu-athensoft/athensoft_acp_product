@@ -1,5 +1,7 @@
 package com.athensoft.ecomm.item.entity;
 
+import org.springframework.web.servlet.mvc.ParameterizableViewController;
+
 public class ItemCategory {
 	
 	private Long 		categoryId;
@@ -7,8 +9,9 @@ public class ItemCategory {
 	private String 		categoryName;
 	private String 		categoryDesc;
 	private String 		categoryCode;
-	private Integer			categoryLevel;
-	private Integer			categoryStatus;
+	private Integer		categoryLevel;
+	private Integer		categoryStatus;
+	private String 	categoryLangNo;
 	
 	/*
 	 * 
@@ -81,6 +84,14 @@ public class ItemCategory {
 
 	public void setCategoryLevel(Integer categoryLevel) {
 		this.categoryLevel = categoryLevel;
+	}
+
+	public String getCategoryLangNo() {
+		return categoryLangNo;
+	}
+
+	public void setCategoryLangNo(String categoryLangNo) {
+		this.categoryLangNo = categoryLangNo;
 	}
 
 	public Integer getCategoryStatus() {

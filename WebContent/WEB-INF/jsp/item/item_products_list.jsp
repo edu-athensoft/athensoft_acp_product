@@ -181,11 +181,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <span> </span>
                                             <select class="table-group-action-input form-control input-inline input-small input-sm" name="groupOption">
                                                 <option value=""><spring:message code="Select"/> </option>
-												<option value="1"><spring:message code="Publish"/> </option>
-												<option value="2"><spring:message code="Waittopost"/> </option>
-												<option value="3"><spring:message code="Delete"/> </option>
-												<option value="4"><spring:message code="OutOfDate"/> </option>
-												<option value="5"><spring:message code="Suspend"/> </option>
+												<option value="1"><spring:message code="newCreated"/></option>
+												<option value="2"><spring:message code="Published"/></option>
+												<option value="3"><spring:message code="Unpublished"/></option>
+												<option value="4"><spring:message code="Deleted"/></option>
                                             </select>
                                             <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> <spring:message code="Submit"/> </button>
                                         </div>

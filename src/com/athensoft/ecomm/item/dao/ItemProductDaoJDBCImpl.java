@@ -347,11 +347,11 @@ public int deleteProductByProdBizId(String prodId) {
 
 @Override
 public void batchUpdateProduct(ArrayList<ItemProduct> prodList) {
-	String sql = "update item_product set prod_status=:prodStatus where prod_id =:prod_id";
+	String sql = "update item_product set prod_status=:prodStatus where prod_id =:prodId";
 
 	List<SqlParameterSource> parameters = new ArrayList<SqlParameterSource>();
 	for (ItemProduct x : prodList) { 
-		parameters.add(new BeanPropertySqlParameterSource(x));
+		parameters.add(new BeanPropertySqlParameterSource(x)); 
 	}
 
 	jdbc.batchUpdate(sql, parameters.toArray(new SqlParameterSource[0]));
@@ -359,5 +359,6 @@ public void batchUpdateProduct(ArrayList<ItemProduct> prodList) {
 }
 		 
 		
+
 
 }

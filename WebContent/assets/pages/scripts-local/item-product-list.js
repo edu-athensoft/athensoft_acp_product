@@ -109,8 +109,8 @@ var productList = function () {
 function groupUpdateStatus(productIDArray,prodStatus){
 	alert("groupUpdateStatus()");
     alert(productIDArray+":"+prodStatus);
-	
-    //execute saving
+	alert("initLoc "+ initLoc);
+	//execute saving
     $.ajax({
         type    :    "post",
         url        : "updateProductGroup?productIDArray="+productIDArray+"&prodStatus="+prodStatus,
@@ -118,7 +118,7 @@ function groupUpdateStatus(productIDArray,prodStatus){
         timeout :     30000,
         
         success:function(msg){
-            location.href="eventsNewsList";
+            location.href="productList?lang="+initLoc;
         	//alert("INFO: News status updated.");
         },
         error:function(){

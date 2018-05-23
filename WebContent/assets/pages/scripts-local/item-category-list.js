@@ -63,9 +63,9 @@ var ItemCategoryList = function () {
                 grid.setAjaxParam("id", grid.getSelectedRows());
                 
                 //modified by Athens
-                var eventUUIDArray = grid.getSelectedRows();
-                var newsStatus = action.val();
-                groupUpdateStatus(eventUUIDArray,newsStatus);
+                var categoryIDArray = grid.getSelectedRows();
+                var categoryStatus = action.val();
+                groupUpdateStatus(categoryIDArray,categoryStatus);
                 //end-of-modified
                 
                 //grid.getDataTable().ajax.reload();
@@ -108,23 +108,23 @@ var ItemCategoryList = function () {
 
 
 /* list news - button:group update status */
-function groupUpdateStatus(eventUUIDArray,newsStatus){
+function groupUpdateStatus(categoryIDArray,categoryStatus){
 	//alert("groupUpdateStatus()");
     //alert(eventUUIDArray+":"+newsStatus);
 	
     //execute saving
     $.ajax({
         type    :    "post",
-        url        : "updateNewsGroup?eventUUIDArray="+eventUUIDArray+"&newsStatus="+newsStatus,
+        url        : "updateCategoryGroup?categoryIDArray="+categoryIDArray+"&categoryStatus="+categoryStatus,
         dataType:    "json",
         timeout :     30000,
         
         success:function(msg){
-            location.href="eventsNewsList";
+            location.href="categoryList";
         	//alert("INFO: News status updated.");
         },
         error:function(){
-            alert("ERROR: News updating failed.");     
+            alert("ERROR: Category updating failed.");     
         },            
         complete: function(XMLHttpRequest, textStatus){
             //reset to avoid duplication

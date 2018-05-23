@@ -14,9 +14,11 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.EmptySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
@@ -459,6 +461,19 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 		String sql = sbf.toString();
 		String categoryCode = jdbc.queryForObject(sql, EmptySqlParameterSource.INSTANCE, String.class); 
 		return categoryCode;
+	}
+
+	@Override
+	public void batchUpdateCategory(ArrayList<ItemCategory> cateList) {
+		// TODO Auto-generated method stub
+		String sql = "update item_category set category_status=:categoryStatus where category_id =:categoryId";
+
+		List<SqlParameterSource> parameters = new ArrayList<SqlParameterSource>();
+		for (ItemCategory x : cateList) { 
+			parameters.add(new BeanPropertySqlParameterSource(x)); 
+		}
+
+		jdbc.batchUpdate(sql, parameters.toArray(new SqlParameterSource[0]));
 	}
 
 	

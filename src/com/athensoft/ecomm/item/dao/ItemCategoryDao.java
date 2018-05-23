@@ -1,5 +1,6 @@
 package com.athensoft.ecomm.item.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.athensoft.ecomm.item.entity.ItemCategory;
@@ -101,6 +102,8 @@ public interface ItemCategoryDao {
 	public void updateCategory(ItemCategory itemCategory,String localeStr);
 
 	public String getCategoryCodeByParentId(long parentId);
+
+	public void batchUpdateCategory(ArrayList<ItemCategory> cateList);
 
 	
 
