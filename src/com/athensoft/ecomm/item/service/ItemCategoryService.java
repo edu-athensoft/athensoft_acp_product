@@ -189,21 +189,21 @@ public class ItemCategoryService {
 	}
 
 	public void updateCategory(ItemCategory itemCategory,String localeStr) {
+		ItemCategory parentItemCatgory=new ItemCategory();
 		if(itemCategory.getCategoryCode().split("-").length!=1){ 
 			String parentCode= itemCategory.getCategoryCode().substring(0,itemCategory.getCategoryCode().length()-4);
 			System.out.println("parentCode"+ parentCode);
-			ItemCategory parentItemCatgory = this.itemCategoryDao.findByCategoryCode(parentCode);
+			parentItemCatgory	 = this.itemCategoryDao.findByCategoryCode(parentCode);
 			itemCategory.setParentId(parentItemCatgory.getCategoryId());
 		}else{
 			itemCategory.setParentId(1l);
 		}
-		int categoryLevel=itemCategory.getCategoryCode().split("-").length;
-		int  childLevel = categoryLevel+1;
+		int categoryLevel=parentItemCatgory.getCategoryCode().split("-").length+1;
 	
-		itemCategory.setCategoryLevel(childLevel);
+		itemCategory.setCategoryLevel(categoryLevel);
 		
 		  
-		
+		  
 		this.itemCategoryDao.updateCategory(itemCategory,localeStr);
 	}
 
@@ -211,6 +211,6 @@ public class ItemCategoryService {
 		// TODO Auto-generated method stub
 		itemCategoryDao.batchUpdateCategory(cateList);
 		
-	}
+	} 
 
 }
