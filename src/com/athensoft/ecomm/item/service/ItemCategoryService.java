@@ -104,6 +104,13 @@ public class ItemCategoryService {
 		// TODO Auto-generated method stub
 		return this.itemCategoryDao.findAllParentCategories();
 	}
+	
+	/**
+	 * function to create category, generate category code in different cases
+	 * 
+	 * @author Yang Liu
+	 *
+	 */
 
 	public int createCategory(ItemCategory itemCategory,String localeStr) {
 		// TODO Auto-generated method stub

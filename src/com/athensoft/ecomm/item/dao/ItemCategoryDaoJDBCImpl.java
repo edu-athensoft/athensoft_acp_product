@@ -177,7 +177,7 @@ public class ItemCategoryDaoJDBCImpl implements ItemCategoryDao {
 
 	@Override
 	public List<ItemCategory> getChildren(long categoryId) {
-		String sql = "select * from item_category where parent_id=:categoryId";
+		String sql = "select * from item_category,item_category_i18n where parent_id=:categoryId";
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("categoryId", categoryId);
 		// paramSource.addValue("global_id", globalId);
