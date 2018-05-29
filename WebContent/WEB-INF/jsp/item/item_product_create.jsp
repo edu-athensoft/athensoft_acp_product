@@ -238,7 +238,7 @@ License: You must have a valid license purchased only from themeforest(the above
 													<div class="form-group">
 													     <label for="name"  class="col-md-2 control-label"><spring:message code="image"/></label>
 													           <div class="col-sm-8">
-													                <img id="productImg" class="cover-radius"  src="${webapp_name}/assets/pages/img/upload_img.png"
+													                <img id="productImg" class="cover-radius"  src="${webapp_name}/assets/pages/img/browserOrDrop.png"
 													                           width="500px" style="cursor: pointer; float:left" />
 													                <input id="picture_upload" name="file" type="file" onchange="upload_cover(this)"
 													                           style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; opacity: 0; cursor: pointer;"/>

@@ -101,7 +101,21 @@ function ajax_upload(feid, callback) {
 function image_check(feid) { 
     var img = document.getElementById(feid);
     return /.(jpg|png|gif|bmp)$/.test(img.value)?true:(function() {
-        alert('图片格式仅支持jpg、png、gif、bmp格式，且区分大小写。');
+    	var errorInfo="";
+    	switch (initLoc){
+    	case "en_US":
+    		errorInfo="The image format only supports jpg, png, gif, bmp formats and is case-sensitive.";
+    		break;
+    	case "fr_CA":
+    		errorInfo="Le format d'image prend uniquement en charge les formats jpg, png, gif, bmp et respecte la casse.";
+    		break;
+    	case "zh_CN":
+    		errorInfo="图片格式仅支持jpg、png、gif、bmp格式，且区分大小写。";
+    		break;
+    	
+    	}
+    	
+    	alert(errorInfo);
         return false;
     })();
 }
