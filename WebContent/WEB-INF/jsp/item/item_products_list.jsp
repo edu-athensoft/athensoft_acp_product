@@ -116,7 +116,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- BEGIN THEME PANEL -->
                     <jsp:include page="${inc_dir}/theme-panel.jsp"></jsp:include>
                     <!-- END THEME PANEL -->
-                    <h1 class="page-title"><spring:message code="itemSystem"/><small><spring:message code="manage"/><spring:message code="products"/></small></h1>
+                    <h1 class="page-title"><spring:message code="itemSystem"/><small><spring:message code="manage"/><%-- <spring:message code="products"/> --%></small></h1>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
 							<li>

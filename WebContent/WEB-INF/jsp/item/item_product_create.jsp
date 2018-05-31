@@ -236,7 +236,7 @@ License: You must have a valid license purchased only from themeforest(the above
 														</div>
 													</div>
 													<div class="form-group">
-													     <label for="name"  class="col-md-2 control-label"><spring:message code="image"/></label>
+													     <label for="name"  class="col-md-2 control-label"><spring:message code="image"/>: <span class="required">* </span></label>
 													           <div class="col-sm-8">
 													                <img id="productImg" class="cover-radius"  src="${webapp_name}/assets/pages/img/browserOrDrop.png"
 													                           width="500px" style="cursor: pointer; float:left" />

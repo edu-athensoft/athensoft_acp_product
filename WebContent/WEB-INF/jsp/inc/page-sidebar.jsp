@@ -39,9 +39,9 @@
 			
 			<!-- E-Commerce System -->
 			<li>
-				<a href="javascript:;">
+				<!-- <a href="javascript:;">
 					<i class="icon-basket"></i><span class="title">E-Commerce</span><span class="arrow "></span>
-				</a>
+				</a> -->
 				<ul class="sub-menu">
 					<!-- E-Commerce Dashboard -->
 					<li>
@@ -155,12 +155,12 @@
 							<li>
 								<a href="/acp/item/categoryList?lang=${loc }">
 								<i class="icon-eye"></i>
-								Category List</a>
+								Category List-LY</a>
 							</li>
 							<li>
 								<a href="/acp/item/categoryListTree?lang=${loc }">
 								<i class="icon-eye"></i>
-								Category List Tree</a>
+								Category List Tree-LY</a>
 							</li>
 							<li>
 								<a href="/acp/item/categoryEdit?lang=${loc }">
@@ -177,7 +177,7 @@
 							<li>
 								<a href="/acp/item/productList?lang=${loc }">
 								<i class="icon-eye"></i>
-								Product List</a>
+								Product List-LY</a>
 							</li>
 							<li>
 								<a href="/acp/item/productEdit?lang=${loc }">
@@ -250,11 +250,11 @@
 			
 			<!-- customer, CRM system -->
 			<li>
-				<a href="#">
+				<!-- <a href="#">
 				<i class="icon-users"></i>
 				<span class="title">Customer</span>
 				<span id="menu-dashborad"></span>
-				</a>
+				</a> -->
 				<ul class="sub-menu">
 					<li>
 						<a href="/acp/crm/dashboard">
@@ -281,22 +281,22 @@
 			
 			<!-- supplier system -->
 			<li>
-				<a href="#">
+				<!-- <a href="#">
 				<i class="icon-users"></i>
 				<span class="title">Supplier</span>
 				<span id="menu-dashborad"></span>
-				</a>
+				</a> -->
 			</li>
 			
 			
 			<!-- event system -->
 			<li class="start active ">
-				<a href="javascript:;">
+				<!-- <a href="javascript:;">
 				<i class="icon-calendar"></i>
 				<span class="title">Event</span>
 				<span class="arrow "></span>
 				<span id="menu-myevents"></span>
-				</a>
+				</a> -->
 				<ul class="sub-menu">
 					<li>
 						<a href="/acp/event/dashboard">
@@ -342,22 +342,22 @@
 			
 			<!-- system settings -->
 			<li>
-				<a href="#">
+				<!-- <a href="#">
 				<i class="icon-settings"></i>
 				<span class="title">System</span>
 				<span id="menu-dashborad"></span>
-				</a>
+				</a> -->
 			</li>
 			
 			
 			<!-- adogo platform -->
 			<li>
-				<a href="javascript:;">
+				<!-- <a href="javascript:;">
 				<i class="icon-calendar"></i>
 				<span class="title">Adogo</span>
 				<span class="arrow "></span>
 				<span id="menu-myevents"></span>
-				</a>
+				</a> -->
 				<ul class="sub-menu">
 					<li>
 						<a href="/acp/ad/dashboard">
